@@ -1,0 +1,29 @@
+@import "../../styles/variables/colors";
+.student-form {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  margin-top: 10px;
+  .student-form-left-col {
+    width: calc(50% - 10px);
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+  }
+  .student-form-right-col {
+    border-radius: 10px;
+    padding: 15px;
+    width: calc(50% - 10px);
+    background-color: white;
+    .form-submit-btn {
+      background-color: $primary-color;
+      padding-block: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:hover {
+        background-color: $primary-color;
+      }
+    }
+  }
+}

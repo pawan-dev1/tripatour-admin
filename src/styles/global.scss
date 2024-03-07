@@ -1,0 +1,33 @@
+@import "../styles/variables/colors";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  background: #181818;
+  font-size: 1rem;
+  color: white;
+  scroll-behavior: smooth;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+.ant-input {
+  &:hover {
+    border-color: $primary-color;
+    box-shadow: none;
+  }
+  &:focus {
+    border-color: $primary-color;
+    box-shadow: none;
+  }
+}
+.cursor-pointor {
+  cursor: pointer;
+}

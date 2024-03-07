@@ -1,0 +1,28 @@
+.leftImgae {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  background-color: red;
+  img {
+    width: 100%;
+    height: 800px;
+  }
+}
+.right {
+  width: 50%;
+  // display: flex;
+  // position: fixed;
+  color: black;
+
+  background-color: gray;
+  overflow-y: scroll;
+  //   flex-direction: column;
+  img {
+    width: 100%;
+    height: 100px;
+  }
+}
+.pos {
+  // position: absolute;
+  // bottom: 0%;
+}

@@ -1,0 +1,16 @@
+@import "../../styles/variables/colors";
+
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 30px 0px 10px 0px;
+
+  input {
+    width: 200px;
+  }
+  //   button {
+  //     color: red;
+  //     background-color: $primary-color;
+  //   }
+}
