@@ -67,8 +67,8 @@ const AddDescription = ({ data }) => {
 
   useEffect(() => {
     if (getCourseDetails) {
-      const learn_technology = getCourseDetails?.data?.learn_technology;
-      const courseTitle = getCourseDetails?.data?.course_content;
+      const learn_technology = getCourseDetails?.data?.learn_technology || [];
+      const courseTitle = getCourseDetails?.data?.course_content || [];
 
       setDescription((prevState) => ({
         ...prevState,

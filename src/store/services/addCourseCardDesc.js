@@ -17,7 +17,7 @@ export const addCourseCardDesc = createApi({
     getCourseCardDesc: builder.query({
       query: (body) => ({
         url: "/course/get-card-detail",
-        method: "GET",
+        method: "POST",
         body,
       }),
       providesTags: ["Add Course Card Description"],

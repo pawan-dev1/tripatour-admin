@@ -20,6 +20,7 @@ import AddDescription from "../../components/popUpElement/addDescription/index";
 ////styles
 import "./styles.scss";
 import ViewCourseCardDetails from "../../components/popUpElement/ViewCourseCardDetails";
+import { Link } from "react-router-dom";
 
 const CreateCourses = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -71,17 +72,20 @@ const CreateCourses = () => {
           >
             Add Desc
           </Tag> */}
-          <Tag
-            color={green}
-            style={{ cursor: "pointer", padding: "3px 15px 3px 15px" }}
-            onClick={() => {
-              setCoursesData(item);
-              setModalOpenCom(5);
-              showModal();
-            }}
-          >
-            View
-          </Tag>
+
+          <Link to={`/view-course-card-details/${item?.id}`}>
+            <Tag
+              color={green}
+              style={{ cursor: "pointer", padding: "3px 15px 3px 15px" }}
+              onClick={() => {
+                // setCoursesData(item.id);
+                // setModalOpenCom(5);
+                // showModal();
+              }}
+            >
+              View
+            </Tag>
+          </Link>
           <Tag
             color={green}
             style={{ cursor: "pointer", padding: "3px 15px 3px 15px" }}
@@ -174,8 +178,14 @@ const CreateCourses = () => {
       />
     ),
     // 3: <AddDescription data={coursesData} />,
-    4: <AddCardDescription userData={coursesData}  handleCancel={handleCancel} category={1}/>,
-    5: <ViewCourseCardDetails userData={coursesData}/>,
+    4: (
+      <AddCardDescription
+        userData={coursesData}
+        handleCancel={handleCancel}
+        category={1}
+      />
+    ),
+    5: <ViewCourseCardDetails userData={coursesData} />,
   };
   const modalObjTitle = {
     0: "Add New Course",

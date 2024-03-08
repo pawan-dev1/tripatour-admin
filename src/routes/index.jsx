@@ -29,6 +29,7 @@ import PendingPayment from "../pages/paymentRecord/PendingPayment";
 import OurTeam from "../pages/ourTeam";
 import CourseCategoryDetails from "../pages/courseCategoryDetails";
 import Faq from "../pages/faq";
+import ViewCourseCardDetails from "../pages/viewCourseCardDetails";
 
 export const router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ export const router = createBrowserRouter([
       {
         path: addNewStudent,
         element: <AddNewStudentForm />,
+      },
+      {
+        path: "/view-course-card-details/:id",
+        element: <ViewCourseCardDetails />,
       },
       {
         path: addNewStudent,
