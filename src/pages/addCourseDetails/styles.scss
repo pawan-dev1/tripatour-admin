@@ -1,0 +1,16 @@
+.add-course-details-sec{
+    color: #181818;
+
+    &>.content{
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+
+        .sec-header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+    }
+}

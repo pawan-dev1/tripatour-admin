@@ -13,7 +13,7 @@ const EditTeamInfo = ({ userData, handleCancel }) => {
         uid: "-1",
         name: "image.png",
         status: "done",
-        url: "http://192.168.1.6:4000/" + userData?.image,
+        url: "https://admin-api.giedu.in/" + userData?.image,
       },
     ]);
   }, [userData]);

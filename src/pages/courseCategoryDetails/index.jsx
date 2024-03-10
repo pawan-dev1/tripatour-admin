@@ -20,7 +20,7 @@ const CourseCategoryDetails = () => {
   const modalComponentObject = [
     {
       content: <AddCardDescription handleCancel={handleCancel} category={0}/>,
-      label: "Edit Team Info",
+      label: "Add Card Description",
     },
     {
         content: <EditCourseCategories handleCancel={handleCancel} userData={courseCardData}/>,

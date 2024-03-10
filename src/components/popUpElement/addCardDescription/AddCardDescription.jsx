@@ -3,7 +3,7 @@ import { useAddCourseCardDesMutation, useAddCourseCardDescMutation } from "../..
 import { useEffect } from "react";
 import TextArea from "antd/es/input/TextArea";
 
-const AddCardDescription = ({  handleCancel ,category,userData}) => {
+const AddCardDescription = ({  handleCancel ,category,userData,id}) => {
   const [trigger, { data: addCourseCardDesc }] = useAddCourseCardDescMutation();
   const [trigg, { data: addCourse }] = useAddCourseCardDesMutation();
 
@@ -13,7 +13,7 @@ const AddCardDescription = ({  handleCancel ,category,userData}) => {
 
       trigger(values);
     }else if(category == 1){
-        trigg({...values,id:userData?.id})
+        trigg({...values,id:id})
       
     }
 

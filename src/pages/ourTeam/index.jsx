@@ -37,7 +37,7 @@ const OurTeam = () => {
           width={50}
           height={50}
           style={{ borderRadius: "100px" }}
-          src={"http://192.168.1.2:4000/" + item?.image}
+          src={"https://admin-api.giedu.in/" + item?.image}
         />
       ),
       Name: item?.name,

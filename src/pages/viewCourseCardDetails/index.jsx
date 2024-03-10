@@ -1,15 +1,18 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { BreadCrum } from "../../components/breadCrume";
 import {
   useCourseCardDetailsDelMutation,
   useGetCourseCardDescQuery,
 } from "../../store/services/addCourseCardDesc";
-import { Button, Space, Table } from "antd";
-import { useState } from "react";
+import { Button, Input, Space, Table, message } from "antd";
+import { useEffect, useState } from "react";
 import EditCourseCardDetails from "../../components/popUpElement/ViewCourseCardDetails/EditCourseCardDetails";
 import AreYouSure from "../../components/popUpElement/areYouSure";
 import AddDescription from "../../components/popUpElement/addDescription";
 import PrimaryModal from "../../common/modal";
+import { PrimaryButton } from "../../common/button";
+import AddCardDescription from "../../components/popUpElement/addCardDescription/AddCardDescription";
+import { addCourseDetails } from "../../routes/PagesRoutes";
 
 const columns = [
   {
@@ -33,6 +36,8 @@ const ViewCourseCardDetails = () => {
   const [courseCardData, setCourseCardData] = useState();
   const [modalOpenValue, setModalOpenValue] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalOpenCom, setModalOpenCom] = useState(0);
+  const [coursesData, setCoursesData] = useState({});
   const { id } = useParams();
   console.log(id);
 
@@ -47,15 +52,9 @@ const ViewCourseCardDetails = () => {
       courseDesc: item?.desc,
       action: (
         <Space size="middle">
-          <Button
-            className="ant-tag ant-tag-green"
-            onClick={() => {
-              setCourseCardData(item);
-              clickHandler(2);
-            }}
-          >
-            Add Detail
-          </Button>
+          <Link to={`${addCourseDetails}/${item?._id}`}>
+            <Button className="ant-tag ant-tag-green">Add Detail</Button>
+          </Link>
           <Button
             className="ant-tag ant-tag-green"
             onClick={() => {
@@ -84,12 +83,28 @@ const ViewCourseCardDetails = () => {
     setIsModalOpen(true);
   };
 
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   const delCheck = () => {
     trigger({ id: courseCardData?._id });
   };
+
+  useEffect(() => {
+    if (delCourseData?.success) {
+      message.success(delCourseData?.message);
+      handleCancel();
+    }
+  }, [delCourseData]);
   const modalComObj = [
     {
-      content: <EditCourseCardDetails courseCardData={courseCardData} />,
+      content: (
+        <EditCourseCardDetails
+          courseCardData={courseCardData}
+          handleCancel={handleCancel}
+        />
+      ),
       label: "Edit Course Card Details",
     },
     {
@@ -100,9 +115,25 @@ const ViewCourseCardDetails = () => {
       content: <AddDescription data={courseCardData} />,
       label: "ADD  Description",
     },
+    {
+      content: (
+        <AddCardDescription
+          userData={coursesData}
+          handleCancel={handleCancel}
+          category={1}
+          id={id}
+        />
+      ),
+      label: "Add  Course Card Details",
+    },
   ];
 
   const onFinish = () => {
+    setIsModalOpen(true);
+  };
+
+  const showModal = () => {
+    clickHandler(3);
     setIsModalOpen(true);
   };
 
@@ -117,6 +148,17 @@ const ViewCourseCardDetails = () => {
         element={modalComObj[modalOpenValue]["content"]}
       />
       <BreadCrum name={"View Course Card Details"} sub={""} />
+      <div className="search-container">
+        <Input placeholder="Search here..." />
+        <PrimaryButton
+          name="Add Course Card Desc"
+          bg={"#6E61E4"}
+          fontClr="white"
+          fun={showModal}
+          val={3}
+          setModalOpenCom={setModalOpenCom}
+        />
+      </div>
       <div className="view-course-card-details">
         <Table columns={columns} dataSource={data} pagination={false} />
       </div>

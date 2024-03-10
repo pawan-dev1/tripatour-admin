@@ -7,8 +7,11 @@ import { useGetCourseDetailsQuery } from "../../../store/services/getCourseDetai
 
 ///styles
 import "./styles.scss";
+import { PrimaryButton } from "../../../common/button";
 
 const AddDescription = ({ data }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalOpenCom, setModalOpenCom] = useState(0);
   const [trigg, { data: courseData }] = useCourseDetailsMutation();
   const { data: getCourseDetails } = useGetCourseDetailsQuery({
     id: data?._id,
@@ -23,10 +26,9 @@ const AddDescription = ({ data }) => {
     title: data?.title,
   });
 
-  const teamChangeHandler = (e, index,key, type) => {
+  const teamChangeHandler = (e, index, key, type) => {
     const value = e.target.value;
-    if(type===0){
-
+    if (type === 0) {
       setDescription((prevState) => ({
         ...prevState,
         whatWillYouLearn: prevState.whatWillYouLearn.map((item, i) => {
@@ -40,7 +42,7 @@ const AddDescription = ({ data }) => {
           return item; // Otherwise, return the original object
         }),
       }));
-    }else{
+    } else {
       setDescription((prevState) => ({
         ...prevState,
         courseTitle: prevState.courseTitle.map((item, i) => {
@@ -76,8 +78,6 @@ const AddDescription = ({ data }) => {
         courseTitle: [...prevState.courseTitle, ...courseTitle],
       }));
     }
-
-   
   }, [getCourseDetails]);
   const handleSubmit = () => {
     let isSuccess = false;
@@ -135,6 +135,9 @@ const AddDescription = ({ data }) => {
     });
   };
 
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
 
   return (
     <>
@@ -188,7 +191,9 @@ const AddDescription = ({ data }) => {
                         value={item?.whatWillYouLearn}
                         name="whatWillYouLearn"
                         className="add-learn-input"
-                        onChange={(e) => teamChangeHandler(e, i,"whatWillYouLearn",0)}
+                        onChange={(e) =>
+                          teamChangeHandler(e, i, "whatWillYouLearn", 0)
+                        }
                       />
                       <AiOutlineMinusCircle onClick={() => {}} />
                       {/* {i !== 0 ? (
@@ -205,10 +210,16 @@ const AddDescription = ({ data }) => {
         </div>
         <div className="add-course-right-col">
           <div className="course-content-sec sec">
-            <h3 className="title">Course Content</h3>
-            <AiOutlinePlusCircle
-              onClick={() => {}}
-            />
+            <div className="heading">
+              <h3 className="title">Course Content</h3>
+              <PrimaryButton
+                name="Add Courses"
+                bg={"#6E61E4"}
+                fontClr="white"
+                fun={showModal}
+                setModalOpenCom={setModalOpenCom}
+              />
+            </div>
             {description?.courseTitle?.map((item, i) => {
               return (
                 <>
@@ -222,7 +233,9 @@ const AddDescription = ({ data }) => {
                         style={{
                           border: error?.courseTitle ? "1px solid red" : "",
                         }}
-                        onChange={(e) => teamChangeHandler(e,i,"courseTitle",1)}
+                        onChange={(e) =>
+                          teamChangeHandler(e, i, "courseTitle", 1)
+                        }
                       />
                     </div>
                     <div className="input-field">
@@ -235,14 +248,14 @@ const AddDescription = ({ data }) => {
                         style={{
                           border: error?.courseDesc ? "1px solid red" : "",
                         }}
-                        onChange={(e) => teamChangeHandler(e,i,"courseDesc",1)}
+                        onChange={(e) =>
+                          teamChangeHandler(e, i, "courseDesc", 1)
+                        }
                       ></TextArea>
                     </div>
                   </div>
 
-                  <AiOutlineMinusCircle
-                    onClick={() => {}}
-                  />
+                  <AiOutlineMinusCircle onClick={() => {}} />
                 </>
               );
             })}
@@ -258,8 +271,6 @@ const AddDescription = ({ data }) => {
         Submit
       </Button>
     </>
-
-   
   );
 };
 

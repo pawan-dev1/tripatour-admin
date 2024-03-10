@@ -3,7 +3,7 @@ import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { toast } from "react-toastify";
 export const dynamicBaseQuery = async (args, WebApi, extraOptions) => {
   const rawBaseQuery = fetchBaseQuery({
-    baseUrl: "https://admin-api.giedu.in",
+    baseUrl: "http://192.168.1.25:4000",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },

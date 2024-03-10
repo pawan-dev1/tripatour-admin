@@ -18,6 +18,7 @@ import { getCourseDetails } from "./services/getCourseDetails";
 import { getAllTeamMember } from "./services/teamMember";
 import { addCourseCardDesc } from "./services/addCourseCardDesc";
 import { getFaqServices } from "./services/faq";
+import { getCourseTopic } from "./services/getCourseTopics";
 
 export const store = configureStore({
   reducer: {
@@ -39,6 +40,7 @@ export const store = configureStore({
     [getAllTeamMember.reducerPath]: getAllTeamMember.reducer,
     [addCourseCardDesc.reducerPath]: addCourseCardDesc.reducer,
     [getFaqServices.reducerPath]: getFaqServices.reducer,
+    [getCourseTopic.reducerPath]: getCourseTopic.reducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.
@@ -60,6 +62,7 @@ export const store = configureStore({
       .concat(getCourseDetails.middleware)
       .concat(getAllTeamMember.middleware)
       .concat(addCourseCardDesc.middleware)
+      .concat(getCourseTopic.middleware)
       .concat(getFaqServices.middleware),
 });
 

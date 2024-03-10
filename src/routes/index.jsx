@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import LayoutPrimary from "../layout";
 import {
+  addCourseDetails,
   addNewStudent,
   courseCategoryDetails,
   createCourses,
@@ -14,6 +15,7 @@ import {
   studentRecordRoutes,
   subAdminRecordRoutes,
   teacherRecordRoutes,
+  viewCourseCardDetails,
 } from "./PagesRoutes";
 import CreateCourses from "../pages/createCourses";
 import DeletedRequest from "../pages/deletedRequest";
@@ -30,6 +32,7 @@ import OurTeam from "../pages/ourTeam";
 import CourseCategoryDetails from "../pages/courseCategoryDetails";
 import Faq from "../pages/faq";
 import ViewCourseCardDetails from "../pages/viewCourseCardDetails";
+import AddCourseDetails from "../pages/addCourseDetails";
 
 export const router = createBrowserRouter([
   {
@@ -73,8 +76,12 @@ export const router = createBrowserRouter([
         element: <AddNewStudentForm />,
       },
       {
-        path: "/view-course-card-details/:id",
+        path: `${viewCourseCardDetails}/:id`,
         element: <ViewCourseCardDetails />,
+      },
+      {
+        path: `${addCourseDetails}/:id`,
+        element: <AddCourseDetails />,
       },
       {
         path: addNewStudent,

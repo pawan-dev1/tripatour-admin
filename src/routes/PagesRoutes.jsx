@@ -10,6 +10,8 @@ export const addNewStudent = "/add-student";
 export const ourTeam = "/our-team";
 export const courseCategoryDetails = "/course-category-details";
 export const faq = "/faq";
+export const viewCourseCardDetails = "/view-course-card-details";
+export const addCourseDetails = "/add-course-details";
 
 
 

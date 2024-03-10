@@ -86,7 +86,7 @@ const CreateCourses = () => {
               View
             </Tag>
           </Link>
-          <Tag
+          {/* <Tag
             color={green}
             style={{ cursor: "pointer", padding: "3px 15px 3px 15px" }}
             onClick={() => {
@@ -96,7 +96,7 @@ const CreateCourses = () => {
             }}
           >
             Add Course Card Desc
-          </Tag>
+          </Tag> */}
           {item.delrequest ? (
             <>
               <Tag
@@ -162,10 +162,6 @@ const CreateCourses = () => {
     trigge();
   }, [createCourseResponse, courseDeletedResponse, editResponseData]);
 
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
   const modalObj = {
     0: <AddNewCourses onFinish={onFinish} userData={userData} />,
     1: <AreYouSure fun={deltedSubmit} />,
@@ -178,13 +174,13 @@ const CreateCourses = () => {
       />
     ),
     // 3: <AddDescription data={coursesData} />,
-    4: (
-      <AddCardDescription
-        userData={coursesData}
-        handleCancel={handleCancel}
-        category={1}
-      />
-    ),
+    // 4: (
+    //   <AddCardDescription
+    //     userData={coursesData}
+    //     handleCancel={handleCancel}
+    //     category={1}
+    //   />
+    // ),
     5: <ViewCourseCardDetails userData={coursesData} />,
   };
   const modalObjTitle = {
@@ -192,7 +188,7 @@ const CreateCourses = () => {
     1: "Delet Course",
     2: "Edit Course",
     // 3: "ADD  Description",
-    4: "Add  Course Card Details",
+    // 4: "Add  Course Card Details",
     5: "View",
   };
 

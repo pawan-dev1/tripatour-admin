@@ -1,17 +1,29 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import { useCourseCardDetailsEditMutation } from "../../../store/services/addCourseCardDesc";
+import { useEffect } from "react";
 
-const EditCourseCardDetails = ({ courseCardData }) => {
-const [trigger,{data}]= useCourseCardDetailsEditMutation()
+const EditCourseCardDetails = ({ courseCardData, handleCancel }) => {
+  const [trigger, { data }] = useCourseCardDetailsEditMutation();
   const onFinish = (values) => {
-    const formData  = {...values,objId:courseCardData._id,id:courseCardData?.id}
-    console.log(formData)
-    trigger(formData)
+    const formData = {
+      ...values,
+      objId: courseCardData._id,
+      id: courseCardData?.id,
+    };
+    console.log(formData);
+    trigger(formData);
   };
 
   const onFinishFailed = (error) => {
     console.log(error);
   };
+
+  useEffect(() => {
+    if (data?.success) {
+      message.success(data?.message);
+      handleCancel();
+    }
+  }, [data]);
 
   return (
     <div className="edit-course-card-details">
