@@ -47,6 +47,14 @@ export const addCourseCardDesc = createApi({
       }),
       invalidatesTags: ["Add Course Card Description"],
     }),
+    getCardDesc: builder.query({
+      query: (body) => ({
+        url: "/course/card-desc",
+        method: "GET",
+        body,
+      }),
+      invalidatesTags: ["Add Course Card Description"],
+    }),
     
   }),
 });
@@ -56,5 +64,6 @@ export const {
   useGetCourseCardDescQuery,
   useCourseCardDetailsDelMutation,
   useAddCourseCardDesMutation,
-  useCourseCardDetailsEditMutation
+  useCourseCardDetailsEditMutation,
+  useGetCardDescQuery
 } = addCourseCardDesc;

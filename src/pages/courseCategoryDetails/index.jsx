@@ -4,14 +4,14 @@ import AddCardDescription from "../../components/popUpElement/addCardDescription
 import { BreadCrum } from "../../components/breadCrume";
 import { Button, Input, Space, Table } from "antd";
 import { PrimaryButton } from "../../common/button";
-import { useGetCourseCardDescQuery } from "../../store/services/addCourseCardDesc";
+import { useGetCardDescQuery } from "../../store/services/addCourseCardDesc";
 import EditCourseCategories from "../../components/popUpElement/addCardDescription/EditCourseCartegories"
 
 const CourseCategoryDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalOpenValue, setModalOpenValue] = useState(0);
   const [courseCardData, setCourseCardData] = useState("");
-  const {data: courseCategoryData} = useGetCourseCardDescQuery();
+  const {data: courseCategoryData} = useGetCardDescQuery();
 
   const handleCancel = () => {
     setIsModalOpen(false);
