@@ -13,7 +13,6 @@ import { createNewStudent } from "./services/createNewStudent";
 import { getAllStudent } from "./services/getAllStudent";
 import { pendingFees } from "./services/pendingFees";
 import { payFees } from "./services/payFees";
-import { courseDetails } from "./services/coursesDetail";
 import { getCourseDetails } from "./services/getCourseDetails";
 import { getAllTeamMember } from "./services/teamMember";
 import { addCourseCardDesc } from "./services/addCourseCardDesc";
@@ -35,7 +34,6 @@ export const store = configureStore({
     [getAllStudent.reducerPath]: getAllStudent.reducer,
     [pendingFees.reducerPath]: pendingFees.reducer,
     [payFees.reducerPath]: payFees.reducer,
-    [courseDetails.reducerPath]: courseDetails.reducer,
     [getCourseDetails.reducerPath]: getCourseDetails.reducer,
     [getAllTeamMember.reducerPath]: getAllTeamMember.reducer,
     [addCourseCardDesc.reducerPath]: addCourseCardDesc.reducer,
@@ -58,7 +56,6 @@ export const store = configureStore({
       .concat(getAllStudent.middleware)
       .concat(pendingFees.middleware)
       .concat(payFees.middleware)
-      .concat(courseDetails.middleware)
       .concat(getCourseDetails.middleware)
       .concat(getAllTeamMember.middleware)
       .concat(addCourseCardDesc.middleware)

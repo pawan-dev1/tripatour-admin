@@ -1,6 +1,10 @@
 import { useParams } from "react-router-dom";
-import { Button, Table } from "antd";
-import { useGetCourseDetailsQuery } from "../../store/services/getCourseDetails";
+import { Button, Table, message } from "antd";
+import {
+  useCourseSyllabusDelMutation,
+  useCourseTopicDelMutation,
+  useGetCourseDetailsQuery,
+} from "../../store/services/getCourseDetails";
 import { PrimaryButton } from "../../common/button";
 import { useEffect, useState } from "react";
 import PrimaryModal from "../../common/modal";
@@ -10,7 +14,9 @@ import AddCourseContent from "../../components/popUpElement/addCourseContent";
 
 import "./styles.scss";
 import { useGetCourseTopicMutation } from "../../store/services/getCourseTopics";
-const columns = [
+import EditWhatToLearn from "../../components/popUpElement/editWhatToLearnData";
+import EditCourseSyllabus from "../../components/popUpElement/editCourseSyllabus";
+const columnsWhatToLearn = [
   {
     title: "Topic List",
     dataIndex: "topicList",
@@ -23,46 +29,118 @@ const columns = [
   },
 ];
 
+const courseSyllabus = [
+  {
+    title: "Syllabus Title",
+    dataIndex: "courseTitle",
+    key: "courseTitle",
+  },
+  {
+    title: "Syllabus Desc",
+    dataIndex: "courseDesc",
+    key: "courseDesc",
+  },
+  {
+    title: "Action",
+    dataIndex: "action",
+    key: "action",
+  },
+];
+
 const AddCourseDetails = () => {
   const [modalOpenCom, setModalOpenCom] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalOpenValue, setModalOpenValue] = useState(0);
+  const [whatToLearnData, setWhatToLearnData] = useState(null);
+  const [courseContentData, setCourseContentData] = useState(null);
+  const [delCheckStatus, setDelCheckStatus] = useState(0);
+
   const { id } = useParams();
 
-  // const { data: courseDetailsData } = useGetCourseDetailsQuery({ id: id });
-  const [trigger, { data }] = useGetCourseTopicMutation();
+  const { data: courseDetailsData } = useGetCourseDetailsQuery({ id: id });
 
-  console.log(data, "data?.data");
+  const [trigger, { data: delTopicRes }] = useCourseTopicDelMutation();
+  const [trigg, { data: delSyllabusRes }] = useCourseSyllabusDelMutation();
 
-  useEffect(() => {
-    trigger({ id: id });
-  }, []);
   // dataSourceWhatToLearn
-  const dataSourceWhatToLearn = data?.data?.map((elm) => {
-    return {
-      topicList: elm?.whatWillYouLearn,
-      action:(
-        <>
-        <Button style={{marginRight:"10px"}}>Edit</Button>
-        <Button>Delete</Button>
-        </>
-      )
-    };
-  });
+  const dataSourceWhatToLearn = courseDetailsData?.data?.topicsData?.map(
+    (elm) => {
+      return {
+        topicList: elm?.whatWillYouLearn,
+        action: (
+          <>
+            <Button
+              style={{ marginRight: "10px" }}
+              onClick={() => showModal(0, elm)}
+            >
+              Edit
+            </Button>
+            <Button
+              onClick={() => {
+                showModal(1, elm);
+                setDelCheckStatus(0);
+              }}
+            >
+              Delete
+            </Button>
+          </>
+        ),
+      };
+    }
+  );
 
   // dataSourceCourseContent
-  const dataSourceCourseContent = [];
+  const dataSourceCourseContent = courseDetailsData?.data?.courseSyllabus?.map(
+    (elm) => {
+      return {
+        courseTitle: elm?.courseTitle,
+        courseDesc: elm?.courseDesc,
+        action: (
+          <>
+            <Button
+              style={{ marginRight: "10px" }}
+              onClick={() => showModal(4, elm)}
+            >
+              Edit
+            </Button>
+            <Button
+              onClick={() => {
+                showModal(1, elm);
+                setDelCheckStatus(1);
+              }}
+            >
+              Delete
+            </Button>
+          </>
+        ),
+      };
+    }
+  );
 
-  const showModal = (val) => {
+  const showModal = (val, elm) => {
     setModalOpenValue(val);
     setIsModalOpen(true);
+    setWhatToLearnData(elm);
+    setCourseContentData(elm);
   };
+  const onCloseModal = () => setIsModalOpen(false);
+
   const delCheck = () => {
-    console.log("first");
+    if (delCheckStatus === 0) {
+      trigger({ id: whatToLearnData?._id });
+    } else {
+      trigg({ id: courseContentData?._id });
+    }
   };
+
   const modalComObj = [
     {
-      content: "Edit",
+      content: (
+        <EditWhatToLearn
+          whatToLearnData={whatToLearnData}
+          onCloseModal={onCloseModal}
+        />
+      ),
       label: "Edit Course Card Details",
     },
     {
@@ -70,18 +148,37 @@ const AddCourseDetails = () => {
       label: "Delete Course Card Details",
     },
     {
-      content: <AddCourseTopics courseId={id} />,
+      content: <AddCourseTopics courseId={id} onCloseModal={onCloseModal} />,
       label: "ADD  Description",
     },
     {
-      content: <AddCourseContent courseId={id} />,
+      content: <AddCourseContent courseId={id} onCloseModal={onCloseModal} />,
       label: "Add Course Content",
+    },
+    {
+      content: (
+        <EditCourseSyllabus
+          courseContentData={courseContentData}
+          onCloseModal={onCloseModal}
+        />
+      ),
+      label: "Edit Course Content",
     },
   ];
 
   const onFinish = () => {
     setIsModalOpen(true);
   };
+
+  useEffect(() => {
+    if (delTopicRes?.success) {
+      message.success(delTopicRes?.message);
+      onCloseModal()
+    }else if(delSyllabusRes?.success){
+      message.success(delSyllabusRes?.message);
+      onCloseModal();
+    }
+  }, [delTopicRes,delSyllabusRes]);
 
   return (
     <div className="add-course-details-sec">
@@ -112,7 +209,7 @@ const AddCourseDetails = () => {
           </div>
           <div className="learning-lists">
             <Table
-              columns={columns}
+              columns={columnsWhatToLearn}
               dataSource={dataSourceWhatToLearn}
               pagination={false}
             />
@@ -133,7 +230,7 @@ const AddCourseDetails = () => {
           </div>
           <div className="course-syllabus-lists">
             <Table
-              columns={columns}
+              columns={courseSyllabus}
               dataSource={dataSourceCourseContent}
               pagination={false}
             />

@@ -1,18 +1,24 @@
-import { Button, Form, Input } from "antd";
-import { useCourseDetailsMutation } from "../../../store/services/coursesDetail";
+import { Button, Form, Input, message } from "antd";
+import { useEffect } from "react";
+import { useCourseDetailsMutation } from "../../../store/services/getCourseDetails";
 
-const AddCourseContent = ({courseId}) => {
+const AddCourseContent = ({courseId,onCloseModal}) => {
     const [trigger, { data: addCourseDetails }] = useCourseDetailsMutation();
 
     const onFinish = (values) => {
-      console.log("Success:", values);
       trigger({ ...values, type: "2",id:courseId });
-    };
+    }; 
   
     const onFinishFailed = (errorInfo) => {
       console.log("Failed:", errorInfo);
     };
   
+    useEffect(() => {
+      if (addCourseDetails?.success) {
+        message.success(addCourseDetails?.message);
+        onCloseModal();
+      }
+    }, [addCourseDetails]);
     return (
       <div className="add-course-topic">
         <Form

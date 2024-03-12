@@ -108,7 +108,7 @@ const ViewCourseCardDetails = () => {
       label: "Edit Course Card Details",
     },
     {
-      content: <AreYouSure fun={delCheck} />,
+      content: <AreYouSure fun={delCheck} />, 
       label: "Delete Course Card Details",
     },
     {

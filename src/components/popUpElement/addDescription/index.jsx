@@ -1,9 +1,8 @@
 import { Button, Input } from "antd";
 import React, { useEffect, useState } from "react";
-import { useCourseDetailsMutation } from "../../../store/services/coursesDetail";
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import TextArea from "antd/es/input/TextArea";
-import { useGetCourseDetailsQuery } from "../../../store/services/getCourseDetails";
+import { useCourseDetailsMutation, useGetCourseDetailsQuery } from "../../../store/services/getCourseDetails";
 
 ///styles
 import "./styles.scss";
