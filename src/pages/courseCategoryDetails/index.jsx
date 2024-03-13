@@ -1,38 +1,64 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PrimaryModal from "../../common/modal";
 import AddCardDescription from "../../components/popUpElement/addCardDescription/AddCardDescription";
 import { BreadCrum } from "../../components/breadCrume";
-import { Button, Input, Space, Table } from "antd";
+import { Button, Input, Space, Table, message } from "antd";
 import { PrimaryButton } from "../../common/button";
-import { useGetCardDescQuery } from "../../store/services/addCourseCardDesc";
-import EditCourseCategories from "../../components/popUpElement/addCardDescription/EditCourseCartegories"
+import {
+  useDeleteCourseCategoryMutation,
+  useGetCardDescQuery,
+} from "../../store/services/addCourseCardDesc";
+import EditCourseCategories from "../../components/popUpElement/addCardDescription/EditCourseCartegories";
+import AreYouSure from "../../components/popUpElement/areYouSure";
+import AddCourseCategory from "../../components/popUpElement/addCourseCategory";
 
 const CourseCategoryDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalOpenValue, setModalOpenValue] = useState(0);
   const [courseCardData, setCourseCardData] = useState("");
-  const {data: courseCategoryData} = useGetCardDescQuery();
+  const { data: courseCategoryData } = useGetCardDescQuery();
+  const [trigger, { data: checkDelCourseCategory }] =
+    useDeleteCourseCategoryMutation();
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
 
+  const delCheck = () => {
+    trigger({ id: courseCardData?._id });
+  };
+
+  useEffect(() => {
+    if (checkDelCourseCategory?.success) {
+      handleCancel();
+      message.success(checkDelCourseCategory?.message);
+    }
+  }, [checkDelCourseCategory]);
+
   const modalComponentObject = [
     {
-      content: <AddCardDescription handleCancel={handleCancel} category={0}/>,
-      label: "Add Card Description",
+      content: <AddCourseCategory handleCancel={handleCancel} category={0} />,
+      label: "Add Course Category",
     },
     {
-        content: <EditCourseCategories handleCancel={handleCancel} userData={courseCardData}/>,
-        label: "Edit Team Info",
-      },
+      content: (
+        <EditCourseCategories
+          handleCancel={handleCancel}
+          userData={courseCardData}
+        />
+      ),
+      label: "Edit Team Info",
+    },
+    {
+      content: <AreYouSure fun={delCheck} />,
+      label: "Edit Team Info",
+    },
   ];
 
   const showModal = (val) => {
-    setModalOpenValue(val)
+    setModalOpenValue(val);
     setIsModalOpen(true);
   };
-
 
   const clickHandler = (val) => {
     setModalOpenValue(val);
@@ -86,7 +112,6 @@ const CourseCategoryDetails = () => {
       ),
     };
   });
-
 
   return (
     <div>

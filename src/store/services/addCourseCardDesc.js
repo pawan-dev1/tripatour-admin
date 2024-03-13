@@ -49,13 +49,36 @@ export const addCourseCardDesc = createApi({
     }),
     getCardDesc: builder.query({
       query: (body) => ({
-        url: "/course/card-desc",
+        url: "/course/get-category",
         method: "GET",
         body,
       }),
-      invalidatesTags: ["Add Course Card Description"],
+      providesTags: ["Get Category"],
     }),
-    
+    addCourseCategory: builder.mutation({
+      query: (body) => ({
+        url: "/course/add-category",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Get Category"],
+    }),
+    editCourseCategory: builder.mutation({
+      query: (body) => ({
+        url: "/course/category-edit",
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Get Category"],
+    }),
+    deleteCourseCategory: builder.mutation({
+      query: (body) => ({
+        url: "/course/category-delete",
+        method: "DELETE",
+        body,
+      }),
+      invalidatesTags: ["Get Category"],
+    }),
   }),
 });
 
@@ -65,5 +88,8 @@ export const {
   useCourseCardDetailsDelMutation,
   useAddCourseCardDesMutation,
   useCourseCardDetailsEditMutation,
-  useGetCardDescQuery
+  useGetCardDescQuery,
+  useEditCourseCategoryMutation,
+  useAddCourseCategoryMutation,
+  useDeleteCourseCategoryMutation
 } = addCourseCardDesc;

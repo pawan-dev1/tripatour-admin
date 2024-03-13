@@ -1,28 +1,27 @@
 import { Button, Form, Input, message } from "antd";
-import {useEditCourseCategoryMutation } from "../../../store/services/addCourseCardDesc";
+import { useAddCourseCategoryMutation } from "../../../store/services/addCourseCardDesc";
 import { useEffect } from "react";
 import TextArea from "antd/es/input/TextArea";
 
-const EditCourseCategories = ({ userData, handleCancel }) => {
-  const [trigger, { data: editCourseCategory }] = useEditCourseCategoryMutation();
-
+const AddCourseCategory = ({  handleCancel ,category,userData,id}) => {
+  
+  const [trigger,{data:addCourseCategory}] = useAddCourseCategoryMutation()
 
   const onFinish = (values) => {
-    const data = { ...values, id: userData?._id };
-    trigger(data);
 
+    trigger(values)
   };
   const onFinishFailed = (error) => {
     console.log(error);
   };
 
   useEffect(() => {
-    if (editCourseCategory?.success) {
-      message.success(editCourseCategory?.message);
+    if (addCourseCategory?.success) {
+      message.success(addCourseCategory?.message);
       handleCancel();
     }
-  }, [editCourseCategory]);
-  
+  }, [addCourseCategory]);
+
   return (
     <>
       <Form
@@ -32,11 +31,11 @@ const EditCourseCategories = ({ userData, handleCancel }) => {
         }}
         initialValues={{
           remember: true,
-          title:userData?.title,
-          desc:userData?.desc
+          // title:userData?.title,
+          // desc:userData?.desc
         }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
+        onFinishFailed={onFinishFailed} 
         autoComplete="off"
       >
         <Form.Item
@@ -80,4 +79,4 @@ const EditCourseCategories = ({ userData, handleCancel }) => {
   );
 };
 
-export default EditCourseCategories;
+export default AddCourseCategory;
