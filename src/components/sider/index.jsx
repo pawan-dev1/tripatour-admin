@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Menu } from "antd";
 import {
   addNewStudent,
@@ -6,6 +7,7 @@ import {
   dashBoardRoute,
   deletedRequestRoutes,
   faq,
+  loginRoute,
   ourTeam,
   pendingPaymentRoutes,
   studentRecordRoutes,
@@ -13,66 +15,83 @@ import {
   teacherRecordRoutes,
 } from "../../routes/PagesRoutes";
 import { Link } from "react-router-dom";
-import { MdDashboard, MdMenuBook, MdOutlineDeleteSweep } from "react-icons/md";
+import { MdDashboard, MdLogout, MdMenuBook, MdOutlineDeleteSweep } from "react-icons/md";
 import { PiStudentBold } from "react-icons/pi";
 import { FaRegCreditCard } from "react-icons/fa6";
 
 ///styles
 import "./styles.scss";
+import AreYouSure from "../popUpElement/areYouSure";
+import PrimaryModal from "../../common/modal";
 const SiderComponent = () => {
+  const [modalOpenValue, setModalOpenValue] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const userType = localStorage.getItem("userType");
+
+  const userType2= userType == 2;
+  const userType3= userType == 3;
+  const userType5= userType == 5;
+
   const items = [
     {
       key: "1",
       label: <Link to={dashBoardRoute}>Dashboard</Link>,
       icon: <MdDashboard />,
     },
-    {
-      key: "2",
-      label: <Link to={createCourses}>Create Courses</Link>,
-      icon: <MdMenuBook />,
-    },
+    userType2 || userType5
+      ? {
+          key: "2",
+          label: <Link to={createCourses}>Create Courses</Link>,
+          icon: <MdMenuBook />,
+        }
+      : null,
+      userType3 || userType5 ?
     {
       key: "ourTeam",
       label: <Link to={ourTeam}>Our Team</Link>,
       icon: <MdMenuBook />,
-    },
+    }: null,
+    userType2 || userType5 ?
     {
       key: "courseCategoryDetails",
       label: <Link to={courseCategoryDetails}>Course Categories</Link>,
       icon: <MdMenuBook />,
-    },
+    }:null,
     {
       key: "faq",
       label: <Link to={faq}>Faq</Link>,
       icon: <MdMenuBook />,
     },
-    
-    {
-      key: "3",
-      label: "Request",
-      children: [
-        {
-          key: "4",
-          label: <Link to={deletedRequestRoutes}>Courses Deleted</Link>,
-          icon: <MdOutlineDeleteSweep />,
-        },
-      ],
-    },
+    userType5
+      ? {
+          key: "3",
+          label: "Request",
+          children: [
+            {
+              key: "4",
+              label: <Link to={deletedRequestRoutes}>Courses Deleted</Link>,
+              icon: <MdOutlineDeleteSweep />,
+            },
+          ],
+        }
+      : null,
     {
       key: "5",
       label: "Record",
       children: [
+
         {
           key: "6",
           label: <Link to={studentRecordRoutes}>Students</Link>,
           icon: <PiStudentBold />,
         },
-
+        userType5 ?
         {
           key: "7",
           label: <Link to={subAdminRecordRoutes}>Sub Admin</Link>,
           icon: <PiStudentBold />,
-        },
+        }:null,
         {
           key: "8",
           label: <Link to={teacherRecordRoutes}>Teacher</Link>,
@@ -96,15 +115,56 @@ const SiderComponent = () => {
         },
       ],
     },
-
+userType3 || userType5 ?
     {
       key: "12",
       label: <Link to={addNewStudent}>Add New Student</Link>,
       icon: <MdMenuBook />,
+    }: null,
+    {
+      key: "13",
+      label: (
+        <span
+          onClick={() => {
+            setIsModalOpen(true);
+            setModalOpenValue(0);
+          }}
+        >
+          Logout
+        </span>
+      ),
+      icon: <MdLogout />,
     },
   ];
+
+  const logOutFun = () => {
+    localStorage.clear();
+    window.location.replace(loginRoute);
+  };
+
+
+  const onFinish =()=>{
+    setIsModalOpen(false)
+  }
+
+  const modalComObj = [
+    {
+      content: <AreYouSure fun={logOutFun} />,
+      label: "Delete Course Card Details",
+    },
+  ];
+
   return (
     <>
+      <PrimaryModal
+        setIsModalOpen={setIsModalOpen}
+        isModalOpen={isModalOpen}
+        title={modalComObj[modalOpenValue]["label"]}
+        onFinish={onFinish}
+        width={modalOpenValue == 2 && true}
+        element={modalComObj[modalOpenValue]["content"]}
+      />
+
       <Menu
         theme="transparent"
         defaultSelectedKeys={["1"]}

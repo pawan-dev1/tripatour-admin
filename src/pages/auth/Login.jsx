@@ -1,12 +1,16 @@
-import { Button, Form, Input, Space } from "antd";
+import { Button, Form, Input, Space, message } from "antd";
+
+import { useLoginMutation } from "../../store/services/login";
+import { Link, useNavigate } from "react-router-dom";
+import { dashBoardRoute, loginRoute, signUp } from "../../routes/PagesRoutes";
+import { useEffect } from "react";
 
 ///styles
 import "./styles.scss";
-import { useLoginMutation } from "../../store/services/login";
-import { Link } from "react-router-dom";
-import { signUp } from "../../routes/PagesRoutes";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+  const loginToken = localStorage.getItem("token");
   const [form] = Form.useForm();
   const [trigger, { data, error }] = useLoginMutation();
 
@@ -19,9 +23,29 @@ const LoginForm = () => {
     console.log("Submit failed!");
   };
 
+  
+
+  useEffect(() => {
+    if (loginToken) {
+      navigate(dashBoardRoute);
+    } else {
+      navigate(loginRoute);
+    }
+  }, [loginToken]);
+
+  useEffect(() => {
+    if (data?.data?.token) {
+      localStorage.setItem("token", data?.data.token);
+      localStorage.setItem("userType", data?.data?.userType);
+      message.success(data?.message);
+      window.location.replace("/");
+    }
+  }, [data]);
+
+
   const formFeild = [
     {
-      name: "username",
+      name: "userId",
       value: "",
       label: "Username",
       placeholder: "Enter Username here",

@@ -2,9 +2,20 @@ import { Button, Drawer, Form, Input, Select } from "antd";
 import { MdWavingHand } from "react-icons/md";
 import { user } from "../../assets";
 import { useState } from "react";
+import { useEditAdminMutation, useGetUserDataQuery } from "../../store/services/getAllSubAdmin";
 const DrawerComp = ({ open, setOpen }) => {
   const [disableState, setDisableState] = useState(true);
   const [form] = Form.useForm();
+
+  const [trigger, { data: editUserData }] = useEditAdminMutation();
+  const { data: getUserData } = useGetUserDataQuery();
+  console.log(getUserData, "getUserData");
+
+  const userName = localStorage?.username;
+  const gender = localStorage?.gender;
+  const profession = localStorage?.profession;
+  const userId = localStorage?.userId;
+
   const onClose = () => {
     setOpen(false);
     setDisableState(true);
@@ -12,8 +23,7 @@ const DrawerComp = ({ open, setOpen }) => {
 
   const formFeild = [
     {
-      name: "userid",
-      value: "",
+      name: "username",
       label: "Username",
       placeholder: "Enter Username here",
       disable: disableState,
@@ -28,15 +38,15 @@ const DrawerComp = ({ open, setOpen }) => {
     },
     {
       name: "profession",
-      value: "",
       label: "Profession",
-      placeholder: "Enter Profression here",
+      placeholder: "Enter Profession here",
       disable: disableState,
     },
   ];
 
   const onFinish = (values) => {
     console.log("click", values);
+    trigger({...values, id:getUserData?.data?._id});
   };
 
   const onFinishFailed = () => {
@@ -46,7 +56,7 @@ const DrawerComp = ({ open, setOpen }) => {
     <Drawer
       title={
         <p style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          Hii, Raghav
+          {getUserData?.data?.username}
           <span
             style={{
               color: "#6e61e4",
@@ -75,12 +85,17 @@ const DrawerComp = ({ open, setOpen }) => {
             onFinishFailed={onFinishFailed}
             autoComplete="off"
             className="login-form"
+            initialValues={{
+              profession: getUserData?.data?.profession,
+              username: getUserData?.data?.username,
+              gender: getUserData?.data?.gender,
+            }}
           >
             {formFeild?.map((item) => {
               if (item.label == "Gender") {
                 return (
-                  <Form.Item label="Select" key={item.label + item.name}>
-                    <Select defaultValue={"Male"} disabled={item.disable}>
+                  <Form.Item label="Select" name={item?.name} key={item.label + item.name}>
+                    <Select defaultValue={gender} disabled={item.disable}>
                       {item?.children?.map((list) => {
                         return (
                           <Select.Option value={list} key={list}>
@@ -122,16 +137,15 @@ const DrawerComp = ({ open, setOpen }) => {
                 </Button>
               </Form.Item>
             ) : (
-              <Form.Item>
                 <Button
                   type="primary"
                   // htmlType="submit"
                   className="form-submit-btn"
+                  style={{marginTop:20}}
                   onClick={() => setDisableState(!disableState)}
                 >
                   Edit Profile
                 </Button>
-              </Form.Item>
             )}
           </Form>
         </div>

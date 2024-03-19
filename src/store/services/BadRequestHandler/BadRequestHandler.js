@@ -1,9 +1,11 @@
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 // import { message } from "antd";
 import { toast } from "react-toastify";
+import { loginRoute } from "../../../routes/PagesRoutes";
+
 export const dynamicBaseQuery = async (args, WebApi, extraOptions) => {
   const rawBaseQuery = fetchBaseQuery({
-    baseUrl: "https://admin-api.giedu.in",
+    baseUrl: "http://192.168.1.14:4000",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
@@ -14,7 +16,7 @@ export const dynamicBaseQuery = async (args, WebApi, extraOptions) => {
     const status = result?.error?.status;
     if (status === 401) {
       // localStorage.clear();
-      // window.location.replace("/");
+      // window.location.replace(loginRoute);
     } else {
       toast.error(responseMessage);
     }

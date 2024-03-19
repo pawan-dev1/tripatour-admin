@@ -1,22 +1,25 @@
 import { Layout } from "antd";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import SiderComponent from "../components/sider/index";
 import HeaderComponent from "../components/header/Header";
 const { Header, Sider, Content } = Layout;
 
 import "./styles.scss";
 import { useEffect, useRef } from "react";
+import { dashBoardRoute, loginRoute } from "../routes/PagesRoutes";
 const LayoutPrimary = () => {
   const elementRef = useRef(null);
+  const navigate = useNavigate();
+  const loginToken = localStorage.getItem("token");
+
   useEffect(() => {
-    window.onscroll = (e) => {
-      console.log(
-        document.documentElement.scrollTop,
-        "elementRef",
-        elementRef.current.clientHeight
-      );
-    };
-  }, []);
+    if (loginToken) {
+      // navigate(dashBoardRoute);
+    } else {
+      navigate(loginRoute);
+    }
+  }, [loginToken]);
+
   return (
     <Layout className="main-layout">
       <Header className="layout-header">

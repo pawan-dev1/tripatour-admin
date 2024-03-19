@@ -33,10 +33,17 @@ import CourseCategoryDetails from "../pages/courseCategoryDetails";
 import Faq from "../pages/faq";
 import ViewCourseCardDetails from "../pages/viewCourseCardDetails";
 import AddCourseDetails from "../pages/addCourseDetails";
+import PageNotFound from "../pages/pageNotFound";
+
+const userType = localStorage.getItem("userType");
+
+const userType3 = userType == 3;
+const userType2 = userType == 2;
+const userType5 = userType == 5;
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: dashBoardRoute,
     element: <LayoutPrimary />,
     children: [
       {
@@ -44,16 +51,20 @@ export const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: ourTeam,
+        path: userType3 || userType5 ? ourTeam : "",
         element: <OurTeam />,
       },
       {
-        path: createCourses,
+        path: userType2 || userType5 ? createCourses : "",
         element: <CreateCourses />,
       },
       {
-        path: deletedRequestRoutes,
+        path: userType5 ? deletedRequestRoutes : "",
         element: <DeletedRequest />,
+      },
+      {
+        path: "*",
+        element: <PageNotFound />,
       },
       {
         path: studentRecordRoutes,
@@ -68,31 +79,27 @@ export const router = createBrowserRouter([
         element: <TeacherRecord />,
       },
       {
-        path: subAdminRecordRoutes,
+        path: userType5 ? subAdminRecordRoutes : "",
         element: <SubAdminList />,
       },
       {
-        path: addNewStudent,
+        path: userType3 || userType5 ? addNewStudent : "",
         element: <AddNewStudentForm />,
       },
       {
-        path: `${viewCourseCardDetails}/:id`,
+        path: userType2 || userType5 ? `${viewCourseCardDetails}/:id` : "",
         element: <ViewCourseCardDetails />,
       },
       {
-        path: `${addCourseDetails}/:id`,
+        path: userType2 || userType5 ? `${addCourseDetails}/:id` : "",
         element: <AddCourseDetails />,
       },
       {
-        path: addNewStudent,
-        element: <AddNewStudentForm />,
-      },
-      {
-        path: courseCategoryDetails,
+        path: userType2 || userType5 ? courseCategoryDetails : "",
         element: <CourseCategoryDetails />,
       },
       {
-        path: faq,
+        path: userType2 || userType3 || userType5 ? faq : "",
         element: <Faq />,
       },
     ],
@@ -104,10 +111,6 @@ export const router = createBrowserRouter([
       {
         path: loginRoute,
         element: <Login />,
-      },
-      {
-        path: signUp,
-        element: <SignUp />,
       },
     ],
   },
