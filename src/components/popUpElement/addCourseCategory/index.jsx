@@ -1,5 +1,4 @@
 import { Button, Form, Input, message } from "antd";
-import { useAddCourseCategoryMutation } from "../../../store/services/addCourseCardDesc";
 import { useEffect } from "react";
 import TextArea from "antd/es/input/TextArea";
 
@@ -12,7 +11,6 @@ const AddCourseCategory = ({  handleCancel ,category,userData,id}) => {
     trigger(values)
   };
   const onFinishFailed = (error) => {
-    console.log(error);
   };
 
   useEffect(() => {

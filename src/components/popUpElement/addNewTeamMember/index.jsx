@@ -20,7 +20,6 @@ const AddNewTeamMember = ({ handleCancel }) => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
   };
 
   const onChange = ({ fileList: newFileList }) => {
@@ -41,7 +40,6 @@ const AddNewTeamMember = ({ handleCancel }) => {
     imgWindow?.document.write(image.outerHTML);
   };
   useEffect(() => {
-    console.log(craetedTeam);
     if (craetedTeam?.success) {
       message.success(craetedTeam.message);
       handleCancel();

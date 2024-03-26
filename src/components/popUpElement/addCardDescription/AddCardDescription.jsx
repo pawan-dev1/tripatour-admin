@@ -1,5 +1,4 @@
 import { Button, Form, Input, message } from "antd";
-import { useAddCourseCardDesMutation, useAddCourseCardDescMutation } from "../../../store/services/addCourseCardDesc";
 import { useEffect } from "react";
 import TextArea from "antd/es/input/TextArea";
 
@@ -19,7 +18,6 @@ const AddCardDescription = ({  handleCancel ,category,userData,id}) => {
 
   };
   const onFinishFailed = (error) => {
-    console.log(error);
   };
 
   useEffect(() => {

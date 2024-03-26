@@ -7,15 +7,11 @@ const AddSubAdmins = ({setIsModalOpen}) => {
 
   const [trigger, { data: addSubAdmin }] = useCreateAdminMutation();
 
-  console.log(addSubAdmin);
-
   const onFinish = (values) => {
-    console.log("Success:", values);
     trigger(values);
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
   };
 
   useEffect(() => {

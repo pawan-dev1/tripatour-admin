@@ -1,5 +1,4 @@
 import { Button, Form, Input, message } from "antd";
-import { useEditCourseTopicsMutation } from "../../../store/services/getCourseDetails";
 import { useEffect, useState } from "react";
 
 const EditWhatToLearn = ({ whatToLearnData ,onCloseModal}) => {
@@ -13,7 +12,6 @@ const EditWhatToLearn = ({ whatToLearnData ,onCloseModal}) => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
   };
 
   useEffect(() => {

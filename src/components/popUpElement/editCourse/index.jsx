@@ -1,50 +1,53 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import { SecondaryButton } from "../../../common/button";
+import { useCourseEditCategoryMutation } from "../../../store/services/courseCategories";
+import { useEffect } from "react";
 
-const EditCourse = ({ fun, userData }) => {
+const EditCourse = ({ getEditData,setIsModalOpen }) => {
   const [form] = Form.useForm();
 
-  // const onFinish = (values) => {
-  //   console.log("click", values);
-  // };
+  const [trigger,{data:editedData}] = useCourseEditCategoryMutation()
+
+  const onFinish = (values) => {
+    trigger({
+      ...values,
+      id:getEditData?._id
+    });
+  };
 
   const onFinishFailed = () => {
-    console.log("Submit failed!");
   };
+
+  useEffect(()=>{
+    if (editedData?.success) {
+      setIsModalOpen(false)
+      message.success(editedData?.message);
+    }
+  },[editedData])
+
   return (
     <div>
-      {/* <Input
-        onChange={(e) =>
-          setEditCoursesData((prev) => {
-            return {
-              ...prev,
-              coursename: e.target.value,
-            };
-          })
-        }
-      />
-      <SecondaryButton name={"Edit"} fun={fun} /> */}
       <Form
         form={form}
         layout="vertical"
-        onFinish={fun}
+        onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
         className="add-courses-form"
         initialValues={{
-          coursename: userData?.coursename,
+          name: getEditData?.name,
         }}
       >
         <Form.Item
-          name="coursename"
-          label="Add Courses"
+          name="name"
+          label="Edit course title"
           rules={[
             {
               required: true,
             },
           ]}
         >
-          <Input placeholder={"Enter New Course Here.."} />
+          <Input placeholder={"Enter course here.."} />
         </Form.Item>
 
         <Form.Item>

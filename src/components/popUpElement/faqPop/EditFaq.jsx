@@ -11,7 +11,6 @@ const EditFaq = ({faqData,handleCancel}) => {
     trigger({...values,id:faqData?._id})
   }
   const onFinishFailed =(error)=>{
-    console.log(error)
   }
   useEffect(() => {
     if(data?.success){

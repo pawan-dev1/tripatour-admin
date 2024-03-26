@@ -7,21 +7,21 @@ export const getAllStudent = createApi({
   endpoints: (builder) => ({
     getAllStudent: builder.mutation({
       query: (body) => ({
-        url: "/student/students-perpage",
+        url: "/student/lists",
         method: "POST",
         body,
       }),
     }),
     editStudent: builder.mutation({
       query: (body) => ({
-        url: "/student/edit-student",
+        url: "/student/edit-info",
         method: "PUT",
         body,
       }),
     }),
     deleteStudent: builder.mutation({
       query: (body) => ({
-        url: "/student/delete-student",
+        url: "/student/delete",
         method: "DELETE",
         body,
       }), 

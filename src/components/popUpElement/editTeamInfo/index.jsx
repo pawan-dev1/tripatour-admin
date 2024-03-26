@@ -32,7 +32,6 @@ const EditTeamInfo = ({ userData, handleCancel }) => {
     const imgWindow = window.open(src);
     imgWindow?.document.write(image.outerHTML);
   };
-  console.log(fileList);
   const onFinish = (values) => {
     const formData = new FormData();
     formData.append("name", values?.name);
@@ -42,7 +41,6 @@ const EditTeamInfo = ({ userData, handleCancel }) => {
     trigger({ data: formData, id: userData._id });
   };
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
   };
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);

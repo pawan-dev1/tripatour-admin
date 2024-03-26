@@ -7,7 +7,7 @@ export const createNewStudent = createApi({
   endpoints: (builder) => ({
     createNewStudent: builder.mutation({
       query: (body) => ({
-        url: "/student/create-student",
+        url: "/student/create",
         method: "POST",
         body,
       }),

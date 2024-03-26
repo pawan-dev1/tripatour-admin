@@ -1,6 +1,6 @@
 import { IoMdHome } from "react-icons/io";
 import { Link } from "react-router-dom";
-import { createCourses, dashBoardRoute } from "../../routes/PagesRoutes";
+import { dashBoardRoute } from "../../routes/PagesRoutes";
 ////styles
 import "./styles.scss";
 export const BreadCrum = ({ name, sub }) => {
@@ -15,7 +15,7 @@ export const BreadCrum = ({ name, sub }) => {
             <IoMdHome />
           </Link>
           / {sub && ` ${sub} /`}
-          <Link to={createCourses}>{name}</Link>
+          <Link to={"/"}>{name}</Link>
         </div>
       </div>
     </>

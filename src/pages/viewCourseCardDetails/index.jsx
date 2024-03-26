@@ -1,140 +1,102 @@
-import { Link, useParams } from "react-router-dom";
-import { BreadCrum } from "../../components/breadCrume";
-import {
-  useCourseCardDetailsDelMutation,
-  useGetCourseCardDescQuery,
-} from "../../store/services/addCourseCardDesc";
-import { Button, Input, Space, Table, message } from "antd";
-import { useEffect, useState } from "react";
-import EditCourseCardDetails from "../../components/popUpElement/ViewCourseCardDetails/EditCourseCardDetails";
-import AreYouSure from "../../components/popUpElement/areYouSure";
-import AddDescription from "../../components/popUpElement/addDescription";
+import { Input, Table, Tag, message } from "antd";
 import PrimaryModal from "../../common/modal";
+import { BreadCrum } from "../../components/breadCrume";
 import { PrimaryButton } from "../../common/button";
-import AddCardDescription from "../../components/popUpElement/addCardDescription/AddCardDescription";
-import { addCourseDetails } from "../../routes/PagesRoutes";
-
-const columns = [
-  {
-    title: "Course Name",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "Course Description",
-    dataIndex: "courseDesc",
-    key: "courseDesc",
-  },
-  {
-    title: "Action",
-    dataIndex: "action",
-    key: "action",
-  },
-];
+import NewCoursesCategory from "../../components/popUpElement/newCoursesCategory";
+import { useEffect, useState } from "react";
+import { useDeleteNewCourseSkillMutation, useGetNewCourseCategoryQuery } from "../../store/services/courseCategories";
+import { useParams } from "react-router-dom";
+import moment from "moment";
+import AreYouSure from "../../components/popUpElement/areYouSure";
 
 const ViewCourseCardDetails = () => {
-  const [courseCardData, setCourseCardData] = useState();
-  const [modalOpenValue, setModalOpenValue] = useState(0);
+  let green = "green";
+  let geekblue = "geekblue";
+  let redTag = "red";
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalOpenCom, setModalOpenCom] = useState(0);
-  const [coursesData, setCoursesData] = useState({});
+  const [getDeleteItem, setGetDeletedItem] = useState();
   const { id } = useParams();
-  console.log(id);
+  const { data: getAddCourseCategoryData } = useGetNewCourseCategoryQuery(id);
+  const [trigger, { data: delData }] = useDeleteNewCourseSkillMutation();
 
-  const { data: getCourseCardDetails } = useGetCourseCardDescQuery({ id: id });
-  const [trigger, { data: delCourseData }] = useCourseCardDetailsDelMutation();
-  // console.log(getCourseCardDetails,"getCourseCardDetails");
+  const columns = [
+    {
+      title: "Course Name",
+      dataIndex: "title",
+      key: "title",
+      onFilter: (value, record) => {
+        return String(record.CourseName)
+          .toLowerCase()
+          .includes(value.toLowerCase());
+      },
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
+    },
 
-  const data = getCourseCardDetails?.data?.map((item) => {
+    {
+      title: "Create Time",
+      dataIndex: "createdTime",
+      key: "createdTime",
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+    },
+  ];
+
+  const dataSource = getAddCourseCategoryData?.data?.skill?.map((elm) => {
     return {
-      key: item?._id + item?.title,
-      name: item?.title,
-      courseDesc: item?.desc,
+      title: elm?.title,
+      description: elm?.description,
+      createdTime: moment(elm?.createAt).format("DD-MM-YYYY"),
       action: (
-        <Space size="middle">
-          <Link to={`${addCourseDetails}/${item?._id}`}>
-            <Button className="ant-tag ant-tag-green">Add Detail</Button>
-          </Link>
-          <Button
-            className="ant-tag ant-tag-green"
+        <>
+          <Tag
+            color={redTag}
             onClick={() => {
-              setCourseCardData(item);
-              clickHandler(0);
-            }}
-          >
-            Edit
-          </Button>
-          <Button
-            className="ant-tag ant-tag-red"
-            onClick={() => {
-              setCourseCardData(item);
-              clickHandler(1);
+              setModalOpenCom(1);
+              showModal();
+              setGetDeletedItem(elm);
             }}
           >
             Delete
-          </Button>
-        </Space>
+          </Tag>
+        </>
       ),
     };
   });
 
-  const clickHandler = (val) => {
-    setModalOpenValue(val);
+  const showModal = () => {
     setIsModalOpen(true);
   };
 
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
-  const delCheck = () => {
-    trigger({ id: courseCardData?._id });
+  const deletedSubmit = () => {
+    trigger({
+      id: id,
+      dltId: getDeleteItem?._id,
+      status: 1,
+    });
   };
 
   useEffect(() => {
-    if (delCourseData?.success) {
-      message.success(delCourseData?.message);
-      handleCancel();
+    if (delData?.success) {
+      setIsModalOpen(false);
+      message.success(delData?.message);
     }
-  }, [delCourseData]);
-  const modalComObj = [
-    {
-      content: (
-        <EditCourseCardDetails
-          courseCardData={courseCardData}
-          handleCancel={handleCancel}
-        />
-      ),
-      label: "Edit Course Card Details",
-    },
-    {
-      content: <AreYouSure fun={delCheck} />, 
-      label: "Delete Course Card Details",
-    },
-    {
-      content: <AddDescription data={courseCardData} />,
-      label: "ADD  Description",
-    },
-    {
-      content: (
-        <AddCardDescription
-          userData={coursesData}
-          handleCancel={handleCancel}
-          category={1}
-          id={id}
-        />
-      ),
-      label: "Add  Course Card Details",
-    },
-  ];
+  }, [delData]);
 
-  const onFinish = () => {
-    setIsModalOpen(true);
+  const modalObj = {
+    0: <NewCoursesCategory setIsModalOpen={setIsModalOpen} />,
+    1: <AreYouSure fun={deletedSubmit} />,
   };
-
-  const showModal = () => {
-    clickHandler(3);
-    setIsModalOpen(true);
+  const modalObjTitle = {
+    0: "Add New Course Category",
+    1: "Delete new course skill",
   };
 
   return (
@@ -142,26 +104,24 @@ const ViewCourseCardDetails = () => {
       <PrimaryModal
         setIsModalOpen={setIsModalOpen}
         isModalOpen={isModalOpen}
-        title={modalComObj[modalOpenValue]["label"]}
-        onFinish={onFinish}
-        width={modalOpenValue == 2 && true}
-        element={modalComObj[modalOpenValue]["content"]}
+        title={modalObjTitle[modalOpenCom]}
+        element={modalObj[modalOpenCom]}
       />
-      <BreadCrum name={"View Course Card Details"} sub={""} />
+      <BreadCrum
+        name={getAddCourseCategoryData?.data?.category?.name}
+        sub={""}
+      />
       <div className="search-container">
         <Input placeholder="Search here..." />
         <PrimaryButton
-          name="Add Course Card Desc"
+          name="Add Courses"
           bg={"#6E61E4"}
           fontClr="white"
           fun={showModal}
-          val={3}
           setModalOpenCom={setModalOpenCom}
         />
       </div>
-      <div className="view-course-card-details">
-        <Table columns={columns} dataSource={data} pagination={false} />
-      </div>
+      <Table dataSource={dataSource} columns={columns} pagination={false} />
     </div>
   );
 };

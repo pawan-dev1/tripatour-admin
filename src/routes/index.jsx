@@ -1,45 +1,45 @@
 import { createBrowserRouter } from "react-router-dom";
 import LayoutPrimary from "../layout";
 import {
+  CourseSkills,
+  CourseTitle,
   addCourseDetails,
+  addCourseType,
   addNewStudent,
-  courseCategoryDetails,
-  createCourses,
+  clientFeedback,
   dashBoardRoute,
-  deletedRequestRoutes,
   faq,
   loginRoute,
   ourTeam,
   pendingPaymentRoutes,
-  signUp,
   studentRecordRoutes,
   subAdminRecordRoutes,
   teacherRecordRoutes,
   viewCourseCardDetails,
 } from "./PagesRoutes";
-import CreateCourses from "../pages/createCourses";
-import DeletedRequest from "../pages/deletedRequest";
 import Dashboard from "../pages/dashboard";
 import StudentRecord from "../pages/studentRecord";
 import LoginLayout from "../pages/auth";
 import Login from "../pages/auth/Login";
-import SignUp from "../pages/auth/SignUp";
 import TeacherRecord from "../pages/teacherRecord";
 import SubAdminList from "../pages/subAdmin";
 import AddNewStudentForm from "../pages/addNewStudent";
 import PendingPayment from "../pages/paymentRecord/PendingPayment";
 import OurTeam from "../pages/ourTeam";
-import CourseCategoryDetails from "../pages/courseCategoryDetails";
 import Faq from "../pages/faq";
 import ViewCourseCardDetails from "../pages/viewCourseCardDetails";
 import AddCourseDetails from "../pages/addCourseDetails";
 import PageNotFound from "../pages/pageNotFound";
+import CreateCourseTitle from "../pages/createCourseTitle";
+import AddCourseSkills from "../pages/addCourseSkills";
+import ClientFeedback from "../pages/clientFeedback";
+import AddCourseTypes from "../pages/addCourseType";
 
 const userType = localStorage.getItem("userType");
 
-const userType3 = userType == 3;
-const userType2 = userType == 2;
-const userType5 = userType == 5;
+const userType3 = userType == 3; //Pooja
+const userType2 = userType == 2; //Ritik
+const userType5 = userType == 5; //Rajesh
 
 export const router = createBrowserRouter([
   {
@@ -53,14 +53,6 @@ export const router = createBrowserRouter([
       {
         path: userType3 || userType5 ? ourTeam : "",
         element: <OurTeam />,
-      },
-      {
-        path: userType2 || userType5 ? createCourses : "",
-        element: <CreateCourses />,
-      },
-      {
-        path: userType5 ? deletedRequestRoutes : "",
-        element: <DeletedRequest />,
       },
       {
         path: "*",
@@ -95,8 +87,20 @@ export const router = createBrowserRouter([
         element: <AddCourseDetails />,
       },
       {
-        path: userType2 || userType5 ? courseCategoryDetails : "",
-        element: <CourseCategoryDetails />,
+        path: userType2 || userType2 || userType5 ? clientFeedback : "",
+        element: <ClientFeedback />,
+      },
+      {
+        path: userType2 || userType5 ? CourseTitle : "",
+        element: <CreateCourseTitle />,
+      },
+      {
+        path: userType2 || userType5 ? addCourseType : "",
+        element: <AddCourseTypes />,
+      },
+      {
+        path: userType2 || userType5 ? CourseSkills : "",
+        element: <AddCourseSkills />,
       },
       {
         path: userType2 || userType3 || userType5 ? faq : "",

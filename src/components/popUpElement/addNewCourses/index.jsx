@@ -1,18 +1,23 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Select } from "antd";
 ///styles
 import "./styles.scss";
 
-const AddNewCourses = ({ onFinish }) => {
+const AddNewCourses = () => {
   const [form] = Form.useForm();
+  const { data: allCourseTabList } = useAllCoursesQuery();
+  const [trigger, { data: addCourse }] = useAddCourseCardDescMutation();
 
-  // const onFinish = (values) => {
-  //   console.log("click", values);
-  // };
+  const onFinish = (values) => {
+    const addCourseData = {
+      subjectTitle: values.coursename,
+      desc: values.desc,
+      id: values.techId,
+    };
+    trigger(addCourseData);
+  };
 
   const onFinishFailed = () => {
-    console.log("Submit failed!");
   };
- 
 
   return (
     <>
@@ -26,14 +31,46 @@ const AddNewCourses = ({ onFinish }) => {
       >
         <Form.Item
           name="coursename"
-          label="Add Courses"
+          label="Add new course title"
           rules={[
             {
               required: true,
             },
           ]}
         >
-          <Input placeholder={"Enter New Course Here.."} />
+          <Input placeholder={"Enter New Course here.."} />
+        </Form.Item>
+
+        <Form.Item
+          name="desc"
+          label="Add new course desc"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input placeholder={"Enter New Course desc.."} />
+        </Form.Item>
+
+        <Form.Item
+          name="techId"
+          label="Select Field"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Select placeholder="Select the field">
+            {allCourseTabList?.data.map((item) => {
+              return (
+                <Select.Option key={item._id} values={item?._id}>
+                  {item.coursename}
+                </Select.Option>
+              );
+            })}
+          </Select>
         </Form.Item>
 
         <Form.Item>

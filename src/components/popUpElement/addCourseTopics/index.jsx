@@ -1,6 +1,5 @@
 import { Button, Form, Input, message } from "antd";
 import { useEffect } from "react";
-import { useCourseDetailsMutation } from "../../../store/services/getCourseDetails";
 
 const AddCourseTopics = ({courseId,onCloseModal}) => {
   const [trigger, { data: addCourseDetails }] = useCourseDetailsMutation();
@@ -10,7 +9,6 @@ const AddCourseTopics = ({courseId,onCloseModal}) => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
   };
   useEffect(() => {
     if (addCourseDetails?.success) {

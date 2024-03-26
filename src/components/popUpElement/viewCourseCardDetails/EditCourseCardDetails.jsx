@@ -1,5 +1,4 @@
 import { Button, Form, Input, message } from "antd";
-import { useCourseCardDetailsEditMutation } from "../../../store/services/addCourseCardDesc";
 import { useEffect } from "react";
 
 const EditCourseCardDetails = ({ courseCardData, handleCancel }) => {
@@ -10,12 +9,10 @@ const EditCourseCardDetails = ({ courseCardData, handleCancel }) => {
       objId: courseCardData._id,
       id: courseCardData?.id,
     };
-    console.log(formData);
     trigger(formData);
   };
 
   const onFinishFailed = (error) => {
-    console.log(error);
   };
 
   useEffect(() => {

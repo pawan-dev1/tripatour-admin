@@ -15,8 +15,6 @@ const SubAdminList = () => {
   const [modalOpenCom, setModalOpenCom] = useState(0);
   const [userData, setUserData] = useState();
 
-  console.log(userData, "userData");
-
   const { data } = useGetAllSubAdminQuery();
 
   const [trigg, { data: delAdminData }] = useDeleteAdminMutation();

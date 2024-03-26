@@ -1,10 +1,5 @@
 import { useParams } from "react-router-dom";
 import { Button, Table, message } from "antd";
-import {
-  useCourseSyllabusDelMutation,
-  useCourseTopicDelMutation,
-  useGetCourseDetailsQuery,
-} from "../../store/services/getCourseDetails";
 import { PrimaryButton } from "../../common/button";
 import { useEffect, useState } from "react";
 import PrimaryModal from "../../common/modal";
@@ -13,7 +8,6 @@ import AddCourseTopics from "../../components/popUpElement/addCourseTopics";
 import AddCourseContent from "../../components/popUpElement/addCourseContent";
 
 import "./styles.scss";
-import { useGetCourseTopicMutation } from "../../store/services/getCourseTopics";
 import EditWhatToLearn from "../../components/popUpElement/editWhatToLearnData";
 import EditCourseSyllabus from "../../components/popUpElement/editCourseSyllabus";
 const columnsWhatToLearn = [

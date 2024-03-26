@@ -7,11 +7,9 @@ const AddNewfaq = ({ handleCancel }) => {
   const [form] = Form.useForm();
   const [trigger, { data }] = useAddFaqMutation();
   const onFinish = (values) => {
-    console.log(values);
     trigger(values);
   };
   const onFinishFailed = (error) => {
-    console.log(error);
   };
   useEffect(() => {
     if (data?.success) {

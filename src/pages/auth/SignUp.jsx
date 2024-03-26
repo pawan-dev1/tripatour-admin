@@ -12,12 +12,11 @@ import { useSignUpMutation } from "../../store/services/signUpService";
 const SignUp = () => {
   const { Option } = Select;
   const [form] = Form.useForm();
-
+  
   const [trigger, { data, error }] = useSignUpMutation();
   const [fileList, setFileList] = useState([]);
   const [genderValue, SetGenderValue] = useState();
   const onFinish = (values) => {
-    console.log(values, "values");
     const formData = new FormData();
     formData.append(
       "profileImage",
@@ -32,7 +31,6 @@ const SignUp = () => {
   };
 
   const onFinishFailed = () => {
-    console.log("Submit failed!");
   };
 
   const formFeild = [

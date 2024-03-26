@@ -45,7 +45,7 @@ const PendingPayment = () => {
         setIsModalOpen={setIsModalOpen}
         isModalOpen={isModalOpen}
         title={"Submit Fees"}
-        element={<FeesSubmitPop stdUserId={stdUserId} />}
+        element={<FeesSubmitPop stdUserId={stdUserId} setIsModalOpen ={setIsModalOpen}/>}
       />
       <BreadCrum name={"Pending Fees"} sub={"Student Fees"} />
       <Table dataSource={dataSource} columns={columns} pagination={false} />;

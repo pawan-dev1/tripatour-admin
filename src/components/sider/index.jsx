@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Menu } from "antd";
 import {
+  CourseSkills,
+  CourseTitle,
+  addCourseType,
   addNewStudent,
-  courseCategoryDetails,
-  createCourses,
+  clientFeedback,
   dashBoardRoute,
-  deletedRequestRoutes,
   faq,
   loginRoute,
   ourTeam,
@@ -15,7 +16,7 @@ import {
   teacherRecordRoutes,
 } from "../../routes/PagesRoutes";
 import { Link } from "react-router-dom";
-import { MdDashboard, MdLogout, MdMenuBook, MdOutlineDeleteSweep } from "react-icons/md";
+import { MdDashboard, MdLogout, MdMenuBook } from "react-icons/md";
 import { PiStudentBold } from "react-icons/pi";
 import { FaRegCreditCard } from "react-icons/fa6";
 
@@ -29,9 +30,9 @@ const SiderComponent = () => {
 
   const userType = localStorage.getItem("userType");
 
-  const userType2= userType == 2;
-  const userType3= userType == 3;
-  const userType5= userType == 5;
+  const userType2 = userType == 2;
+  const userType3 = userType == 3;
+  const userType5 = userType == 5;
 
   const items = [
     {
@@ -39,59 +40,34 @@ const SiderComponent = () => {
       label: <Link to={dashBoardRoute}>Dashboard</Link>,
       icon: <MdDashboard />,
     },
-    userType2 || userType5
+    userType3 || userType5
       ? {
-          key: "2",
-          label: <Link to={createCourses}>Create Courses</Link>,
+          key: "ourTeam",
+          label: <Link to={ourTeam}>Our Team</Link>,
           icon: <MdMenuBook />,
         }
       : null,
-      userType3 || userType5 ?
-    {
-      key: "ourTeam",
-      label: <Link to={ourTeam}>Our Team</Link>,
-      icon: <MdMenuBook />,
-    }: null,
-    userType2 || userType5 ?
-    {
-      key: "courseCategoryDetails",
-      label: <Link to={courseCategoryDetails}>Course Categories</Link>,
-      icon: <MdMenuBook />,
-    }:null,
     {
       key: "faq",
       label: <Link to={faq}>Faq</Link>,
       icon: <MdMenuBook />,
     },
-    userType5
-      ? {
-          key: "3",
-          label: "Request",
-          children: [
-            {
-              key: "4",
-              label: <Link to={deletedRequestRoutes}>Courses Deleted</Link>,
-              icon: <MdOutlineDeleteSweep />,
-            },
-          ],
-        }
-      : null,
     {
       key: "5",
       label: "Record",
       children: [
-
         {
           key: "6",
           label: <Link to={studentRecordRoutes}>Students</Link>,
           icon: <PiStudentBold />,
         },
-        userType5 ?
-        {
-          key: "7",
-          label: <Link to={subAdminRecordRoutes}>Sub Admin</Link>,
-          icon: <PiStudentBold />,
-        }:null,
+        userType5
+          ? {
+              key: "7",
+              label: <Link to={subAdminRecordRoutes}>Sub Admin</Link>,
+              icon: <PiStudentBold />,
+            }
+          : null,
         {
           key: "8",
           label: <Link to={teacherRecordRoutes}>Teacher</Link>,
@@ -115,12 +91,42 @@ const SiderComponent = () => {
         },
       ],
     },
-userType3 || userType5 ?
-    {
-      key: "12",
-      label: <Link to={addNewStudent}>Add New Student</Link>,
-      icon: <MdMenuBook />,
-    }: null,
+    userType3 || userType5
+      ? {
+          key: "14",
+          label: <Link to={CourseTitle}>Add Course Title</Link>,
+          icon: <MdMenuBook />,
+        }
+      : null,
+    userType2 || userType3 || userType5
+      ? {
+          key: "query",
+          label: <Link to={clientFeedback}>Client Feedback</Link>,
+          icon: <MdMenuBook />,
+        }
+      : null,
+    userType2 || userType5
+      ? {
+          key: "courseType",
+          label: <Link to={addCourseType}>Add Course Type</Link>,
+          icon: <MdMenuBook />,
+        }
+      : null,
+    userType3 || userType5
+      ? {
+          key: "15",
+          label: <Link to={CourseSkills}>Add Course Skills</Link>,
+          icon: <MdMenuBook />,
+        }
+      : null,
+
+    userType3 || userType5
+      ? {
+          key: "12",
+          label: <Link to={addNewStudent}>Add New Student</Link>,
+          icon: <MdMenuBook />,
+        }
+      : null,
     {
       key: "13",
       label: (
@@ -142,15 +148,14 @@ userType3 || userType5 ?
     window.location.replace(loginRoute);
   };
 
-
-  const onFinish =()=>{
-    setIsModalOpen(false)
-  }
+  const onFinish = () => {
+    setIsModalOpen(false);
+  };
 
   const modalComObj = [
     {
       content: <AreYouSure fun={logOutFun} />,
-      label: "Delete Course Card Details",
+      label: "Log Out",
     },
   ];
 

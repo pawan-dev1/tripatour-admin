@@ -13,7 +13,6 @@ const EditStudent = ({studentdata,fun,handleCancel}) => {
     trigger({...values,batch_time:date,id:studentdata?._id})
   }
   const onFinishFailed = (error)=>{
-    console.log(error)
   }
   const onChange = (time, timeString) => {
     setDate(timeString);

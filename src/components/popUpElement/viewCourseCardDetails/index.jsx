@@ -1,138 +1,89 @@
-import { Button, Space, Table, Tag, message } from "antd";
+import { Input, Table } from "antd"
+import { useState } from "react"
+import PrimaryModal from "../../../common/modal"
+import { BreadCrum } from "../../breadCrume"
+import { PrimaryButton } from "../../../common/button"
+import NewCoursesCategory from "../newCoursesCategory"
+import { useGetNewCourseCategoryQuery } from "../../../store/services/courseCategories"
 
-import "./styles.scss";
-import {
-  useCourseCardDetailsDelMutation,
-  useGetCourseCardDescQuery,
-} from "../../../store/services/addCourseCardDesc";
-import { useEffect, useState } from "react";
-import PrimaryModal from "../../../common/modal";
-import AreYouSure from "../areYouSure";
-import EditCourseCardDetails from "./EditCourseCardDetails";
-import AddDescription from "../addDescription";
+const ViewCourseCardDetails = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalOpenCom, setModalOpenCom] = useState(0);
+    const {data: getAddCourseCategoryData} = useGetNewCourseCategoryQuery()
+    const columns = [
+        {
+          title: "Course Name",
+          dataIndex: "CourseName",
+          key: "CourseName",
+          // filteredValue: [searchText],
+      
+          onFilter: (value, record) => {
+            return String(record.CourseName)
+              .toLowerCase()
+              .includes(value.toLowerCase());
+          },
+        },
+        {
+          title: "Description",
+          dataIndex: "desc",
+          key: "desc",
+        },
+        {
+          title: "Created By",
+          dataIndex: "createdBy",
+          key: "createdBy",
+        },
+        {
+          title: "Create Time",
+          dataIndex: "createdTime",
+          key: "createdTime",
+        },
+        {
+          title: "Action",
+          dataIndex: "action",
+          key: "action",
+        },
+      ];
 
-const columns = [
-  {
-    title: "Course Name",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "Course Description",
-    dataIndex: "courseDesc",
-    key: "courseDesc",
-  },
-  {
-    title: "Action",
-    dataIndex: "action",
-    key: "action",
-  },
-];
 
-const ViewCourseCardDetails = ({userData}) => {
-  const [modalOpenValue, setModalOpenValue] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const [courseCardData, setCourseCardData] = useState();
-
-  const { data: getCourseCardDetails } = useGetCourseCardDescQuery();
-
-const filterData = getCourseCardDetails?.data?.filter((item)=> item?.id == userData?.id)
-  const clickHandler = (val) => {
-    setModalOpenValue(val);
-    setIsModalOpen(true);
-  };
-
-  const [trigger, { data: delCourseData }] = useCourseCardDetailsDelMutation();
-
-  const data = filterData?.map((item) => {
-    return {
-      key: item?._id + item?.title,
-      name: item?.title,
-      courseDesc: item?.desc,
-      action: (
-        <Space size="middle">
-           <Button
-            className="ant-tag ant-tag-green"
-            onClick={() => {
-              setCourseCardData(item);
-              clickHandler(2);
-            }}
-          >
-            Add Detail
-          </Button>
-          <Button
-            className="ant-tag ant-tag-green"
-            onClick={() => {
-              setCourseCardData(item);
-              clickHandler(0);
-            }}
-          >
-            Edit
-          </Button>
-          <Button
-            className="ant-tag ant-tag-red"
-            onClick={() => {
-              setCourseCardData(item);
-              clickHandler(1);
-            }}
-          >
-            Delete
-          </Button>
-        </Space>
-      ),
-    };
-  });
-
-  const delCheck = () => {
-    trigger({id:courseCardData?._id});
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
-  useEffect(() => {
-    if (delCourseData?.success) {
-      message.success(delCourseData?.message);
-      handleCancel();
-    }
-  }, [delCourseData]);
-
-  const modalComObj = [
-    {
-      content: <EditCourseCardDetails courseCardData={courseCardData} />,
-      label: "Edit Course Card Details",
-    },
-    {
-      content: <AreYouSure fun={delCheck} />,
-      label: "Delete Course Card Details",
-    },
-    {
-      content:<AddDescription data={courseCardData} />,
-      label:"ADD  Description"
-    }
-  ];
-
-  const onFinish = () => {
-    setIsModalOpen(true);
-  };
+      const dataSource = getAddCourseCategoryData?.data?.map((elm)=>{
+        return{
+            title:""
+        }
+      })
+      const showModal =()=>{
+        setIsModalOpen(true);
+      }
+      
+    const modalObj = {
+        0: <NewCoursesCategory/>,
+      };
+      const modalObjTitle = {
+        0: "Add New Course Category",
+      };
 
   return (
-    <>
+    <div>
       <PrimaryModal
         setIsModalOpen={setIsModalOpen}
         isModalOpen={isModalOpen}
-        title={modalComObj[modalOpenValue]["label"]}
-        onFinish={onFinish}
-        width={modalOpenValue ==2 && true}
-        element={modalComObj[modalOpenValue]["content"]}
+        title={modalObjTitle[modalOpenCom]}
+        element={modalObj[modalOpenCom]}
       />
-      <div className="view-course-card-details">
-        <Table columns={columns} dataSource={data} pagination={false} />
+      <BreadCrum name={"Skills And Categories"} sub={""} />
+      <div className="search-container">
+        <Input placeholder="Search here..." />
+        <PrimaryButton
+          name="Add Courses"
+          bg={"#6E61E4"}
+          fontClr="white"
+          fun={showModal}
+          setModalOpenCom={setModalOpenCom}
+        />
       </div>
-    </>
-  );
-};
+      <Table dataSource={dataSource} columns={columns} pagination={false} />
+      </div>
+  )
+}
 
-export default ViewCourseCardDetails;
+export default ViewCourseCardDetails

@@ -9,7 +9,6 @@ const DrawerComp = ({ open, setOpen }) => {
 
   const [trigger, { data: editUserData }] = useEditAdminMutation();
   const { data: getUserData } = useGetUserDataQuery();
-  console.log(getUserData, "getUserData");
 
   const userName = localStorage?.username;
   const gender = localStorage?.gender;
@@ -45,12 +44,10 @@ const DrawerComp = ({ open, setOpen }) => {
   ];
 
   const onFinish = (values) => {
-    console.log("click", values);
     trigger({...values, id:getUserData?.data?._id});
   };
 
   const onFinishFailed = () => {
-    console.log("Submit failed!");
   };
   return (
     <Drawer

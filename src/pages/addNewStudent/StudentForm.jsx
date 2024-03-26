@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Form, Input, Select, TimePicker } from "antd";
-import moment from "moment";
 import { useCreateNewStudentMutation } from "../../store/services/createNewStudent";
 import { toast } from "react-toastify";
 import PrimaryModal from "../../common/modal";
 import UserCredentialModal from "../../components/popUpElement/userCredentialModal/index";
-import { useAllCoursesMutation } from "../../store/services/allCourses";
+import { useCourseGetCategoryQuery } from "../../store/services/courseCategories";
+
 const StudentForm = () => {
   const [date, setDate] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [checkInstituteType, setCheckInstituteType] = useState({});
   const [trigger, { data }] = useCreateNewStudentMutation();
-  const [trigge, { data: CourseData }] = useAllCoursesMutation();
+  const { data: CourseData } = useCourseGetCategoryQuery();
+
   const { Option } = Select;
   const [form] = Form.useForm();
 
-  const courseName = CourseData?.data?.map((name) => name?.coursename);
-  // console.log(courseName, "data");
+  const courseName = CourseData?.data?.map((elm) => elm?.name);
   const instituteType = ["Academy", "Computer"];
 
   const checkIntituteTpyeHnadler = (name, value) => {
@@ -38,9 +38,9 @@ const StudentForm = () => {
   const showModal = () => {
     setIsModalOpen(true);
   };
-  useEffect(() => {
-    trigge();
-  }, []);
+  // useEffect(() => {
+  //   trigge();
+  // }, []);
 
   const onFinish = (values) => {
     const newValue = {
@@ -51,7 +51,6 @@ const StudentForm = () => {
   };
 
   const onFinishFailed = () => {
-    console.log("Submit failed!");
   };
   const onChange = (time, timeString) => {
     setDate(timeString);
@@ -127,17 +126,7 @@ const StudentForm = () => {
               ))}
             </Select>
           </Form.Item>
-          {/* <Form.Item
-            name=""
-            label=""
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Input placeholder="Enter User Name" />
-          </Form.Item> */}
+     
           <Form.Item label="Gender" name="gender" className="form-item">
             <Select
               placeholder="Select a"

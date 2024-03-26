@@ -17,7 +17,6 @@ const PrimaryModal = ({
     onFinish();
     // setIsModalOpen(false);
   };
-  console.log(width)
   return (
     <Modal
       title={title}

@@ -17,7 +17,6 @@ const SearchBar = () => {
   
   const handleSearch = (value) => {};
   const onSelect = (value) => {
-    console.log("onSelect", value);
   };
   return (
     <AutoComplete

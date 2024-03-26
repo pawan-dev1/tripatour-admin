@@ -15,12 +15,10 @@ const LoginForm = () => {
   const [trigger, { data, error }] = useLoginMutation();
 
   const onFinish = (values) => {
-    console.log("click", values);
     trigger(values);
   };
 
   const onFinishFailed = () => {
-    console.log("Submit failed!");
   };
 
   

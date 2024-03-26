@@ -1,5 +1,4 @@
 import { Button, Form, Input, message } from "antd";
-import { useEditCourseSyllabusMutation } from "../../../store/services/getCourseDetails";
 import { useEffect } from "react";
 
 const EditCourseSyllabus = ({courseContentData,onCloseModal}) => {
@@ -8,7 +7,6 @@ const [trigger,{data}]=useEditCourseSyllabusMutation()
         trigger({...values,id:courseContentData?._id});
     };
     const onFinishFailed = (errorInfo) => {
-      console.log("Failed:", errorInfo);
     };
     useEffect(() => {
       if (data?.success) {

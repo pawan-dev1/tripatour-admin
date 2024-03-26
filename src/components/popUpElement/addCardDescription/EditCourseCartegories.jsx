@@ -1,5 +1,4 @@
 import { Button, Form, Input, message } from "antd";
-import {useEditCourseCategoryMutation } from "../../../store/services/addCourseCardDesc";
 import { useEffect } from "react";
 import TextArea from "antd/es/input/TextArea";
 
@@ -13,7 +12,6 @@ const EditCourseCategories = ({ userData, handleCancel }) => {
 
   };
   const onFinishFailed = (error) => {
-    console.log(error);
   };
 
   useEffect(() => {
