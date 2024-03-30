@@ -1,29 +1,34 @@
 import { Button, Form, Input, message } from "antd";
+import { useAddSyllabusTitleMutation } from "../../../store/services/addSkillDetails";
 import { useEffect } from "react";
 
-const AddCourseTopics = ({courseId,onCloseModal}) => {
-  const [trigger, { data: addCourseDetails }] = useCourseDetailsMutation();
+const AddSkillsSyllabusTitleComp = ({ skillId, setIsModalOpen }) => {
+  const [trigger, { data: AddedTitle }] = useAddSyllabusTitleMutation();
 
   const onFinish = (values) => {
-    trigger({ ...values, type: "1",id:courseId});
+    console.log("Success:", values);
+    trigger({
+      ...values,
+      id: skillId,
+    });
   };
 
   const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
   };
+
   useEffect(() => {
-    if (addCourseDetails?.success) {
-      message.success(addCourseDetails?.message);
-      onCloseModal();
+    if (AddedTitle?.success) {
+      setIsModalOpen(false);
+      message.success(AddedTitle.message);
     }
-  }, [addCourseDetails]);
+  }, [AddedTitle]);
 
   return (
-    <div className="add-course-topic">
+    <div className="add-skills-title">
       <Form
         name="basic"
-        labelCol={{
-            span: 24,
-          }}
+        layout="vertical"
         initialValues={{
           remember: true,
         }}
@@ -32,12 +37,12 @@ const AddCourseTopics = ({courseId,onCloseModal}) => {
         autoComplete="off"
       >
         <Form.Item
-          label="Course Topic"
-          name="courseTopic"
+          label="Syllabus Title"
+          name="title"
           rules={[
             {
               required: true,
-              message: "Please input your courseTopic!",
+              message: "Please input your syllabus title!",
             },
           ]}
         >
@@ -54,4 +59,4 @@ const AddCourseTopics = ({courseId,onCloseModal}) => {
   );
 };
 
-export default AddCourseTopics;
+export default AddSkillsSyllabusTitleComp;

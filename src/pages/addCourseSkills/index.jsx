@@ -4,7 +4,6 @@ import {
   useCourseGetCategorySkillQuery,
 } from "../../store/services/courseCategorySkills";
 import AreYouSure from "../../components/popUpElement/areYouSure";
-import EditCourse from "../../components/popUpElement/editCourse";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import AddCourseSkillComp from "../../components/addCourseSkill";
@@ -12,6 +11,8 @@ import PrimaryModal from "../../common/modal";
 import { BreadCrum } from "../../components/breadCrume";
 import { PrimaryButton } from "../../common/button";
 import EditCourseSkillComp from "../../components/popUpElement/editCourseSkill";
+import { Link } from "react-router-dom";
+import { skillDetails } from "../../routes/PagesRoutes";
 
 const AddCourseSkills = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,6 +64,9 @@ const AddCourseSkills = () => {
           <Tag color={green} onClick={() => editSkill(elm)}>
             Edit
           </Tag>
+          <Link to={`${skillDetails}/${elm?._id}`}>
+            <Tag color={geekblue}>Details</Tag>
+          </Link>
           <Tag
             color={redTag}
             onClick={() => {
@@ -97,7 +101,7 @@ const AddCourseSkills = () => {
 
   //   modal-poUp-com
   const modalObj = {
-    0: <AddCourseSkillComp  setIsModalOpen={setIsModalOpen}/>,
+    0: <AddCourseSkillComp setIsModalOpen={setIsModalOpen} />,
     1: <AreYouSure fun={deletedSubmit} />,
     2: (
       <EditCourseSkillComp

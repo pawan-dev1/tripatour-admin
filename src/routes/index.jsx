@@ -3,7 +3,6 @@ import LayoutPrimary from "../layout";
 import {
   CourseSkills,
   CourseTitle,
-  addCourseDetails,
   addCourseType,
   addNewStudent,
   clientFeedback,
@@ -12,6 +11,7 @@ import {
   loginRoute,
   ourTeam,
   pendingPaymentRoutes,
+  skillDetails,
   studentRecordRoutes,
   subAdminRecordRoutes,
   teacherRecordRoutes,
@@ -28,12 +28,12 @@ import PendingPayment from "../pages/paymentRecord/PendingPayment";
 import OurTeam from "../pages/ourTeam";
 import Faq from "../pages/faq";
 import ViewCourseCardDetails from "../pages/viewCourseCardDetails";
-import AddCourseDetails from "../pages/addCourseDetails";
 import PageNotFound from "../pages/pageNotFound";
 import CreateCourseTitle from "../pages/createCourseTitle";
 import AddCourseSkills from "../pages/addCourseSkills";
 import ClientFeedback from "../pages/clientFeedback";
 import AddCourseTypes from "../pages/addCourseType";
+import AddSkillsDetails from "../pages/addSkillDetails";
 
 const userType = localStorage.getItem("userType");
 
@@ -83,8 +83,8 @@ export const router = createBrowserRouter([
         element: <ViewCourseCardDetails />,
       },
       {
-        path: userType2 || userType5 ? `${addCourseDetails}/:id` : "",
-        element: <AddCourseDetails />,
+        path: userType2 || userType5 ? `${skillDetails}/:id` : "",
+        element: <AddSkillsDetails />,
       },
       {
         path: userType2 || userType2 || userType5 ? clientFeedback : "",

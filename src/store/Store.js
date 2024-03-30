@@ -13,6 +13,7 @@ import { courseCategories } from "./services/courseCategories";
 import { courseCategorySkills } from "./services/courseCategorySkills";
 import { clientQuery } from "./services/clientFeedback";
 import { typeOfCourse } from "./services/typeOfCourse";
+import { addSkillDetails } from "./services/addSkillDetails";
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
     [courseCategories.reducerPath]: courseCategories.reducer,
     [courseCategorySkills.reducerPath]: courseCategorySkills.reducer,
     [typeOfCourse.reducerPath]: typeOfCourse.reducer,
+    [addSkillDetails.reducerPath]: addSkillDetails.reducer,
     [clientQuery.reducerPath]: clientQuery.reducer,
     [loginAuth.reducerPath]: loginAuth.reducer,
     [signUp.reducerPath]: signUp.reducer,
@@ -37,6 +39,7 @@ export const store = configureStore({
     getDefaultMiddleware()
       .concat(courseCategories.middleware)
       .concat(courseCategorySkills.middleware)
+      .concat(addSkillDetails.middleware)
       .concat(clientQuery.middleware)
       .concat(typeOfCourse.middleware)
       .concat(loginAuth.middleware)

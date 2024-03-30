@@ -4,7 +4,10 @@ import { BreadCrum } from "../../components/breadCrume";
 import { PrimaryButton } from "../../common/button";
 import NewCoursesCategory from "../../components/popUpElement/newCoursesCategory";
 import { useEffect, useState } from "react";
-import { useDeleteNewCourseSkillMutation, useGetNewCourseCategoryQuery } from "../../store/services/courseCategories";
+import {
+  useDeleteNewCourseSkillMutation,
+  useGetNewCourseCategoryQuery,
+} from "../../store/services/courseCategories";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import AreYouSure from "../../components/popUpElement/areYouSure";
