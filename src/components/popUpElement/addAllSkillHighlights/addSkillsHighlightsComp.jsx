@@ -1,9 +1,23 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
+import { useAddWhatToLearnMutation } from "../../../store/services/addSkillDetails";
+import { useEffect } from "react";
 
-const AddSkillsHighlightsComp = () => {
+const AddSkillsHighlightsComp = ({ paramsId, setIsModalOpen }) => {
+  const [trigger, { data: addedHighlights }] = useAddWhatToLearnMutation();
   const onFinish = (values) => {
     console.log("Success:", values);
+    trigger({
+      ...values,
+      id: paramsId,
+    });
   };
+
+  useEffect(() => {
+    if (addedHighlights?.success) {
+      setIsModalOpen(false);
+      message.success(addedHighlights?.message);
+    }
+  }, [addedHighlights]);
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -23,7 +37,7 @@ const AddSkillsHighlightsComp = () => {
       >
         <Form.Item
           label="Highlight"
-          name="highlight"
+          name="learn"
           rules={[
             {
               required: true,

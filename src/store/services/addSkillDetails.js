@@ -6,6 +6,8 @@ export const addSkillDetails = createApi({
   baseQuery: dynamicBaseQuery,
   tagTypes: ["addSkillDetails"],
   endpoints: (builder) => ({
+    //Course Syllabus
+
     getDetails: builder.query({
       query: (body) => ({
         url: `/course/detail-get/${body}`,
@@ -69,6 +71,39 @@ export const addSkillDetails = createApi({
       }),
       providesTags: ["addSkillDetails"],
     }),
+
+    // What To Learn Highlights
+    getWhatToLearn: builder.query({
+      query: (body) => ({
+        url: `/course/detail-whatToLearn-get/${body}`,
+        method: "GET",
+      }),
+      providesTags: ["addSkillDetails"],
+    }),
+    addWhatToLearn: builder.mutation({
+      query: (body) => ({
+        url: `/course/detail-whatToLearn-add`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["addSkillDetails"],
+    }),
+    editWhatToLearn: builder.mutation({
+      query: (body) => ({
+        url: `/course/detail-whatToLearn-edit`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["addSkillDetails"],
+    }),
+    deleteWhatToLearn: builder.mutation({
+      query: (body) => ({
+        url: `/course/detail-whatToLearn-delete`,
+        method: "DELETE",
+        body,
+      }),
+      invalidatesTags: ["addSkillDetails"],
+    }),
   }),
 });
 
@@ -81,4 +116,8 @@ export const {
   useGetSyllabusDescQuery,
   useEditSyllabusDescMutation,
   useDeleteSyllabusDescMutation,
+  useAddWhatToLearnMutation,
+  useGetWhatToLearnQuery,
+  useEditWhatToLearnMutation,
+  useDeleteWhatToLearnMutation,
 } = addSkillDetails;
