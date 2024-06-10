@@ -11,9 +11,16 @@ export const houseRule = createApi({
         method: "GET",
       }),
     }),
+    addHouseRule: builder.mutation({
+      query: (body) => ({
+        url: `/rule/addHouseRule`,
+        method: "POST",
+        body,
+      }),
+    }),
 
   }),
 });
 
-export const { useGetHouseRuleQuery } =houseRule
+export const { useGetHouseRuleQuery,useAddHouseRuleMutation } =houseRule
 

@@ -50,7 +50,7 @@ const {data:getTourPackages} = useGetTourCategoryQuery()
         <div style={{ display: "flex", alignItems: "center" }}>
       
         
-        <Link to={`/house-rule/${item?._id}`}>
+        {/* <Link to={`/house-rule/${item?._id}`}>
           <Tag color={geekblue} className="cursor-pointor">
             Check House Rule
           </Tag>
@@ -59,7 +59,7 @@ const {data:getTourPackages} = useGetTourCategoryQuery()
           <Tag color={geekblue} className="cursor-pointor">
             Check Detail
           </Tag>
-            </Link>
+            </Link> */}
           <Tag color={geekblue} className="cursor-pointor "
            onClick={()=>{
             

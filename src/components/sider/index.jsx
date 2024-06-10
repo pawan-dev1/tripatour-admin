@@ -13,6 +13,7 @@ import {
   faq,
   favRoutes,
   feedbackRoute,
+  houseRuleRoute,
   loginRoute,
   ourTeam,
   packageRoutes,
@@ -69,7 +70,7 @@ const SiderComponent = () => {
     },
       {
         key: "9",
-        label: <Link to={addHouseRuleRoute}>Add House Rule</Link>,
+        label: <Link to={houseRuleRoute}>House Rule</Link>,
         icon: <PiStudentBold />,
     },
     {

@@ -43,14 +43,14 @@ const {data:getTourPackages} = useGetTourCategoryQuery()
         <div style={{ display: "flex", alignItems: "center" }}>
       
         
-        <Link to={`/house-rule/${item?._id}`}>
+        {/* <Link to={`/house-rule/${item?._id}`}>
           <Tag color={geekblue} className="cursor-pointor">
             Check House Rule
           </Tag>
-            </Link>
+            </Link> */}
         <Link to={`/edit-package-detail/${item?._id}`}>
           <Tag color={geekblue} className="cursor-pointor">
-            Check Detail
+            Update Detail
           </Tag>
             </Link>
           {/* <Tag color={geekblue} className="cursor-pointor "
