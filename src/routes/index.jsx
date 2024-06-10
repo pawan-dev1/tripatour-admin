@@ -7,6 +7,7 @@ import {
   dashBoardRoute,
   editPackageDetail,
   favRoutes,
+  feedbackRoute,
   houseRuleRoute,
   loginRoute,
   packageDetail,
@@ -26,6 +27,7 @@ import PackageDetail from "../pages/addPackageDetail/PackageDetail";
 import EditPackageDetail from "../pages/addPackageDetail/EditPackageDetail";
 import HouseRule from "../pages/houseRule/HouseRule";
 import AddHouseRule from "../pages/houseRule/AddHouseRule";
+import Feedback from "../pages/feedback/Feesback";
 
 const userType = localStorage.getItem("userType");
 
@@ -48,6 +50,10 @@ export const router = createBrowserRouter([
       {
         path:packageRoutes ,
         element: <Packages />,
+      },
+      {
+        path:feedbackRoute ,
+        element: <Feedback />,
       },
       {
         path:favRoutes ,

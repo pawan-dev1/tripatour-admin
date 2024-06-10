@@ -12,6 +12,7 @@ import {
   dashBoardRoute,
   faq,
   favRoutes,
+  feedbackRoute,
   loginRoute,
   ourTeam,
   packageRoutes,
@@ -76,8 +77,13 @@ const SiderComponent = () => {
       label: <Link to={favRoutes}>Favourite</Link>,
       icon: <MdDashboard />,
     },
-  ]
+    ]
     },
+      {
+        key: "31",
+        label: <Link to={feedbackRoute}>Feedback</Link>,
+        icon: <MdDashboard />,
+      },
    
     // userType3 || userType5
     //   ? {

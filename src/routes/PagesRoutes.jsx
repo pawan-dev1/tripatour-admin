@@ -9,6 +9,7 @@ export const showPackage = "/package-detail";
 export const editPackageDetail = "/edit-package-detail/:id";
 export const houseRuleRoute = "/house-rule/:id";
 export const addHouseRuleRoute = "/add-house-rule";
+export const feedbackRoute = "/feedback";
 export const pendingPaymentRoutes = "/pending-payment";
 export const subAdminRecordRoutes = "/sub-list";
 export const teacherRecordRoutes = "/teacher-list";
