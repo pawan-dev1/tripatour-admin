@@ -1,6 +1,14 @@
 export const dashBoardRoute = "/";
 export const loginRoute = "/login";
-export const studentRecordRoutes = "/student-record";
+export const categoryRoutes = "/category";
+export const packageRoutes = "/package";
+export const favRoutes = "/favourite";
+export const packageDetail = "/package-detail";
+export const addPackageDetail = "/add-package-detail/";
+export const showPackage = "/package-detail";
+export const editPackageDetail = "/edit-package-detail/:id";
+export const houseRuleRoute = "/house-rule/:id";
+export const addHouseRuleRoute = "/add-house-rule";
 export const pendingPaymentRoutes = "/pending-payment";
 export const subAdminRecordRoutes = "/sub-list";
 export const teacherRecordRoutes = "/teacher-list";

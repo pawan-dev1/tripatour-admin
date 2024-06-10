@@ -30,11 +30,13 @@ const LoginForm = () => {
       navigate(loginRoute);
     }
   }, [loginToken]);
-
+console.log(data)
   useEffect(() => {
-    if (data?.data?.token) {
-      localStorage.setItem("token", data?.data.token);
-      localStorage.setItem("userType", data?.data?.userType);
+    if (data?.token) {
+      localStorage.setItem("token", data?.token);
+      localStorage.setItem("userType", data?.user?.userType);
+      localStorage.setItem("username", data?.user?.username);
+      localStorage.setItem("email", data?.user?.email);
       message.success(data?.message);
       window.location.replace("/");
     }
@@ -43,7 +45,7 @@ const LoginForm = () => {
 
   const formFeild = [
     {
-      name: "userId",
+      name: "username",
       value: "",
       label: "Username",
       placeholder: "Enter Username here",
@@ -58,7 +60,7 @@ const LoginForm = () => {
 
   return (
     <>
-      <div className="logo">GI</div>
+      <div className="logo">Tripatour</div>
       <div className="login-form-container">
         <div className="login-form-title">
           <h3>Log In</h3>

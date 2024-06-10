@@ -2,13 +2,12 @@ import { Button, Drawer, Form, Input, Select } from "antd";
 import { MdWavingHand } from "react-icons/md";
 import { user } from "../../assets";
 import { useState } from "react";
-import { useEditAdminMutation, useGetUserDataQuery } from "../../store/services/getAllSubAdmin";
+import { useEditAdminMutation } from "../../store/services/getAllSubAdmin";
 const DrawerComp = ({ open, setOpen }) => {
   const [disableState, setDisableState] = useState(true);
   const [form] = Form.useForm();
 
   const [trigger, { data: editUserData }] = useEditAdminMutation();
-  const { data: getUserData } = useGetUserDataQuery();
 
   const userName = localStorage?.username;
   const gender = localStorage?.gender;
@@ -27,33 +26,32 @@ const DrawerComp = ({ open, setOpen }) => {
       placeholder: "Enter Username here",
       disable: disableState,
     },
+  
     {
-      name: "gender",
-      value: "",
-      label: "Gender",
-      placeholder: "Enter Gender here",
-      children: ["Male", "Female"],
-      disable: disableState,
-    },
-    {
-      name: "profession",
-      label: "Profession",
-      placeholder: "Enter Profession here",
+      name: "email",
+      label: "Email",
+      placeholder: "Enter Email here",
       disable: disableState,
     },
   ];
 
-  const onFinish = (values) => {
-    trigger({...values, id:getUserData?.data?._id});
-  };
+  // const onFinish = (values) => {
+  //   trigger({...values, id:getUserData?.data?._id});
+  // };
 
   const onFinishFailed = () => {
   };
+  const username = localStorage.getItem("username")
+  const email = localStorage.getItem("email")
+
+  const onFinish = ()=>{
+    console.log("first")
+  }
   return (
     <Drawer
       title={
         <p style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          {getUserData?.data?.username}
+          {username}
           <span
             style={{
               color: "#6e61e4",
@@ -83,27 +81,12 @@ const DrawerComp = ({ open, setOpen }) => {
             autoComplete="off"
             className="login-form"
             initialValues={{
-              profession: getUserData?.data?.profession,
-              username: getUserData?.data?.username,
-              gender: getUserData?.data?.gender,
+              username: username,
+              email: email,
             }}
           >
             {formFeild?.map((item) => {
-              if (item.label == "Gender") {
-                return (
-                  <Form.Item label="Select" name={item?.name} key={item.label + item.name}>
-                    <Select defaultValue={gender} disabled={item.disable}>
-                      {item?.children?.map((list) => {
-                        return (
-                          <Select.Option value={list} key={list}>
-                            {list}
-                          </Select.Option>
-                        );
-                      })}
-                    </Select>
-                  </Form.Item>
-                );
-              } else {
+          
                 return (
                   <Form.Item
                     name={item.name}
@@ -121,7 +104,7 @@ const DrawerComp = ({ open, setOpen }) => {
                     />
                   </Form.Item>
                 );
-              }
+            
             })}
             {!disableState ? (
               <Form.Item>

@@ -1,6 +1,9 @@
 .add-team-member-form {
   .input-field {
     .ant-form-item-row {
+      .ant-picker{
+        width: 100%;
+      }
       .ant-form-item-label {
         padding: 0;
       }

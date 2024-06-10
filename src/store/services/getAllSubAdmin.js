@@ -14,14 +14,14 @@ export const getAllSubAdmin = createApi({
       }),
       providesTags: ["getAllSubAdmin"],
     }),
-    getUserData: builder.query({
-      query: (body) => ({
-        url: "/user/user-data",
-        method: "GET",
-        body,
-      }),
-      providesTags: ["getAllSubAdmin"],
-    }),
+    // getUserData: builder.query({
+    //   query: (body) => ({
+    //     url: "/user/user-data",
+    //     method: "GET",
+    //     body,
+    //   }),
+    //   providesTags: ["getAllSubAdmin"],
+    // }),
     createAdmin: builder.mutation({
       query: (body) => ({
         url: "/user/create",

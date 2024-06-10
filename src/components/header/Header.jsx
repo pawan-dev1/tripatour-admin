@@ -19,7 +19,7 @@ const HeaderComponent = () => {
       <DrawerComp open={open} setOpen={setOpen} />
       <div className="header-container">
         <div className="header-left-col">
-          <div className="logo">G.I</div>
+          <div className="logo">Tripatour</div>
         </div>
         <div className="header-middle-col">
           <SearchBar />

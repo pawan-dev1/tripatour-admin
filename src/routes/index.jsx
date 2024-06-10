@@ -1,45 +1,34 @@
 import { createBrowserRouter } from "react-router-dom";
 import LayoutPrimary from "../layout";
 import {
-  CourseSkills,
-  CourseTitle,
-  addCourseType,
-  addNewStudent,
-  clientFeedback,
+  addHouseRuleRoute,
+  addPackageDetail,
+  categoryRoutes,
   dashBoardRoute,
-  faq,
+  editPackageDetail,
+  favRoutes,
+  houseRuleRoute,
   loginRoute,
-  ourTeam,
-  pendingPaymentRoutes,
-  skillDetails,
-  studentRecordRoutes,
-  subAdminRecordRoutes,
-  teacherRecordRoutes,
-  viewCourseCardDetails,
+  packageDetail,
+  packageRoutes,
+  showPackage,
+
 } from "./PagesRoutes";
 import Dashboard from "../pages/dashboard";
-import StudentRecord from "../pages/studentRecord";
 import LoginLayout from "../pages/auth";
 import Login from "../pages/auth/Login";
-import TeacherRecord from "../pages/teacherRecord";
-import SubAdminList from "../pages/subAdmin";
-import AddNewStudentForm from "../pages/addNewStudent";
-import PendingPayment from "../pages/paymentRecord/PendingPayment";
-import OurTeam from "../pages/ourTeam";
-import Faq from "../pages/faq";
-import ViewCourseCardDetails from "../pages/viewCourseCardDetails";
 import PageNotFound from "../pages/pageNotFound";
-import CreateCourseTitle from "../pages/createCourseTitle";
-import AddCourseSkills from "../pages/addCourseSkills";
-import ClientFeedback from "../pages/clientFeedback";
-import AddCourseTypes from "../pages/addCourseType";
-import AddSkillsDetails from "../pages/addSkillDetails";
+import Packages from "../pages/tourPackages/Packages";
+import Favourite from "../pages/favourite/Favourite";
+import AddPackageDetail from "../pages/addPackageDetail/AddPackageDetail";
+import Category from "../pages/category";
+import PackageDetail from "../pages/addPackageDetail/PackageDetail";
+import EditPackageDetail from "../pages/addPackageDetail/EditPackageDetail";
+import HouseRule from "../pages/houseRule/HouseRule";
+import AddHouseRule from "../pages/houseRule/AddHouseRule";
 
 const userType = localStorage.getItem("userType");
 
-const userType3 = userType == 3; //Pooja
-const userType2 = userType == 2; //Ritik
-const userType5 = userType == 5; //Rajesh
 
 export const router = createBrowserRouter([
   {
@@ -51,61 +40,45 @@ export const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: userType3 || userType5 ? ourTeam : "",
-        element: <OurTeam />,
+        path: categoryRoutes,
+        element: <Category />,
+      },
+   
+     
+      {
+        path:packageRoutes ,
+        element: <Packages />,
       },
       {
+        path:favRoutes ,
+        element: <Favourite />,
+      },
+      {
+        path:editPackageDetail,
+        element: <EditPackageDetail/>,
+      },
+      {
+        path:addPackageDetail,
+        element: <AddPackageDetail />,
+      },
+      {
+        path:showPackage,
+        element: <PackageDetail />,
+      },
+      {
+        path:houseRuleRoute,
+        element: <HouseRule />,
+      },
+      {
+        path:addHouseRuleRoute,
+        element: <AddHouseRule />,
+      },
+      {
+        
         path: "*",
         element: <PageNotFound />,
       },
-      {
-        path: studentRecordRoutes,
-        element: <StudentRecord />,
-      },
-      {
-        path: pendingPaymentRoutes,
-        element: <PendingPayment />,
-      },
-      {
-        path: teacherRecordRoutes,
-        element: <TeacherRecord />,
-      },
-      {
-        path: userType5 ? subAdminRecordRoutes : "",
-        element: <SubAdminList />,
-      },
-      {
-        path: userType3 || userType5 ? addNewStudent : "",
-        element: <AddNewStudentForm />,
-      },
-      {
-        path: userType2 || userType5 ? `${viewCourseCardDetails}/:id` : "",
-        element: <ViewCourseCardDetails />,
-      },
-      {
-        path: userType2 || userType5 ? `${skillDetails}/:id` : "",
-        element: <AddSkillsDetails />,
-      },
-      {
-        path: userType2 || userType2 || userType5 ? clientFeedback : "",
-        element: <ClientFeedback />,
-      },
-      {
-        path: userType2 || userType5 ? CourseTitle : "",
-        element: <CreateCourseTitle />,
-      },
-      {
-        path: userType2 || userType5 ? addCourseType : "",
-        element: <AddCourseTypes />,
-      },
-      {
-        path: userType2 || userType5 ? CourseSkills : "",
-        element: <AddCourseSkills />,
-      },
-      {
-        path: userType2 || userType3 || userType5 ? faq : "",
-        element: <Faq />,
-      },
+    
     ],
   },
   {

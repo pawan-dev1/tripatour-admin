@@ -1,17 +1,22 @@
-import { useState } from "react";
+import { Children, useState } from "react";
 import { Menu } from "antd";
 import {
   CourseSkills,
   CourseTitle,
   addCourseType,
+  addHouseRuleRoute,
   addNewStudent,
+  addPackageDetail,
+  categoryRoutes,
   clientFeedback,
   dashBoardRoute,
   faq,
+  favRoutes,
   loginRoute,
   ourTeam,
+  packageRoutes,
   pendingPaymentRoutes,
-  studentRecordRoutes,
+  showPackage,
   subAdminRecordRoutes,
   teacherRecordRoutes,
 } from "../../routes/PagesRoutes";
@@ -40,93 +45,123 @@ const SiderComponent = () => {
       label: <Link to={dashBoardRoute}>Dashboard</Link>,
       icon: <MdDashboard />,
     },
-    userType3 || userType5
-      ? {
-          key: "ourTeam",
-          label: <Link to={ourTeam}>Our Team</Link>,
-          icon: <MdMenuBook />,
-        }
-      : null,
     {
-      key: "faq",
-      label: <Link to={faq}>Faq</Link>,
-      icon: <MdMenuBook />,
-    },
+      key: "6",
+      label: <Link to={categoryRoutes}>Category</Link>,
+      icon: <PiStudentBold />,
+  },
     {
-      key: "5",
-      label: "Record",
-      children: [
-        {
-          key: "6",
-          label: <Link to={studentRecordRoutes}>Students</Link>,
-          icon: <PiStudentBold />,
-        },
-        userType5
-          ? {
-              key: "7",
-              label: <Link to={subAdminRecordRoutes}>Sub Admin</Link>,
-              icon: <PiStudentBold />,
-            }
-          : null,
-        {
-          key: "8",
-          label: <Link to={teacherRecordRoutes}>Teacher</Link>,
-          icon: <FaRegCreditCard />,
-        },
-      ],
-    },
-    {
-      key: 9,
-      label: "Student Fees",
-      children: [
-        {
-          key: "10",
-          label: <Link to={pendingPaymentRoutes}>Pending Fees</Link>,
-          icon: <FaRegCreditCard />,
-        },
-        {
-          key: "11",
-          label: <Link to={pendingPaymentRoutes}>Confirm Fess</Link>,
-          icon: <FaRegCreditCard />,
-        },
-      ],
-    },
-    userType3 || userType5
-      ? {
-          key: "14",
-          label: <Link to={CourseTitle}>Add Course Title</Link>,
-          icon: <MdMenuBook />,
-        }
-      : null,
-    userType2 || userType3 || userType5
-      ? {
-          key: "query",
-          label: <Link to={clientFeedback}>Client Feedback</Link>,
-          icon: <MdMenuBook />,
-        }
-      : null,
-    userType2 || userType5
-      ? {
-          key: "courseType",
-          label: <Link to={addCourseType}>Add Course Type</Link>,
-          icon: <MdMenuBook />,
-        }
-      : null,
-    userType3 || userType5
-      ? {
-          key: "15",
-          label: <Link to={CourseSkills}>Add Course Skills</Link>,
-          icon: <MdMenuBook />,
-        }
-      : null,
+      key: "6",
+      label: "Packages Section",
+      icon: <PiStudentBold />,
+      children:[
 
-    userType3 || userType5
-      ? {
-          key: "12",
-          label: <Link to={addNewStudent}>Add New Student</Link>,
-          icon: <MdMenuBook />,
-        }
-      : null,
+      {
+        key: "1",
+        label: <Link to={packageRoutes}>Package</Link>,
+        icon: <PiStudentBold />,
+    },
+      {
+        key: "8",
+        label: <Link to={showPackage}> Package Detail</Link>,
+        icon: <PiStudentBold />,
+    },
+      {
+        key: "9",
+        label: <Link to={addHouseRuleRoute}>Add House Rule</Link>,
+        icon: <PiStudentBold />,
+    },
+    {
+      key: "3",
+      label: <Link to={favRoutes}>Favourite</Link>,
+      icon: <MdDashboard />,
+    },
+  ]
+    },
+   
+    // userType3 || userType5
+    //   ? {
+    //       key: "ourTeam",
+    //       label: <Link to={ourTeam}>Our Team</Link>,
+    //       icon: <MdMenuBook />,
+    //     }
+    //   : null,
+    // {
+    //   key: "faq",
+    //   label: <Link to={faq}>Faq</Link>,
+    //   icon: <MdMenuBook />,
+    // },
+    // {
+    //   key: "5",
+    //   label: "Record",
+    //   children: [
+     
+    //     userType5
+    //       ? {
+    //           key: "7",
+    //           label: <Link to={subAdminRecordRoutes}>Sub Admin</Link>,
+    //           icon: <PiStudentBold />,
+    //         }
+    //       : null,
+    //     {
+    //       key: "8",
+    //       label: <Link to={teacherRecordRoutes}>Teacher</Link>,
+    //       icon: <FaRegCreditCard />,
+    //     },
+    //   ],
+    // },
+    // {
+    //   key: 9,
+    //   label: "Student Fees",
+    //   children: [
+    //     {
+    //       key: "10",
+    //       label: <Link to={pendingPaymentRoutes}>Pending Fees</Link>,
+    //       icon: <FaRegCreditCard />,
+    //     },
+    //     {
+    //       key: "11",
+    //       label: <Link to={pendingPaymentRoutes}>Confirm Fess</Link>,
+    //       icon: <FaRegCreditCard />,
+    //     },
+    //   ],
+    // },
+    // userType3 || userType5
+    //   ? {
+    //       key: "14",
+    //       label: <Link to={CourseTitle}>Add Course Title</Link>,
+    //       icon: <MdMenuBook />,
+    //     }
+    //   : null,
+    // userType2 || userType3 || userType5
+    //   ? {
+    //       key: "query",
+    //       label: <Link to={clientFeedback}>Client Feedback</Link>,
+    //       icon: <MdMenuBook />,
+    //     }
+    //   : null,
+    // userType2 || userType5
+    //   ? {
+    //       key: "courseType",
+    //       label: <Link to={addCourseType}>Add Course Type</Link>,
+    //       icon: <MdMenuBook />,
+    //     }
+    //   : null,
+    // userType3 || userType5
+    //   ? {
+    //       key: "15",
+    //       label: <Link to={CourseSkills}>Add Course Skills</Link>,
+    //       icon: <MdMenuBook />,
+    //     }
+    //   : null,
+
+    // userType3 || userType5
+    //   ? {
+    //       key: "12",
+    //       label: <Link to={addNewStudent}>Add New Student</Link>,
+    //       icon: <MdMenuBook />,
+    //     }
+    //   : null,
     {
       key: "13",
       label: (
