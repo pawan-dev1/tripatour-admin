@@ -7,6 +7,7 @@ import { favTour } from "./services/fav";
 import { packageDetail } from "./services/addTourDetail";
 import { houseRule } from "./services/houseRule";
 import { getFeedback } from "./services/feedback";
+import { getDashboard } from "./services/dashBoard";
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     [packageDetail.reducerPath]: packageDetail.reducer,
     [houseRule.reducerPath]: houseRule.reducer,
     [getFeedback.reducerPath]: getFeedback.reducer,
+    [getDashboard.reducerPath]: getDashboard.reducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.
@@ -30,6 +32,7 @@ export const store = configureStore({
       .concat(packageDetail.middleware)
       .concat(houseRule.middleware)
       .concat(getFeedback.middleware)
+      .concat(getDashboard.middleware),
 });
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors

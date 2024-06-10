@@ -19,7 +19,7 @@ const LayoutPrimary = () => {
       navigate(loginRoute);
     }
   }, [loginToken]);
-
+const location = window.location.pathname
   return (
     <Layout className="main-layout">
       <Header className="layout-header">
@@ -29,7 +29,7 @@ const LayoutPrimary = () => {
         <Sider className="layout-sider">
           <SiderComponent />
         </Sider>
-        <Content className="layout-content" ref={elementRef}>
+        <Content className="layout-content" ref={elementRef} style={{padding:location == "/" && "0px"}}>
           <Outlet context={[elementRef]} />
         </Content>
       </Layout>
