@@ -22,7 +22,7 @@ const HeaderComponent = () => {
           <div className="logo">Tripatour</div>
         </div>
         <div className="header-middle-col">
-          <SearchBar />
+          {/* <SearchBar /> */}
         </div>
         <div className="header-right-col">
           <div className="notification">

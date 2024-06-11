@@ -18,7 +18,7 @@ export const packageDetail = createApi({
     }),
     addPackageDetail: builder.mutation({
       query: (body) => ({
-        url: "/tourDetails/addTourDetails",
+        url: "/package/addPackage",
         method: "POST",
         body,
       }),

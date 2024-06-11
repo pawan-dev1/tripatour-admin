@@ -1,5 +1,10 @@
 export const Columns = [
   {
+    title: "Sno",
+    dataIndex: "sno",
+    key: "sno",
+  },
+  {
     title: "Image",
     dataIndex: "Images",
     key: "Images",
@@ -10,9 +15,9 @@ export const Columns = [
     key: "title",
   },
   {
-    title: "Description",
-    dataIndex: "description",
-    key: "description",
+    title: "Activity",
+    dataIndex: "activity",
+    key: "activity",
   },
 
 

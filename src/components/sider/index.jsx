@@ -73,13 +73,13 @@ const SiderComponent = () => {
         label: <Link to={houseRuleRoute}>House Rule</Link>,
         icon: <PiStudentBold />,
     },
-    {
-      key: "3",
-      label: <Link to={favRoutes}>Favourite</Link>,
-      icon: <MdDashboard />,
-    },
     ]
     },
+      {
+        key: "3",
+        label: <Link to={favRoutes}>Favourite</Link>,
+        icon: <MdDashboard />,
+      },
       {
         key: "31",
         label: <Link to={feedbackRoute}>Feedback</Link>,

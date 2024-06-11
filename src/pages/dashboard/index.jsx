@@ -9,9 +9,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="dashboard-header">
-        <h2>Dashboard</h2>
-      </div>
+      
       <div className="cards-container">
         <Card
           name={"Total Activity"}

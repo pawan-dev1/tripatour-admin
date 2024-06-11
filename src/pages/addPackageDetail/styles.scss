@@ -59,5 +59,33 @@
             color: black;
             margin-bottom: 12px;
         }
+        input{
+          outline: none;
+        padding: 3px 5px;
+        border: 1px solid #ccc;
+        }
+        textarea{
+          outline: none;
+          padding: 10px;
+          border: 1px solid #ccc;
+        }
     }
+}
+.text-editor-num{
+  display: flex;
+  gap: 2%;
+ .text-editor{
+  width: 49%;
+ } 
+}
+.text-editor-num2{
+  display: flex;
+  gap: 2%;
+  .text-editor{
+    width: 49%;
+
+    select{
+      border:1px solid #ccc;
+    };
+   } 
 }

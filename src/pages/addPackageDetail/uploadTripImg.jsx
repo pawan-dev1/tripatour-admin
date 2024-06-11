@@ -1,7 +1,7 @@
 import { Upload } from 'antd'
 import React, { useState } from 'react'
 
-const UploadTripImg = ({ fileList,setFileList }) => {
+const UploadTripImg = ({ fileList,setFileList, length }) => {
 
     const onChange = ({ fileList: newFileList }) => {
       setFileList(newFileList);
@@ -32,7 +32,7 @@ const UploadTripImg = ({ fileList,setFileList }) => {
                 onPreview={onPreview}
                 accept="image/png, image/jpeg,image/jpg ,image/webp, image/svg"
               >
-                {fileList?.length < 5 && "+ Upload"}
+                {fileList?.length < length && "+ Upload"}
               </Upload>
         </div>
     )

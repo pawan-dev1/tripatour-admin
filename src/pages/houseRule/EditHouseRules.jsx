@@ -1,138 +1,248 @@
-import  { useEffect, useState } from 'react'
-import {  useEditPackageDetailsMutation, useGetPackageDetailsMutation } from '../../store/services/addTourDetail'
-import { Editor } from "primereact/editor";
-// import "./styles.scss"
+import { useEffect, useState } from "react";
 // import UploadTripImg from './uploadTripImg';
-import { useGetTourCategoryQuery } from '../../store/services/tourPackages';
-import { Button, Input, Select } from 'antd';
-import { BreadCrum } from '../../components/breadCrume';
-import {  useParams } from 'react-router-dom';
-import {useGetHouseRuleQuery} from "../../store/services/houseRule";
-export async function blobCreationFromURL(inputURI) {
-    const response = await fetch(inputURI);
-    const blob = await response.blob();
-    return new File([blob], inputURI, {
-        type: blob.type || "image/jpeg",
-      })
-    // return blob
-  }
+import { useGetTourCategoryQuery } from "../../store/services/tourPackages";
+import { Button, Input, Select } from "antd";
+import { BreadCrum } from "../../components/breadCrume";
+import { TimePicker } from 'antd';
+import moment from 'moment';
+import"./style.scss";
+import { useAddHouseRuleMutation, useEditHouseRuleMutation, useGetHouseRuleQuery } from "../../store/services/houseRule";
+import { useParams } from "react-router-dom";
 
 const EditHouseRules = () => {
-
-
-    const { id } = useParams()
-    const [fileList, setFileList] = useState([])
-    const [editorData, setEditorData] = useState({
-        tourId: "",
-        highlights: "",
-        needToKnow: "",
-        canclePolicy: "",
-        inclusions: "",
-        images: []
-    })
-    const { data: packagesData } = useGetHouseRuleQuery(id)
-
-
-  
-
-
- 
-
-    const handleChange = (name, value) => {
-        setEditorData((prev) => {
-            return {
-                ...prev, [name]: value
-
-            }
-        })
+    const {id} = useParams()
+    const { data: houseRuleData } = useGetHouseRuleQuery(id);
+    const houseRuleDataObj = houseRuleData?.data[0] 
+  const [editorData, setEditorData] = useState({
+    tourId: houseRuleDataObj?.tourId,
+    title: houseRuleDataObj?.title,
+    description: houseRuleDataObj?.description,
+    check_in: houseRuleDataObj?.check_in,
+    check_out: houseRuleDataObj?.check_out,
+    cancellation_policy: houseRuleDataObj?.cancellation_policy,
+    child_policy: houseRuleDataObj?.child_policy,
+    crib_policy: houseRuleDataObj?.crib_policy,
+    extra_bed_policy: houseRuleDataObj?.extra_bed_policy,
+    age_restriction: houseRuleDataObj?.age_restriction,
+    pets: houseRuleDataObj?.pets,
+    accepted_cards: [],
+  });
+  const [triggre, { data }] = useEditHouseRuleMutation();
+  const { data: packagesData } = useGetTourCategoryQuery();
+  console.log(houseRuleData?.data[0])
+  const handleChange = (name, value) => {
+    setEditorData((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
+useEffect(() => {
+  setEditorData((prev)=>{
+    return{
+        ...prev,
+        tourId: houseRuleDataObj?.tourId,
+        title: houseRuleDataObj?.title,
+        description: houseRuleDataObj?.description,
+        check_in: houseRuleDataObj?.check_in,
+        check_out: houseRuleDataObj?.check_out,
+        cancellation_policy: houseRuleDataObj?.cancellation_policy,
+        child_policy: houseRuleDataObj?.child_policy,
+        crib_policy: houseRuleDataObj?.crib_policy,
+        extra_bed_policy: houseRuleDataObj?.extra_bed_policy,
+        age_restriction: houseRuleDataObj?.age_restriction,
+        pets: houseRuleDataObj?.pets,
     }
+  })
+}, [houseRuleData])
 
-
-    const submitHandler = async() => {
-        
-        const formData = new FormData();
-        formData.append("highlights", editorData.highlights);
-        formData.append("needToKnow", editorData.needToKnow);
-        formData.append("canclePolicy", editorData.canclePolicy);
-        formData.append("inclusions", editorData.inclusions);
-        
-        // formData.append("tourId", editorData?.tourId)
-        
-        for(let item of fileList){
-            console.log(item,"item")
-            if(item?.originFileObj )  {
-              formData.append("images",item?.originFileObj)
-            }else { const data  = await blobCreationFromURL(item?.url)
-              formData.append("images",data)
-            }
+  const handleChangeCrib = (name, value) => {
+    setEditorData((prev) => {
+    const updatedCribPolicy = prev?.crib_policy?.map((item) => {
+      // If you want to update the object based on some condition, you can put it here.
+      // For now, let's update the first object in the array.
+        return {
+          ...item,
+          // Use nested spread to update specific keys within the object
+          ...{
+            [name]: value,
           }
-        for (const pair of formData.entries()) {
-            console.log(pair[0] + ', ' + pair[1]);
-        }
-        
-        // triggre({data:formData,id:editorData?.tourId});
-    }
+        };
+    });
+  
+    return {
+      ...prev,
+      crib_policy: updatedCribPolicy
+    };
+  })
+  };
 
-    const packageLists = packagesData?.data?.map((elm) => {
-        return { value: elm?._id, label: elm?.title }
-    })
 
-    useEffect(() => {
-      const getImage = []
-     setFileList(getImage)
+  const submitHandler = () => {
+    triggre(editorData)
+  };
 
-     const highlights = ""
-     const inclusions = ""
-     const needToKnow = ""
-     const canclePolicy = ""
-     const tourId = ""
-     setEditorData((prev)=>{
-        return{
-            ...prev,highlights:highlights,inclusions:inclusions,needToKnow:needToKnow,canclePolicy:canclePolicy,tourId:tourId
-        }
-     })
+  const packageLists = packagesData?.data?.map((elm) => {
+    return { value: elm?._id, label: elm?.title };
+    
+  });
+  
+  const cardLists = [
+    { value:"Visa", label: "Visa" },
+    { value:"Rupay", label: "Rupay" },
+    { value:"Mastercard", label: "Mastercard" }
+  ]
+
+
+  return (
+    <div className="text-editor-wrapper">
+      <BreadCrum name={"Edit House Rule Details"} />
+   
+      {/* <div className="text-editor">
+        <h3 className="title">Title</h3>
+        <Input
+          value={editorData?.title}
+        onChange={(e) => handleChange("title", e.target.value)}
+        />
+      </div> */}
+      {/* ------------------------ */}
+       <div className="text-editor">
+        <h3 className="title">Title</h3>
+        <Input
+          value={editorData?.title}
+        onChange={(e) => handleChange("title", e.target.value)}
+        />
+      </div>
+
+         <div className="text-editor">
+        <h3 className="title">Description</h3>
+        <Input
+          value={editorData?.description}
+        onChange={(e) => handleChange("description", e.target.value)}
+        />
+      </div>
+        <div className="time">
+      <div className="text-editor">
+        <h3 className="title">Check In Time</h3>
+        <TimePicker className="check-in"
+          value={editorData.check_in ? moment(editorData.check_in, 'h:mm A') : null}
+          onChange={(time, timeString) => handleChange("check_in", timeString)}
+          format="h:mm A"
+          use12Hours
+        />
+      </div>
+
+      <div className="text-editor">
+        <h3 className="title">Check Out Time</h3>
+        <TimePicker className="check-in"
+          value={editorData.check_out ? moment(editorData.check_out, 'h:mm A') : null}
+          onChange={(time, timeString) => handleChange("check_out", timeString)}
+          format="h:mm A"
+          use12Hours
+          />
+      </div>
+          </div>
+       <div className="text-editor">
+        <h3 className="title">Cancellation Policy</h3>
+        <Input
+          value={editorData?.cancellation_policy}
+        onChange={(e) => handleChange("cancellation_policy", e.target.value)}
+        />
+      </div>
+      <div className="text-editor">
+        <h3 className="title">Child Policy</h3>
+        <Input
+          value={editorData?.child_policy}
+        onChange={(e) => handleChange("child_policy", e.target.value)}
+        />
+      </div>
+      <div className="crib-policy">
+        <h3 className="title">Crib Policy</h3>
+        <div className="crib-sec">
+
+        <Input
+          placeholder="Age"
+          value={editorData.crib_policy?.[0].age}
+          onChange={(e) => handleChangeCrib("age", e.target.value)}
+          />
+        <Input
+          placeholder="Product"
+          value={editorData.crib_policy?.[0].product}
+          onChange={(e) => handleChangeCrib("product", e.target.value)}
+          />
+          </div>
+        <Input
+          placeholder="Price"
+          value={editorData.crib_policy?.[0].price}
+          onChange={(e) => handleChangeCrib("price", e.target.value)}
+        />
+      </div>
+
+
+
+
+
+      
+
+
+
+      <div className="text-editor">
+        <h3 className="title">Extra Bed Policy</h3>
+        <Input
+          value={editorData?.extra_bed_policy}
+        onChange={(e) => handleChange("extra_bed_policy", e.target.value)}
+        />
+      </div>
+      <div className="text-editor">
+        <h3 className="title">Age Restriction</h3>
+        <Input
+          value={editorData?.age_restriction}
+        onChange={(e) => handleChange("age_restriction", e.target.value)}
+        />
+      </div>
+      <div className="text-editor">
+        <h3 className="title">Pets</h3>
+        <Input
+          value={editorData?.pets}
+        onChange={(e) => handleChange("pets", e.target.value)}
+        />
+      </div>
+
+
      
-    }, [])
-    return (
-        <div className='text-editor-wrapper'>
-             <BreadCrum name={'Edit House Rule Details'} sub={"Packages Section"}/>
-                <div className="search-container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBlock: "10px" }}>
-                    <Input placeholder="Search here..." style={{ width: "50%" }} />
-                </div>
-            <div className="text-editor">
-                <h3 className='title'>Highlights</h3>
-                <Editor value={editorData?.highlights} onTextChange={(e) => handleChange("highlights", e.htmlValue)} style={{ height: '280px', color: 'black' }} />
-            </div>
-
-            <div className="text-editor">
-                <h3 className='title'>Need to know</h3>
-                <Editor value={editorData?.needToKnow} onTextChange={(e) => handleChange("needToKnow", e.htmlValue)} style={{ height: '280px', color: 'black' }} />
-            </div>
-
-            <div className="text-editor">
-                <h3 className='title'>Cancel policy</h3>
-                <Editor value={editorData?.canclePolicy} onTextChange={(e) => handleChange("canclePolicy", e.htmlValue)} style={{ height: '280px', color: 'black' }} />
-            </div>
-
-            <div className="text-editor">
-                <h3 className='title'>Inclusions</h3>
-                <Editor value={editorData?.inclusions} onTextChange={(e) => handleChange("inclusions", e.htmlValue)} style={{ height: '280px', color: 'black' }} />
-            </div>
-            <div className="text-editor">
-                <h3 className='title'>Our Packages</h3>
-                <Select  options={packageLists} style={{ width: '100%' }} onChange={(e)=>handleChange("tourId",e)} placeholder='Select your packages'/>;
-
-            </div>
-            {/* <div className="text-editor">
+      <div className="text-editor">
+        <h3 className="title">Our Packages</h3>
+        <Select
+          options={packageLists}
+          style={{ width: "100%" }}
+          value={editorData?.tourId}
+          onChange={(e) => handleChange("tourId", e)}
+          placeholder="Select your packages"
+        />
+        ;
+      </div>
+      <div className="text-editor">
+        <h3 className="title">Cards</h3>
+        <Select
+          options={cardLists}
+          mode="multiple"
+          style={{ width: "100%" }}
+          defaultValue={editorData?.accepted_cards}
+          onChange={(e) => handleChange("accepted_cards", e)}
+          placeholder="Select your card"
+        />
+      </div>
+      {/* <div className="text-editor">
                 <h3 className='title'>Upload Trip Images</h3>
                 <UploadTripImg setFileList={setFileList} fileList={fileList} />
             </div> */}
 
+      <Button onClick={submitHandler}>Submit</Button>
+    </div>
+  );
+};
 
-            <Button onClick={submitHandler}>Submit</Button>
-        </div>
-    )
-}
+export default EditHouseRules;
 
-export default EditHouseRules
 

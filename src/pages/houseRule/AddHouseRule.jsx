@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { useAddPackageDetailMutation } from "../../store/services/addTourDetail";
-import { Editor } from "primereact/editor";
 // import UploadTripImg from './uploadTripImg';
 import { useGetTourCategoryQuery } from "../../store/services/tourPackages";
 import { Button, Input, Select } from "antd";
@@ -8,7 +6,7 @@ import { BreadCrum } from "../../components/breadCrume";
 import { TimePicker } from 'antd';
 import moment from 'moment';
 import"./style.scss";
-import { useParams } from "react-router-dom";
+import { useAddHouseRuleMutation } from "../../store/services/houseRule";
 
 const AddHouseRule = () => {
   const [editorData, setEditorData] = useState({
@@ -25,7 +23,7 @@ const AddHouseRule = () => {
     pets: "",
     accepted_cards: [],
   });
-  const [triggre, { data }] = useAddPackageDetailMutation();
+  const [triggre, { data }] = useAddHouseRuleMutation();
   const { data: packagesData } = useGetTourCategoryQuery();
 
   const handleChange = (name, value) => {
@@ -37,27 +35,48 @@ const AddHouseRule = () => {
     });
   };
 
-  const submitHandler = () => {};
+  const handleChangeCrib = (name, value) => {
+    setEditorData((prev) => {
+    const updatedCribPolicy = prev.crib_policy.map((item) => {
+      // If you want to update the object based on some condition, you can put it here.
+      // For now, let's update the first object in the array.
+        return {
+          ...item,
+          // Use nested spread to update specific keys within the object
+          ...{
+            [name]: value,
+          }
+        };
+    });
+  
+    return {
+      ...prev,
+      crib_policy: updatedCribPolicy
+    };
+  })
+  };
+
+
+  const submitHandler = () => {
+    triggre(editorData)
+  };
 
   const packageLists = packagesData?.data?.map((elm) => {
     return { value: elm?._id, label: elm?.title };
+    
   });
-  console.log(editorData,"kmkmkm")
+  
+  const cardLists = [
+    { value:"Visa", label: "Visa" },
+    { value:"Rupay", label: "Rupay" },
+    { value:"Mastercard", label: "Mastercard" }
+  ]
+  console.log(editorData)
 
   return (
     <div className="text-editor-wrapper">
       <BreadCrum name={"Add House Rule Details"} />
-      <div
-        className="search-container"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          marginBlock: "10px",
-        }}
-      >
-        <Input placeholder="Search here..." style={{ width: "50%" }} />
-      </div>
+   
       {/* <div className="text-editor">
         <h3 className="title">Title</h3>
         <Input
@@ -84,7 +103,7 @@ const AddHouseRule = () => {
         <div className="time">
       <div className="text-editor">
         <h3 className="title">Check In Time</h3>
-        <TimePicker
+        <TimePicker className="check-in"
           value={editorData.check_in ? moment(editorData.check_in, 'h:mm A') : null}
           onChange={(time, timeString) => handleChange("check_in", timeString)}
           format="h:mm A"
@@ -94,7 +113,7 @@ const AddHouseRule = () => {
 
       <div className="text-editor">
         <h3 className="title">Check Out Time</h3>
-        <TimePicker
+        <TimePicker className="check-in"
           value={editorData.check_out ? moment(editorData.check_out, 'h:mm A') : null}
           onChange={(time, timeString) => handleChange("check_out", timeString)}
           format="h:mm A"
@@ -116,25 +135,25 @@ const AddHouseRule = () => {
         onChange={(e) => handleChange("child_policy", e.target.value)}
         />
       </div>
-        <h3 className="title">Crib Policy</h3>
       <div className="crib-policy">
+        <h3 className="title">Crib Policy</h3>
         <div className="crib-sec">
 
         <Input
           placeholder="Age"
-          value={editorData.crib_policy_age}
-          onChange={(e) => handleChange("crib_policy_age", e.target.value)}
+          value={editorData.crib_policy?.[0].age}
+          onChange={(e) => handleChangeCrib("age", e.target.value)}
           />
         <Input
           placeholder="Product"
-          value={editorData.crib_policy_product}
-          onChange={(e) => handleChange("crib_policy_product", e.target.value)}
+          value={editorData.crib_policy?.[0].product}
+          onChange={(e) => handleChangeCrib("product", e.target.value)}
           />
           </div>
         <Input
           placeholder="Price"
-          value={editorData.crib_policy_price}
-          onChange={(value) => handleChange("crib_policy_price", value)}
+          value={editorData.crib_policy?.[0].price}
+          onChange={(e) => handleChangeCrib("price", e.target.value)}
         />
       </div>
 
@@ -179,6 +198,16 @@ const AddHouseRule = () => {
           placeholder="Select your packages"
         />
         ;
+      </div>
+      <div className="text-editor">
+        <h3 className="title">Cards</h3>
+        <Select
+          options={cardLists}
+          mode="multiple"
+          style={{ width: "100%" }}
+          onChange={(e) => handleChange("accepted_cards", e)}
+          placeholder="Select your card"
+        />
       </div>
       {/* <div className="text-editor">
                 <h3 className='title'>Upload Trip Images</h3>

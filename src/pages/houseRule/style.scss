@@ -2,12 +2,25 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  .text-editor{
+    width: 49%;
+    overflow: hidden;
+    // background-color: darkblue;
+
+  }
+  .check-in{
+    width: 100%;
+  }
 }
 .crib-policy {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   gap: 20px;
+
+  .title {
+    color: black;
+  }
 
   .crib-sec{
      display: flex;

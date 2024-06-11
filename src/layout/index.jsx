@@ -29,8 +29,14 @@ const location = window.location.pathname
         <Sider className="layout-sider">
           <SiderComponent />
         </Sider>
-        <Content className="layout-content" ref={elementRef} style={{padding:location == "/" && "0px"}}>
+        <Content  ref={elementRef} >
+        <div className="dashboard-header">
+        <h2>Dashboard</h2>
+      </div>
+      <div className="layout-content">
+
           <Outlet context={[elementRef]} />
+      </div>
         </Content>
       </Layout>
     </Layout>
