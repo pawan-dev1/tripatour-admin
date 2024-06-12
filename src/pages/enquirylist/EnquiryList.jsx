@@ -5,8 +5,10 @@ import {useEnquiryListQuery, useUpdateStatusMutation} from "../../store/services
 
 const EnquiryList = () => {
 const [status,setStatus] = useState()
-const {data:enquiryListDara} = useEnquiryListQuery(1)
+const [filter, setFilter]=useState("")
+const {data:enquiryListDara} = useEnquiryListQuery({page:1,status:filter})
 const [trigger,{data:updateStatusData}] = useUpdateStatusMutation()
+console.log(filter)
 const option = [{
     value: "IN PROCESS",
     label:"IN PROCESS"
@@ -23,9 +25,15 @@ const checkStatus = {
     COMPLETED:"APPROVED",
     CANCELLED:"REJECTED"
 }
+// const checkStatus2 = {
+//     "IN PROCESS":"IN PROCESS",
+//     APPROVED:"APPROVED",
+//     REJECTED:"REJECTED"
+// }
     const data = enquiryListDara?.data?.enquiries.map((item,index)=>{
         return {
             key: item.fullName,
+
             Sno:index+1,
             name: item?.fullName,
             email: item?.email,
@@ -34,7 +42,8 @@ const checkStatus = {
             status:checkStatus[item?.status],
             peopleInfo:item?.peopleInfo,
             message:item?.message,
-            Action:<Select options= {option} style={{width:"120px"}} onChange={(e)=>setStatus({value:e,id:item?._id})}/>,
+            Action:<Select options= {option} value={checkStatus[item?.status]} style={{width:"120px"}} onChange={(e)=>setStatus({value:e,id:item?._id})}/>,
+
           }
     })
        
@@ -65,13 +74,18 @@ useEffect(()=>{
             &nbsp;entries
           </label>
         </div>
+
+        </div>
+        <div className="filter"style={{display:"flex",gap:"10px", justifyContent:"center", alignItems:"center", fontSize:"16px"}}>
+          <p>Search by Status</p>
+        <Select options={option}  style={{width:"120px"}} onChange={(e)=>setFilter(e)}/>
         </div>
           <div className="search">
             <label htmlFor="#" className="search-label">Search : </label>
             <input type="text" className="search-bar" />
           </div>
         </div>
-        <Table columns={Columns} dataSource={data} />;
+        <Table columns={Columns} dataSource={data} pagination={false}/>;
     </div>
   )
 }

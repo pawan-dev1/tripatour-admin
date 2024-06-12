@@ -7,13 +7,14 @@ export const enquiryList = createApi({
   endpoints: (builder) => ({
     enquiryList: builder.query({
       query: (body) => ({
-        url: `/enquiry/getAllEnquiries/${body}`,
+        url: `/enquiry/getAllEnquiries/${body.page}?status=${body.status}`,
         method: "GET",
       }),
       providesTags:["enquiryList"]
       }),
       updateStatus: builder.mutation({
-        query: (body) => ({
+        query: (body) => (console.log(body),{
+
           url: `/enquiry/updateEnquiryStatus/${body.id}`,
           method: "PUT",
           body:{status:body.value}

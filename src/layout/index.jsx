@@ -24,7 +24,8 @@ const location = window.location.pathname
 const routepath = {
   "/package":"Package",
   "/category":"Category",
-  "/feedback":"Feedback"
+  "/feedback":"Feedback",
+  "/enquiry-list":"Enquiry List"
 }
   return (
     <Layout className="main-layout">
