@@ -6,11 +6,12 @@ export const getDashboard = createApi({
     baseQuery: dynamicBaseQuery,
     endpoints: (builder) => ({
         getDashboard: builder.query({
-            query: () => ({
-                url: "/enquiry/totalDashBoardDataCount",
+            query: (body) => ({
+                url: `/enquiry/totalDashBoardDataCount?date=${body}`,
                 method: "GET"
             })
         })
+        
     })
 })
 export const {useGetDashboardQuery} = getDashboard;

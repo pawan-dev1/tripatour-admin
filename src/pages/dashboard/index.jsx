@@ -1,15 +1,36 @@
 import { useGetDashboardQuery } from "../../store/services/dashBoard";
 import Card from "./Crad";
+import { DatePicker, Space } from 'antd';
 import "./style.scss";
+import { useState } from "react";
+import moment from "moment";
 const Dashboard = () => {
-  const { data } = useGetDashboardQuery();
+  const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
+
+  useState(() => {
+
+  })
+  const { data } = useGetDashboardQuery(date);
   console.log(data?.data, "data1");
 
   const dashBoardData = data?.data;
 
+  const onChange = (date, dateString) => {
+    setDate(dateString);
+  };
+
   return (
     <>
       
+    <div className="date-filter">
+<h3>Dashboard</h3>
+      <div style={{display:"flex",justifyContent:"space-between"}}>
+    <Space direction="horizontal" >
+    <span>Search by date</span><DatePicker onChange={onChange} />
+   
+  </Space>
+      </div>
+    </div>
       <div className="cards-container">
         <Card
           name={"Total Activity"}

@@ -23,4 +23,5 @@ export const skillDetails = "/skill-details";
 export const clientFeedback = "/client-feedback";
 export const CourseTitle = "/create-course-title";
 export const CourseSkills = "/create-course-skills";
+export const enquiryList = "/enquiry-list";
 export const signUp = "/sign-up";

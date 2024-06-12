@@ -107,10 +107,11 @@ const AddPackageDetail = () => {
       };
     return (
         <div className='text-editor-wrapper'>
-            <BreadCrum name={'Trip Packages Details'} />
-            <div className="search-container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBlock: "10px" }}>
-                <Input placeholder="Search here..." style={{ width: "50%" }} />
-            </div>
+            {/* <BreadCrum name={'Add Package'} /> */}
+           <div className="add-package">
+            <p>Add Package</p>
+            {/* <hr /> */}
+           </div>
             <div className="text-editor">
                 <h3 className='title'>Name</h3>
                 <Input type="text" style={{ width: '100%', color: '' }} onChange={(e) => handleChange("name", e.target.value)} />
@@ -121,6 +122,7 @@ const AddPackageDetail = () => {
                 <div className="text-editor">
                     <h3 className='title'>Packages Night</h3>
                     <select className="packageNight" id="rating" style={{ width: '100%', padding: "7px", outline: "none", border: "1px solid #ccc" }} onChange={(e) => handleChange("packagesNight", e.target.value)}>
+                        <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -135,7 +137,7 @@ const AddPackageDetail = () => {
                     </select>
                 </div>
                 <div className="text-editor">
-                    <h3 className='title'>star</h3>
+                    <h3 className='title'>Package Rating</h3>
                     <Select className="rating" style={{width:"100%"}} options={starOption} onChange={(e) => handleChange("star", e)} />
                    
                  
@@ -143,13 +145,10 @@ const AddPackageDetail = () => {
                 </div>
             </div>
             <div className="text-editor">
-                <h3 className='title'>DNSchedule</h3>
-                <textarea id="textarea" name="textarea" rows="4" cols="50" style={{ width: '100%' }} onChange={(e) => handleChange("DNSchedule", e.target.value)} />
+                <h3 className='title'>Day/Night Schedule</h3>
+                <Input id="textarea" name="textarea" rows="4" cols="50" style={{ width: '100%' }} onChange={(e) => handleChange("DNSchedule", e.target.value)} />
             </div>
-            {/* <div className="text-editor">
-                <h3 className='title'>info</h3>
-                <textarea id="textarea" name="textarea" rows="4" cols="50" style={{ width: '100%' }} onChange={(e) => handleChange("info", e.target.value)} />
-            </div> */}
+           
 
             <div className="text-editor">
                 <h3 className='title'>info</h3>
@@ -262,7 +261,7 @@ const AddPackageDetail = () => {
             </div>
 
 
-            <Button onClick={submitHandler}>Submit</Button>
+            <Button onClick={submitHandler} style={{width:"10%" ,background:"#84a845", color:"#fff", border:"none"}}>Submit</Button>
         </div>
     )
 }

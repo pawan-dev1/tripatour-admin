@@ -5,7 +5,6 @@ import "./styles.scss"
 import UploadTripImg from './uploadTripImg';
 import { useGetTourCategoryQuery } from '../../store/services/tourPackages';
 import { Button, Select } from 'antd';
-
 const AddPackageDetail = () => {
 
 

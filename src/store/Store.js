@@ -8,6 +8,7 @@ import { packageDetail } from "./services/addTourDetail";
 import { houseRule } from "./services/houseRule";
 import { getFeedback } from "./services/feedback";
 import { getDashboard } from "./services/dashBoard";
+import { enquiryList } from "./services/enquiryList";
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
     [houseRule.reducerPath]: houseRule.reducer,
     [getFeedback.reducerPath]: getFeedback.reducer,
     [getDashboard.reducerPath]: getDashboard.reducer,
+    [enquiryList.reducerPath]: enquiryList.reducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.
@@ -32,6 +34,7 @@ export const store = configureStore({
       .concat(packageDetail.middleware)
       .concat(houseRule.middleware)
       .concat(getFeedback.middleware)
+      .concat(enquiryList.middleware)
       .concat(getDashboard.middleware),
 });
 
