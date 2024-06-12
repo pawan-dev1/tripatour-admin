@@ -8,11 +8,18 @@ export const packageDetail = createApi({
   reducerPath: "packageDetail",
   baseQuery: dynamicBaseQuery,
   endpoints: (builder) => ({
-    getPackageDetails: builder.mutation({
+    getPackage: builder.mutation({
       query: (body) => ({
         url: "/tourDetails/getTourDetails",
         method: "POST",
         body
+      }),
+      providesTags:["category"]
+    }),
+    getPackageDetail: builder.query({
+      query: (body) => ({
+        url: `/package/PackageGetById/${body}`,
+        method: "GET",
       }),
       providesTags:["category"]
     }),
@@ -42,4 +49,4 @@ export const packageDetail = createApi({
   }),
 });
 
-export const { useAddPackageDetailMutation,useEditPackageDetailsMutation, useGetPackageDetailsMutation } = packageDetail;
+export const { useAddPackageDetailMutation,useEditPackageDetailsMutation, useGetPackageMutation ,useGetPackageDetailQuery} = packageDetail;

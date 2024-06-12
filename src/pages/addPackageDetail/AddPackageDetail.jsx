@@ -68,6 +68,7 @@ const AddPackageDetail = () => {
         fileList.map((item) => formData.append("galleryPhoto", item?.originFileObj))
         triggre(formData);
     }
+    console.log(editorData)
 
     const packageLists = packagesData?.data?.map((elm) => {
         return { value: elm?._id, label: elm?.name }
