@@ -7,6 +7,7 @@ import { useGetTourCategoryQuery } from '../../store/services/tourPackages';
 import { Button, Input, Select } from 'antd';
 import { BreadCrum } from '../../components/breadCrume';
 import { useParams } from 'react-router-dom';
+import { useGetCategoryQuery } from '../../store/services/category';
 
 const AddPackageDetail = () => {
 
@@ -34,7 +35,7 @@ const AddPackageDetail = () => {
         galleryPhoto: []
     })
     const [triggre, { data }] = useAddPackageDetailMutation()
-    const { data: packagesData } = useGetTourCategoryQuery()
+    const { data: packagesData } = useGetCategoryQuery()
 
     const handleChange = (name, value) => {
         setEditorData((prev) => {
@@ -71,6 +72,28 @@ const AddPackageDetail = () => {
     const packageLists = packagesData?.data?.map((elm) => {
         return { value: elm?._id, label: elm?.name }
     })
+    const starOption =[
+        {
+          value: '1',
+          label: '1',
+        },
+        {
+          value: '2',
+          label: '2',
+        },
+        {
+          value: '3',
+          label: '3',
+        },
+        {
+          value: '4',
+          label: '4',
+        },
+        {
+          value: '5',
+          label: '5',
+        },
+    ]
     return (
         <div className='text-editor-wrapper'>
             <BreadCrum name={'Trip Packages Details'} />
@@ -79,14 +102,14 @@ const AddPackageDetail = () => {
             </div>
             <div className="text-editor">
                 <h3 className='title'>Name</h3>
-                <input type="text" style={{ width: '100%', color: '' }} onChange={(e) => handleChange("name", e.target.value)} />
+                <Input type="text" style={{ width: '100%', color: '' }} onChange={(e) => handleChange("name", e.target.value)} />
             </div>
             <div className='text-editor-num2'>
 
 
                 <div className="text-editor">
                     <h3 className='title'>Packages Night</h3>
-                    <select className="rating" id="rating" style={{ width: '100%', padding: "4px", outline: "none", border: "1px solid #ccc;" }} onChange={(e) => handleChange("packagesNight", e.target.value)}>
+                    <select className="packageNight" id="rating" style={{ width: '100%', padding: "7px", outline: "none", border: "1px solid #ccc" }} onChange={(e) => handleChange("packagesNight", e.target.value)}>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -102,13 +125,9 @@ const AddPackageDetail = () => {
                 </div>
                 <div className="text-editor">
                     <h3 className='title'>star</h3>
-                    <select className="rating" id="rating" style={{ width: '100%', padding: "4px", outline: "none", border: "1px solid #ccc;" }} onChange={(e) => handleChange("star", e.target.value)} >
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
+                    <Select className="rating" style={{width:"100%"}} options={starOption} onChange={(e) => handleChange("star", e)} />
+                   
+                 
 
                 </div>
             </div>
@@ -132,20 +151,20 @@ const AddPackageDetail = () => {
             <div className='text-editor-num'>
                 <div className="text-editor">
                     <h3 className='title'>price</h3>
-                    <input type="number" style={{ width: '100%', color: '' }} onChange={(e) => handleChange("price", e.target.value)} />
+                    <Input type="number" style={{ width: '100%', color: '' }} onChange={(e) => handleChange("price", e.target.value)} />
                 </div>
                 <div className="text-editor" >
                     <h3 className='title'>Discount Price</h3>
-                    <input type="number" style={{ width: '100%' }} onChange={(e) => handleChange("discountPrice", e.target.value)} />
+                    <Input type="number" style={{ width: '100%' }} onChange={(e) => handleChange("discountPrice", e.target.value)} />
                 </div>
             </div>
             <div className="text-editor">
                 <h3 className='title'>map</h3>
-                <input type="" style={{ width: '100%', color: '' }} onChange={(e) => handleChange("map", e.target.value)} />
+                <Input type="" style={{ width: '100%', color: '' }} onChange={(e) => handleChange("map", e.target.value)} />
             </div>
             <div className="text-editor">
                 <h3 className='title'>location</h3>
-                <input type="" style={{ width: '100%', color: '' }} onChange={(e) => handleChange("location", e.target.value)} />
+                <Input type="" style={{ width: '100%', color: '' }} onChange={(e) => handleChange("location", e.target.value)} />
             </div>
 
 

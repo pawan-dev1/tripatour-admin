@@ -137,8 +137,9 @@ const Packages = () => {
         element={modalComponentObject[modalOpenValue]["content"]}
       />
       <div className="wrapper">
-
-        <Button onClick={() => showModal("", 0)} >Add New Packages</Button>
+<Link to={"/add-package-detail/"}>
+        <Button  >Add New Packages</Button>
+</Link>
         <div className="entries-pagination">
           <div className="show-entites">
           <div style={{ paddingLeft: "5px" }}>
