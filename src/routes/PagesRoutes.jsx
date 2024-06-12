@@ -24,4 +24,5 @@ export const clientFeedback = "/client-feedback";
 export const CourseTitle = "/create-course-title";
 export const CourseSkills = "/create-course-skills";
 export const enquiryList = "/enquiry-list";
+export const itinerary = "/itinerary/:id";
 export const signUp = "/sign-up";

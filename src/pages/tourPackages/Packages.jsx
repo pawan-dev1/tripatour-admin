@@ -1,6 +1,7 @@
 import { Button, Image, Input, Table, Tag, message } from "antd";
 import { BreadCrum } from "../../components/breadCrume";
 import { useEffect, useState } from "react";
+import { FaRoute } from "react-icons/fa";
 
 import { useDeleteCategoryMutation, useGetCategoryQuery } from "../../store/services/category";
 import Pagination from "../../components/pagination/Index";
@@ -55,12 +56,12 @@ const Packages = () => {
         <div style={{ display: "flex", alignItems: "center" }}>
 
 
-          {/* <Link to={`/house-rule/${item?._id}`}>
+          <Link to={`/itinerary/${item?._id}`}>
           <Tag color={geekblue} className="cursor-pointor">
-            Check House Rule
+          <FaRoute />
           </Tag>
             </Link>
-        <Link to={`/package-detail/${item?._id}`}>
+        {/* <Link to={`/package-detail/${item?._id}`}>
           <Tag color={geekblue} className="cursor-pointor">
             Check Detail
           </Tag>

@@ -71,7 +71,7 @@ useEffect(()=>{
             <input type="text" className="search-bar" />
           </div>
         </div>
-        <Table columns={Columns} dataSource={data} />;
+        <Table columns={Columns} dataSource={data} pagination={false}/>;
     </div>
   )
 }

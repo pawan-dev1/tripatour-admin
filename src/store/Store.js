@@ -9,6 +9,7 @@ import { houseRule } from "./services/houseRule";
 import { getFeedback } from "./services/feedback";
 import { getDashboard } from "./services/dashBoard";
 import { enquiryList } from "./services/enquiryList";
+import { getItinerary } from "./services/itinerary";
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
     [getFeedback.reducerPath]: getFeedback.reducer,
     [getDashboard.reducerPath]: getDashboard.reducer,
     [enquiryList.reducerPath]: enquiryList.reducer,
+    [getItinerary.reducerPath]: getItinerary.reducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.
@@ -35,7 +37,8 @@ export const store = configureStore({
       .concat(houseRule.middleware)
       .concat(getFeedback.middleware)
       .concat(enquiryList.middleware)
-      .concat(getDashboard.middleware),
+      .concat(getDashboard.middleware)
+      .concat(getItinerary.middleware)
 });
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors

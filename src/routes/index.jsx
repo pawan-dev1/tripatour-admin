@@ -11,6 +11,7 @@ import {
   favRoutes,
   feedbackRoute,
   houseRuleRoute,
+  itinerary,
   loginRoute,
   packageRoutes,
 
@@ -29,6 +30,7 @@ import AddHouseRule from "../pages/houseRule/AddHouseRule";
 import Feedback from "../pages/feedback/Feesback";
 import EditHouseRules from "../pages/houseRule/EditHouseRules";
 import EnquiryList from "../pages/enquirylist/EnquiryList";
+import Itinerary from "../pages/itnerary/Itinerary";
 
 const userType = localStorage.getItem("userType");
 
@@ -84,6 +86,10 @@ export const router = createBrowserRouter([
       {
         path:enquiryList,
         element: <EnquiryList />,
+      },
+      {
+        path:itinerary,
+        element: <Itinerary />,
       },
       {
         
