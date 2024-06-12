@@ -68,7 +68,7 @@ const AddPackageDetail = () => {
         formData.append("image", fileList2[0].originFileObj)
         formData.append("categoryId", editorData?.categoryId)
         fileList.map((item) => formData.append("galleryPhoto", item?.originFileObj))
-        // triggre(formData);
+        triggre(formData);
     }
     console.log(editorData)
 

@@ -1,10 +1,11 @@
-import { Button, Form, Input, Select, message } from "antd";
+import { Button, Form,Select, Input, message } from "antd";
 import { useEffect } from "react";
 import { useEditCategoryMutation } from "../../../store/services/category";
 
 
 
-const EditStudent = ({categoryData,handleCancel}) => {
+const EditCategory = ({categoryData,handleCancel}) => {
+  const { Option } = Select;
   const [form] = Form.useForm();
   const [trigger,{data}] = useEditCategoryMutation()
   const onFinish =(values)=>{
@@ -30,12 +31,8 @@ const EditStudent = ({categoryData,handleCancel}) => {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
         className="edit-student-form"
-        initialValues={{
-          name:categoryData?.name,
-          description:categoryData.description,
-        
-          // batch_time:studentdata?.batch_time
-        }}
+        initialValues={{name:categoryData?.name}}
+     
       >
         <Form.Item
           name="name"
@@ -46,35 +43,25 @@ const EditStudent = ({categoryData,handleCancel}) => {
             },
           ]}
         >
-          <Input placeholder={"Enter student name Here.."} />
-        </Form.Item>
-        <Form.Item
-          name="description"
-          label="description"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+        <Select
+          placeholder="Select Name"
+          // onChange={onGenderChange}
+          allowClear
         >
-          <Input placeholder={"Enter email here.."} />
+          <Option value="BUGGY PACKAGES">BUGGY PACKAGES</Option>
+          <Option value="DESERT SAFARI PACKAGES">DESERT SAFARI PACKAGES</Option>
+        </Select>
         </Form.Item>
-      
-        
-       
+        <Form.Item>
 
-      
-    
-          <Form.Item>
-           
 
-          <Button type="primary" htmlType="submit" className="form-submit-btn">
-            Save
-          </Button>
-        </Form.Item>
-      </Form>
+<Button type="primary" htmlType="submit" className="form-submit-btn">
+  Save
+</Button>
+</Form.Item>
+        </Form>
     </div>
   )
 }
 
-export default EditStudent
+export default EditCategory

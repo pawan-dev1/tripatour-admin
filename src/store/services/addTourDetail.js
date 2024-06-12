@@ -8,20 +8,20 @@ export const packageDetail = createApi({
   reducerPath: "packageDetail",
   baseQuery: dynamicBaseQuery,
   endpoints: (builder) => ({
-    getPackage: builder.mutation({
-      query: (body) => ({
-        url: "/tourDetails/getTourDetails",
-        method: "POST",
-        body
-      }),
-      providesTags:["category"]
-    }),
     getPackageDetail: builder.query({
       query: (body) => ({
         url: `/package/PackageGetById/${body}`,
         method: "GET",
       }),
       providesTags:["category"]
+    }),
+    getPackage: builder.mutation({
+      query: (body) => ({
+        url: "/tourDetails/getTourDetails",
+        method: "POST",
+        body
+      }),
+      // providesTags:["category"]
     }),
     addPackageDetail: builder.mutation({
       query: (body) => ({
@@ -39,14 +39,23 @@ export const packageDetail = createApi({
       }),
       invalidatesTags:["category"]
     }),
-    // deleteCategory: builder.mutation({
-    //   query: (body) => ({
-    //     url: `/category/deleteCategory/${body.id}`,
-    //     method: "DELETE",
-    //     }), 
-    //   // invalidatesTags:["category"]
-    // }),
+    updatePackagesDetail: builder.mutation({
+      query: (body) => ({
+        url: `/package/updatePackages/${body.id}`,
+        method: "PUT",
+        body:body.data
+      }),
+      invalidatesTags:["category"]
+    }),
+
+    deletePackage: builder.mutation({
+      query: (body) => ({
+        url: `/package/PackageDeleteById/${body.id}`,
+        method: "DELETE",
+        }), 
+      invalidatesTags:["category"]
+    }),
   }),
 });
 
-export const { useAddPackageDetailMutation,useEditPackageDetailsMutation, useGetPackageMutation ,useGetPackageDetailQuery} = packageDetail;
+export const {useDeletePackageMutation,useUpdatePackagesDetailMutation, useAddPackageDetailMutation,useEditPackageDetailsMutation, useGetPackageMutation ,useGetPackageDetailQuery} = packageDetail;

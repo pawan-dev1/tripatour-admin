@@ -1,13 +1,20 @@
 import { useEffect, useState } from 'react'
-import { useAddPackageDetailMutation, useGetPackageDetailQuery } from '../../store/services/addTourDetail'
+import {  useGetPackageDetailQuery, useUpdatePackagesDetailMutation } from '../../store/services/addTourDetail'
 import { Editor } from "primereact/editor";
 import "./styles.scss"
 import UploadTripImg from './uploadTripImg';
-import { Button, Input, Select } from 'antd';
+import { Button, Checkbox, Col, Input, Row, Select } from 'antd';
 import { BreadCrum } from '../../components/breadCrume';
 import { useGetCategoryQuery } from '../../store/services/category';
 import { useParams } from 'react-router-dom';
-
+export async function blobCreationFromURL(inputURI) {
+    const response = await fetch(inputURI);
+    const blob = await response.blob();
+    return new File([blob], inputURI, {
+        type: blob.type || "image/jpeg",
+      })
+    // return blob
+  }
 const EditPackageDetail = () => {
 
 const {id} = useParams()
@@ -35,12 +42,14 @@ const {id} = useParams()
 
         galleryPhoto: []
     })
-    const [triggre, { data }] = useAddPackageDetailMutation()
+    const [triggre, { data }] = useUpdatePackagesDetailMutation()
 
     const {data:getPackagesDetail} =useGetPackageDetailQuery(id)
     const { data: packagesData } = useGetCategoryQuery()
 
-    console.log(getPackagesDetail?.data)
+   
+
+   
     const handleChange = (name, value) => {
         setEditorData((prev) => {
             return {
@@ -51,6 +60,14 @@ const {id} = useParams()
     }
 
     useEffect(() => {
+        const splitInfo = getPackagesDetail?.data?.info[0]?.split(",")
+        splitInfo?.map((item)=>{
+           setEditorData((prev)=>{
+               return{
+                   ...prev,  info: [...prev.info, item]
+               }
+            })
+        })
      setEditorData((prev)=>{
         return{
             ...prev,name:getPackagesDetail?.data?.name,
@@ -73,9 +90,12 @@ const {id} = useParams()
 
         }
      })
+  
+   
      setFileList2([{
         url:getPackagesDetail?.data?.images
      }])
+
     const galleryPhotos =  getPackagesDetail?.data?.galleryPhoto.map((item)=>{
         return {
             url:item
@@ -83,9 +103,8 @@ const {id} = useParams()
      })
      setFileList(galleryPhotos)
     }, [getPackagesDetail])
-    
 
-    const submitHandler = () => {
+    const submitHandler = async() => {
         const formData = new FormData();
         formData.append("highlights", editorData.highlights);
         formData.append("name", editorData.name);
@@ -101,10 +120,25 @@ const {id} = useParams()
         formData.append("needToKnow", editorData.needToKnow);
         formData.append("canclePolicy", editorData.canclePolicy);
         formData.append("inclusions", editorData.inclusions);
-        formData.append("image", fileList2[0].originFileObj)
         formData.append("categoryId", editorData?.categoryId)
-        fileList.map((item) => formData.append("galleryPhoto", item?.originFileObj))
-        triggre(formData);
+        // formData.append("image", fileList2[0].originFileObj)
+        // fileList.map((item) => formData.append("galleryPhoto", item?.originFileObj))
+        for(let item of fileList){
+            if(item?.originFileObj )  {
+              formData.append("galleryPhoto",item?.originFileObj)
+            }else { const data  = await blobCreationFromURL(item?.url)
+              formData.append("galleryPhoto",data)
+            }
+          }
+          if(fileList2[0]?.originFileObj )  {
+            formData.append("image",fileList2[0].originFileObj)
+          }else {
+            const data  = await blobCreationFromURL(fileList2[0]?.url)
+            formData.append("image",data)
+          }
+          
+      
+        triggre({data:formData,id:id});
     }
 
     const packageLists = packagesData?.data?.map((elm) => {
@@ -132,12 +166,19 @@ const {id} = useParams()
           label: '5',
         },
     ]
+    const onChange = (checkedValues) => {
+        setEditorData((prev)=>{
+            return{
+               ...prev,
+                info:checkedValues
+                }
+                })
+            
+      };
     return (
         <div className='text-editor-wrapper'>
             <BreadCrum name={'Trip Packages Details'} />
-            <div className="search-container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBlock: "10px" }}>
-                <Input placeholder="Search here..." style={{ width: "50%" }} />
-            </div>
+           
             <div className="text-editor">
                 <h3 className='title'>Name</h3>
                 <Input type="text" style={{ width: '100%', color: '' }} onChange={(e) => handleChange("name", e.target.value)} value={editorData?.name}/>
@@ -175,7 +216,43 @@ const {id} = useParams()
             </div>
             <div className="text-editor">
                 <h3 className='title'>info</h3>
-                <textarea id="textarea" name="textarea" rows="4" cols="50" style={{ width: '100%' }} onChange={(e) => handleChange("info", e.target.value)} />
+                <Checkbox.Group
+    style={{
+      width: '100%',
+    }}
+    value={editorData?.info}
+    onChange={onChange}
+  >
+    <Row>
+      <Col span={8}>
+        <Checkbox value="Meals">Meals</Checkbox>
+      </Col>
+      <Col span={8}>
+        <Checkbox value="Sightseeing">Sightseeing</Checkbox>
+      </Col>
+      <Col span={8}>
+        <Checkbox value="Cab">Cab</Checkbox>
+      </Col>
+      <Col span={8}>
+        <Checkbox value="Camel Ride">Camel Ride</Checkbox>
+      </Col>
+      <Col span={8}>
+        <Checkbox value="Quad Bike Ride">Quad Bike Ride</Checkbox>
+      </Col>
+      <Col span={8}>
+        <Checkbox value="Sand Boarding">Sand Boarding</Checkbox>
+      </Col>
+      <Col span={8}>
+        <Checkbox value="5 Star">5 Star</Checkbox>
+      </Col>
+      <Col span={8}>
+        <Checkbox value="Cab Transfer">Cab Transfer</Checkbox>
+      </Col>
+      <Col span={8}>
+        <Checkbox value="Buggy Ride">Buggy Ride</Checkbox>
+      </Col>
+    </Row>
+  </Checkbox.Group>
             </div>
             <div className="text-editor">
                 <h3 className='title'>Description</h3>

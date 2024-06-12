@@ -63,11 +63,7 @@ const SiderComponent = () => {
         label: <Link to={packageRoutes}>Package</Link>,
         icon: <PiStudentBold />,
     },
-      {
-        key: "8",
-        label: <Link to={showPackage}> Package Detail</Link>,
-        icon: <PiStudentBold />,
-    },
+    
       {
         key: "9",
         label: <Link to={houseRuleRoute}>House Rule</Link>,

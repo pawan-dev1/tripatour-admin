@@ -6,12 +6,11 @@ import { Link } from "react-router-dom";
 import { useDeleteCategoryMutation, useGetCategoryQuery } from "../../store/services/category";
 import Pagination from "../../components/pagination/Index";
 import { Columns } from "./TableColums";
-import EditStudent from "../../components/popUpElement/category/Edit";
-import ViewStudent from "../../components/popUpElement/category/View";
 
 import AreYouSure from "../../components/popUpElement/areYouSure";
 import PrimaryModal from "../../common/modal";
 import AddNewCategory from "../../components/popUpElement/category/AddCategory";
+import EditCategory from "../../components/popUpElement/category/Edit";
 
 let green = "green";
 let geekblue = "geekblue";
@@ -28,11 +27,12 @@ const Category = () => {
   const  { data:getCategory,isLoading } = useGetCategoryQuery();
   const [trigg,{data:categoryDeleteResponse}]=useDeleteCategoryMutation()
 
-  const dataSource = getCategory?.data?.map((item) => {
+  const dataSource = getCategory?.data?.map((item,index) => {
     return {
       key:item.student_name+item?.phone,
+      sno:index+1,
       name: item.name,
-      description: item.description,
+      description:<span style={{textTransform:"lowercase"}}>{item.name}</span> ,
       Action: (
         <div style={{ display: "flex", alignItems: "center" }}>
       
@@ -87,7 +87,7 @@ const Category = () => {
       label: "Add New Category",
     },
     {
-      content: <EditStudent handleCancel={handleCancel} categoryData={categoryData} fun={""}/>,
+      content: <EditCategory handleCancel={handleCancel} categoryData={categoryData} fun={""}/>,
       label: "Edit Student Info",
     },
     {
