@@ -9,6 +9,7 @@ import { BreadCrum } from '../../components/breadCrume';
 import { useParams } from 'react-router-dom';
 import { useGetCategoryQuery } from '../../store/services/category';
 
+import { Checkbox, Col, Row } from 'antd';
 const AddPackageDetail = () => {
 
 
@@ -49,6 +50,7 @@ const AddPackageDetail = () => {
 
     const submitHandler = () => {
         const formData = new FormData();
+        console.log(editorData)
         formData.append("highlights", editorData.highlights);
         formData.append("name", editorData.name);
         formData.append("DNSchedule", editorData.DNSchedule);
@@ -66,7 +68,7 @@ const AddPackageDetail = () => {
         formData.append("image", fileList2[0].originFileObj)
         formData.append("categoryId", editorData?.categoryId)
         fileList.map((item) => formData.append("galleryPhoto", item?.originFileObj))
-        triggre(formData);
+        // triggre(formData);
     }
     console.log(editorData)
 
@@ -95,6 +97,15 @@ const AddPackageDetail = () => {
           label: '5',
         },
     ]
+    const onChange = (checkedValues) => {
+        setEditorData((prev)=>{
+            return{
+               ...prev,
+                info:checkedValues
+                }
+                })
+            
+      };
     return (
         <div className='text-editor-wrapper'>
             <BreadCrum name={'Trip Packages Details'} />
@@ -136,9 +147,54 @@ const AddPackageDetail = () => {
                 <h3 className='title'>DNSchedule</h3>
                 <textarea id="textarea" name="textarea" rows="4" cols="50" style={{ width: '100%' }} onChange={(e) => handleChange("DNSchedule", e.target.value)} />
             </div>
-            <div className="text-editor">
+            {/* <div className="text-editor">
                 <h3 className='title'>info</h3>
                 <textarea id="textarea" name="textarea" rows="4" cols="50" style={{ width: '100%' }} onChange={(e) => handleChange("info", e.target.value)} />
+            </div> */}
+
+            <div className="text-editor">
+                <h3 className='title'>info</h3>
+                <Checkbox.Group
+    style={{
+      width: '100%',
+    }}
+    onChange={onChange}
+  >
+    <Row>
+      <Col span={8}>
+        <Checkbox value="Meals">Meals</Checkbox>
+      </Col>
+      <Col span={8}>
+        <Checkbox value="Sightseeing">Sightseeing</Checkbox>
+      </Col>
+      <Col span={8}>
+        <Checkbox value="Cab">Cab</Checkbox>
+      </Col>
+      <Col span={8}>
+        <Checkbox value="Camel Ride">Camel Ride</Checkbox>
+      </Col>
+      <Col span={8}>
+        <Checkbox value="Quad Bike Ride">Quad Bike Ride</Checkbox>
+      </Col>
+      <Col span={8}>
+        <Checkbox value="Sand Boarding">Sand Boarding</Checkbox>
+      </Col>
+      <Col span={8}>
+        <Checkbox value="5 Star">5 Star</Checkbox>
+      </Col>
+      <Col span={8}>
+        <Checkbox value="Cab Transfer">Cab Transfer</Checkbox>
+      </Col>
+      <Col span={8}>
+        <Checkbox value="Buggy Ride">Buggy Ride</Checkbox>
+      </Col>
+    </Row>
+  </Checkbox.Group>
+               
+
+
+
+
             </div>
             <div className="text-editor">
                 <h3 className='title'>Description</h3>
