@@ -16,6 +16,9 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { addPackageDetail } from "../../routes/PagesRoutes";
 import "./style.scss";
 import { useDeletePackageMutation } from "../../store/services/addTourDetail";
+import { RiDeleteBinLine } from "react-icons/ri";
+
+import { FaRegEdit } from "react-icons/fa";
 let green = "green";
 let geekblue = "geekblue";
 let redTag = "red";
@@ -65,15 +68,15 @@ const Packages = () => {
             <Link to={`/edit-package-detail/${item?._id}`}>
           <Tag color={geekblue} className="cursor-pointor "
            >
-            Edit
+             <FaRegEdit/>
           </Tag>
              </Link>
           <Tag color={redTag} className="cursor-pointor "
             onClick={() => {
               showModal(item, 2)
-
-            }}>
-            Delete
+              
+              }}>
+              <RiDeleteBinLine/>
           </Tag>
         </div>
       ),

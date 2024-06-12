@@ -1,11 +1,11 @@
-import { Button, Checkbox, Input, Radio, Switch, Table, Tag, message } from "antd";
-import { BreadCrum } from "../../components/breadCrume";
+import { Button, Table, Tag, message } from "antd";
 import { useEffect, useState } from "react";
-import { addNewStudent } from "../../routes/PagesRoutes";
-import { Link } from "react-router-dom";
 import { useDeleteCategoryMutation, useGetCategoryQuery } from "../../store/services/category";
 import Pagination from "../../components/pagination/Index";
 import { Columns } from "./TableColums";
+import { RiDeleteBinLine } from "react-icons/ri";
+
+import { FaRegEdit } from "react-icons/fa";
 
 import AreYouSure from "../../components/popUpElement/areYouSure";
 import PrimaryModal from "../../common/modal";
@@ -41,14 +41,14 @@ const Category = () => {
             
             showModal(item,1)
           }}>
-            Edit
+            <FaRegEdit/>
           </Tag>
           <Tag color={redTag} className="cursor-pointor "
            onClick={()=>{
             showModal(item,2)
            
           }}>
-            Delete
+            <RiDeleteBinLine/>
           </Tag>
         </div>
       ),
@@ -111,16 +111,45 @@ const Category = () => {
         title={modalComponentObject[modalOpenValue]["label"]}
         element={modalComponentObject[modalOpenValue]["content"]}
       />
-      <BreadCrum name={"Category"} sub={""} />
-      <div className="search-container" style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBlock:"10px"}}>
+      {/* <BreadCrum name={"Category"} sub={""} /> */}
+<div className="wrapper">
+
+      <Button onClick={()=> showModal("",0)}>Add New Category</Button>
+      <div className="entries-pagination">
+          <div className="show-entites">
+          <div style={{ paddingLeft: "5px" }}>
+          <label className="d-inline-flex align-items-center">
+            Show&nbsp;
+            <select
+              className="custom-select-sm"
+              value={paginationData.noOfRecords}
+             
+            >
+              <option value="100">100</option>
+              <option value="250">250</option>
+              <option value="500">500</option>
+              <option value="1000">1000</option>
+              <option value="2000">2000</option>
+            </select>
+            &nbsp;entries
+          </label>
+        </div>
+        </div>
+          <div className="search">
+            <label htmlFor="#" className="search-label">Search : </label>
+            <input type="text" className="search-bar" />
+          </div>
+        </div>
+      {/* <div className="search-container" style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBlock:"10px"}}>
         <Input placeholder="Search here..." style={{width:"50%"}}/>
-          <Button onClick={()=> showModal("",0)}>Add New Category</Button>
-      </div>
+          
+      </div> */}
       <Table dataSource={dataSource} columns={Columns} pagination={false} />;
       <Pagination
         paginationData={paginationData}
         setPaginationData={setPagination}
       />
+</div>
     </div>
   );
 };
