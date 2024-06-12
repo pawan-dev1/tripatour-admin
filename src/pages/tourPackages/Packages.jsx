@@ -61,13 +61,12 @@ const Packages = () => {
             Check Detail
           </Tag>
             </Link> */}
+            <Link to={`/edit-package-detail/${item?._id}`}>
           <Tag color={geekblue} className="cursor-pointor "
-            onClick={() => {
-
-              showModal(item, 1)
-            }}>
+           >
             Edit
           </Tag>
+             </Link>
           <Tag color={redTag} className="cursor-pointor "
             onClick={() => {
               showModal(item, 2)

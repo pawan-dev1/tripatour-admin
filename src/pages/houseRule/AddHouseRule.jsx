@@ -101,9 +101,9 @@ const AddHouseRule = () => {
         />
       </div>
         <div className="time">
-      <div className="text-editor">
+      <div className="text-editor" style={{  }}>
         <h3 className="title">Check In Time</h3>
-        <TimePicker className="check-in"
+        <TimePicker className="check-in "
           value={editorData.check_in ? moment(editorData.check_in, 'h:mm A') : null}
           onChange={(time, timeString) => handleChange("check_in", timeString)}
           format="h:mm A"
