@@ -45,11 +45,11 @@ const AddNewCategory = ({handleCancel}) => {
           // onChange={onGenderChange}
           allowClear
         >
-          <Option value="BUGGY TOURS">BUGGY TOURS</Option>
-          <Option value="DESERT SAFARI">DESERT SAFARI</Option>
+          <Option value="BUGGY PACKAGES">BUGGY PACKAGES</Option>
+          <Option value="DESERT SAFARI PACKAGES">DESERT SAFARI PACKAGES</Option>
         </Select>
         </Form.Item>
-        <Form.Item
+        {/* <Form.Item
           name="description"
           label="Description"
           rules={[
@@ -59,7 +59,7 @@ const AddNewCategory = ({handleCancel}) => {
           ]}
         >
           <Input placeholder={"Enter email here.."} />
-        </Form.Item>
+        </Form.Item> */}
        
        
 

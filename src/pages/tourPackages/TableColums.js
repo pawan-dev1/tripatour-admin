@@ -10,14 +10,14 @@ export const Columns = [
     key: "Images",
   },
   {
-    title: "Title",
-    dataIndex: "title",
-    key: "title",
+    title: "Package Name",
+    dataIndex: "packageName",
+    key: "packageName",
   },
   {
-    title: "Activity",
-    dataIndex: "activity",
-    key: "activity",
+    title: "Category",
+    dataIndex: "category",
+    key: "category",
   },
 
 

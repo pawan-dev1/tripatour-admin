@@ -20,6 +20,12 @@ const LayoutPrimary = () => {
     }
   }, [loginToken]);
 const location = window.location.pathname
+
+const routepath = {
+  "/package":"Package",
+  "/category":"Category",
+  "/feedback":"Feedback"
+}
   return (
     <Layout className="main-layout">
       <Header className="layout-header">
@@ -31,7 +37,7 @@ const location = window.location.pathname
         </Sider>
         <Content  ref={elementRef} >
         <div className="dashboard-header">
-        <h2>Dashboard</h2>
+        <h2>{routepath[location]}</h2>
       </div>
       <div className="layout-content">
 

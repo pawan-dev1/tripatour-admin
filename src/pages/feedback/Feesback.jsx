@@ -13,7 +13,6 @@ const Feedback = () =>{
         // totalPages: 1,
       });
     const {data} = useGetFeedbackQuery()
-    console.log(data,"data1")
 
     const dataSource = data?.feedbacks?.map((item)=>{
         return{
@@ -27,10 +26,10 @@ const Feedback = () =>{
     
     return(
         <div>
-<BreadCrum name={"Feedback"} sub={""} />
+{/* <BreadCrum name={"Feedback"} sub={""} />
  <div className="search-container" style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBlock:"10px"}}>
         <Input placeholder="Search here..." style={{width:"50%"}}/>
-      </div>
+      </div> */}
       <Table dataSource={dataSource} columns={Columns} pagination={false} />;
       <Pagination
         paginationData={paginationData}

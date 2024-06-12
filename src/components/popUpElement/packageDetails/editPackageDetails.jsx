@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useEditPackageDetailsMutation, useGetPackageDetailsMutation } from '../../../store/services/addTourDetail'
+import { useEditPackageDetailsMutation, useGetPackageMutation } from '../../../store/services/addTourDetail'
 import { Editor } from "primereact/editor";
 import { Button, Input, Select } from 'antd';
 import UploadTripImg from '../../../pages/addPackageDetail/uploadTripImg';
@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 const EditPackageDetails = () => {
     const [editFormData, setEditFormData] = useState();
     const [trigger, { data }] = useEditPackageDetailsMutation()
-    const [trigg, { data: getPackageDetails }] = useGetPackageDetailsMutation()
+    const [trigg, { data: getPackageDetails }] = useGetPackageMutation()
 
     const { id } = useParams()
 

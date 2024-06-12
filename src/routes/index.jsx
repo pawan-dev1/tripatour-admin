@@ -12,9 +12,7 @@ import {
   feedbackRoute,
   houseRuleRoute,
   loginRoute,
-  packageDetail,
   packageRoutes,
-  showPackage,
 
 } from "./PagesRoutes";
 import Dashboard from "../pages/dashboard";
@@ -25,7 +23,6 @@ import Packages from "../pages/tourPackages/Packages";
 import Favourite from "../pages/favourite/Favourite";
 import AddPackageDetail from "../pages/addPackageDetail/AddPackageDetail";
 import Category from "../pages/category";
-import PackageDetail from "../pages/addPackageDetail/PackageDetail";
 import EditPackageDetail from "../pages/addPackageDetail/EditPackageDetail";
 import HouseRule from "../pages/houseRule/HouseRule";
 import AddHouseRule from "../pages/houseRule/AddHouseRule";
@@ -71,10 +68,7 @@ export const router = createBrowserRouter([
         path:addPackageDetail,
         element: <AddPackageDetail />,
       },
-      {
-        path:showPackage,
-        element: <PackageDetail />,
-      },
+     
       {
         path:houseRuleRoute,
         element: <HouseRule />,

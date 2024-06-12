@@ -15,6 +15,10 @@ import { useDeleteTourPackageMutation, useGetTourCategoryQuery } from "../../sto
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { addPackageDetail } from "../../routes/PagesRoutes";
 import "./style.scss";
+import { useDeletePackageMutation } from "../../store/services/addTourDetail";
+import { RiDeleteBinLine } from "react-icons/ri";
+
+import { FaRegEdit } from "react-icons/fa";
 let green = "green";
 let geekblue = "geekblue";
 let redTag = "red";
@@ -45,8 +49,8 @@ const Packages = () => {
           src={item?.images}
         />
       ),
-      title: item.name,
-      activity: item.categoryName,
+      packageName: item.name,
+      category: item.categoryName,
       Action: (
         <div style={{ display: "flex", alignItems: "center" }}>
 
@@ -64,15 +68,15 @@ const Packages = () => {
             <Link to={`/edit-package-detail/${item?._id}`}>
           <Tag color={geekblue} className="cursor-pointor "
            >
-            Edit
+             <FaRegEdit/>
           </Tag>
              </Link>
           <Tag color={redTag} className="cursor-pointor "
             onClick={() => {
               showModal(item, 2)
-
-            }}>
-            Delete
+              
+              }}>
+              <RiDeleteBinLine/>
           </Tag>
         </div>
       ),
@@ -99,10 +103,10 @@ const Packages = () => {
     setModalOpenValue(val)
     setIsModalOpen(true)
   }
-  const deleteStudent = () => {
-    trigg({ id: tourPackageData?._id });
+  const [triger , {data:deleteData}] = useDeletePackageMutation()
+  const deletePackage = () => {
+    triger({ id: tourPackageData?._id });
   };
-
 
   const modalComponentObject = [
     {
@@ -114,18 +118,18 @@ const Packages = () => {
       label: "Edit Tour Package",
     },
     {
-      content: <AreYouSure fun={deleteStudent} />,
+      content: <AreYouSure fun={deletePackage} />,
       label: "Are You Sure",
     },
 
   ];
   useEffect(() => {
-    if (categoryDeleteResponse?.status || categoryDeleteResponse?.success) {
-      message.success(categoryDeleteResponse.message)
+    if (deleteData?.status || deleteData?.success) {
+      message.success(deleteData.message)
       // triggerHandler(paginationData)
       handleCancel()
     }
-  }, [categoryDeleteResponse])
+  }, [deleteData])
 
   return (
     <div>
