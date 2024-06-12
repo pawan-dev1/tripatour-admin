@@ -42,7 +42,7 @@ const {data:getTourPackages} = useGetFavTourQuery()
           width={50}
           height={50}
           style={{ borderRadius: "100px" }}
-          src={item?.image}
+          src={item?.images}
         />
       ),
       title: item?.title,

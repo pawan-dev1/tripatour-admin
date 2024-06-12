@@ -50,7 +50,7 @@ const Packages = () => {
           src={item?.images}
         />
       ),
-      packageName: item.name,
+      packageName:<Link to={`http://65.2.5.133:3000/tour-detail/${item?._id}`}>{item.name}</Link>,
       category: item.categoryName,
       Action: (
         <div style={{ display: "flex", alignItems: "center" }}>
