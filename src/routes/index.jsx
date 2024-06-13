@@ -25,10 +25,7 @@ import Favourite from "../pages/favourite/Favourite";
 import AddPackageDetail from "../pages/addPackageDetail/AddPackageDetail";
 import Category from "../pages/category";
 import EditPackageDetail from "../pages/addPackageDetail/EditPackageDetail";
-import HouseRule from "../pages/houseRule/HouseRule";
-import AddHouseRule from "../pages/houseRule/AddHouseRule";
 import Feedback from "../pages/feedback/Feesback";
-import EditHouseRules from "../pages/houseRule/EditHouseRules";
 import EnquiryList from "../pages/enquirylist/EnquiryList";
 import Itinerary from "../pages/itnerary/Itinerary";
 
@@ -71,18 +68,7 @@ export const router = createBrowserRouter([
         element: <AddPackageDetail />,
       },
      
-      {
-        path:houseRuleRoute,
-        element: <HouseRule />,
-      },
-      {
-        path:editHouseRuleRoute,
-        element: <EditHouseRules />,
-      },
-      {
-        path:addHouseRuleRoute,
-        element: <AddHouseRule />,
-      },
+      
       {
         path:enquiryList,
         element: <EnquiryList />,

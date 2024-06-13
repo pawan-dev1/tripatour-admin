@@ -1,11 +1,8 @@
-import { Button, Image, Input, Table, Tag, message } from "antd";
-import { BreadCrum } from "../../components/breadCrume";
+import { Button, Image, Table, Tag, message } from "antd";
 import { useEffect, useState } from "react";
 import { FaRoute } from "react-icons/fa";
 
-import { useDeleteCategoryMutation, useGetCategoryQuery } from "../../store/services/category";
-import Pagination from "../../components/pagination/Index";
-import { Columns } from "./TableColums";
+import {  useGetCategoryQuery } from "../../store/services/category";
 
 import AreYouSure from "../../components/popUpElement/areYouSure";
 import PrimaryModal from "../../common/modal";
@@ -13,8 +10,7 @@ import AddTourPackages from "../../components/popUpElement/tourPakcages/AddTourP
 // import { useGetTourPackagesQuery } from "../../store/services/tourPackages";
 import EditTourPackages from "../../components/popUpElement/tourPakcages/EditTourPackages";
 import { useDeleteTourPackageMutation, useGetTourCategoryQuery } from "../../store/services/tourPackages";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { addPackageDetail } from "../../routes/PagesRoutes";
+import { Link } from "react-router-dom";
 import "./style.scss";
 import { useDeletePackageMutation } from "../../store/services/addTourDetail";
 import { RiDeleteBinLine } from "react-icons/ri";
@@ -27,6 +23,7 @@ const Packages = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalOpenValue, setModalOpenValue] = useState(0)
   const [tourPackageData, setTourPackageData] = useState({})
+  const [searchText, setSearchText] = useState("")
   const [paginationData, setPagination] = useState({
     noOfRecords: 10,
     index: 0,
@@ -36,6 +33,47 @@ const Packages = () => {
   const [trigg, { data: categoryDeleteResponse }] = useDeleteTourPackageMutation()
 
 
+
+  const Columns = [
+    {
+      title: "Sno",
+      dataIndex: "sno",
+      key: "sno",
+      filteredValue:[searchText],
+  onFilter: (value, record) =>{
+    return(
+      String(record.sno).toLowerCase().includes(value.toLowerCase()) || 
+      String(record.category).toLowerCase().includes(value.toLowerCase()) ||
+      String(record.packageName).toLowerCase().includes(value.toLowerCase()) ||
+      String(record.packageName.props.children).toLowerCase().includes(value.toLowerCase())
+    )
+  }
+    },
+    {
+      title: "Image",
+      dataIndex: "Images",
+      key: "Images",
+    },
+    {
+      title: "Package Name",
+      dataIndex: "packageName",
+      key: "packageName",
+    },
+    {
+      title: "Category",
+      dataIndex: "category",
+      key: "category",
+    },
+  
+  
+    {
+      title: "Action",
+      dataIndex: "Action",
+      key: "Action",
+    },
+  ];
+  
+  
   const { data: getTourPackages } = useGetTourCategoryQuery()
 
   const dataSource = getTourPackages?.data?.map((item, index) => {
@@ -166,7 +204,7 @@ const Packages = () => {
         </div>
           <div className="search">
             <label htmlFor="#" className="search-label">Search : </label>
-            <input type="text" className="search-bar" />
+            <input type="text" className="search-bar" onChange={(e)=>setSearchText(e.target.value)}/>
           </div>
         </div>
         <Table dataSource={dataSource} columns={Columns} pagination={false} />;

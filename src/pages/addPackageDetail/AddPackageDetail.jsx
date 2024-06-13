@@ -262,7 +262,7 @@ const AddPackageDetail = () => {
             </div>
 
 
-            <Button onClick={submitHandler} style={{width:"10%" ,background:"#84a845", color:"#fff", border:"none"}}>Submit</Button>
+            <Button onClick={submitHandler} style={{width:"200px" ,background:"#84a845", color:"#fff", border:"none"}}>Submit</Button>
         </div>
     )
 }

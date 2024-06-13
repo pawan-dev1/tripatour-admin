@@ -16,8 +16,8 @@ export const dynamicBaseQuery = async (args, WebApi, extraOptions) => {
     const responseMessage = result?.error?.data?.message;
     const status = result?.error?.status;
     if (status === 401) {
-      // localStorage.clear();
-      // window.location.replace(loginRoute);
+      localStorage.clear();
+      window.location.replace(loginRoute);
     } else {
       toast.error(responseMessage);
     }

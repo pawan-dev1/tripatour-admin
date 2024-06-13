@@ -177,8 +177,11 @@ const {id} = useParams()
       };
     return (
         <div className='text-editor-wrapper'>
-            <BreadCrum name={'Trip Packages Details'} />
-           
+            {/* <BreadCrum name={'Trip Packages Details'} /> */}
+            <div className="add-package">
+            <p>Trip Packages Details</p>
+            
+           </div>
             <div className="text-editor">
                 <h3 className='title'>Name</h3>
                 <Input type="text" style={{ width: '100%', color: '' }} onChange={(e) => handleChange("name", e.target.value)} value={editorData?.name}/>
@@ -321,7 +324,7 @@ const {id} = useParams()
             </div>
 
 
-            <Button onClick={submitHandler}>Submit</Button>
+            <Button onClick={submitHandler} style={{width:"200px" ,background:"#84a845", color:"#fff", border:"none"}}>Submit</Button>
         </div>
     )
 }

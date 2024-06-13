@@ -42,8 +42,8 @@ const Dashboard = () => {
           value={dashBoardData?.totalBuggyPackagesCount}
         />
         <Card
-          name={"Total Safari Enquiries"}
-          value={dashBoardData?.totalSafariEnquiriesCount}
+          name={"Total Safari Packages"}
+          value={dashBoardData?.totalSafariPackagesCount}
         />
         <Card
           name={"Total Enquiries"}

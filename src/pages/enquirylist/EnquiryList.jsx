@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Select, Space, Table, Tag } from 'antd';
-import { Columns } from './TableColums';
 import {useEnquiryListQuery, useUpdateStatusMutation} from "../../store/services/enquiryList"
 
 const EnquiryList = () => {
+  const [searchText, setSearchText] = useState("")
 const [status,setStatus] = useState()
 const [filter, setFilter]=useState("")
 const {data:enquiryListDara} = useEnquiryListQuery({page:1,status:filter})
@@ -30,6 +30,88 @@ const checkStatus = {
 //     APPROVED:"APPROVED",
 //     REJECTED:"REJECTED"
 // }
+
+const checkStatusColor = {
+  "IN PROCESS":"yellow",
+  COMPLETED:"green",
+  CANCELLED:"red"
+}
+
+
+const Columns = [
+  {
+    title: "S.no",
+    dataIndex: "Sno",
+    key: "S.no",
+    filteredValue:[searchText],
+    onFilter: (value, record) =>{
+      return(
+        String(record.Sno).toLowerCase().includes(value.toLowerCase()) || 
+        String(record.name).toLowerCase().includes(value.toLowerCase()) || 
+        String(record.email).toLowerCase().includes(value.toLowerCase()) ||
+        String(record.phone).toLowerCase().includes(value.toLowerCase()) ||
+        String(record.packageName).toLowerCase().includes(value.toLowerCase()) ||
+        String(record.peopleInfo).toLowerCase().includes(value.toLowerCase()) ||
+        String(record.status.props.children).toLowerCase().includes(value.toLowerCase())
+      )
+    }
+
+  },
+  {
+    title: "Full Name",
+    dataIndex: "name",
+    key: "name",
+  },
+
+
+  {
+    title: "Email",
+    dataIndex: "email",
+    key: "email",
+  },
+  {
+    title: "Phone",
+    dataIndex: "phone",
+    key: "phone",
+  },
+  {
+    title: "Activity",
+    dataIndex: "packageName",
+    key: "packageName",
+  },
+  {
+    title: "No of Pack",
+    dataIndex: "peopleInfo",
+    key: "peopleInfo",
+    },
+    // {
+      //   title: "Check In",
+      //   dataIndex: "createdAt",
+      //   key: "createdAt",
+      //   },
+      //   {
+        //     title: "Check Out",
+        //     dataIndex: "updatedAt",
+        //     key: "updatedAt",
+        //     },
+        
+   
+        {
+          title: "Message",
+          dataIndex: "message",
+          key: "message",
+          },
+            {
+              title: "Status",
+              dataIndex: "status",
+              key: "status",
+              },
+      {
+        title: "Action",
+        dataIndex: "Action",
+        key: "Action",
+      },
+];
     const data = enquiryListDara?.data?.enquiries.map((item,index)=>{
         return {
             key: item.fullName,
@@ -39,7 +121,7 @@ const checkStatus = {
             email: item?.email,
             phone: item?.phone_number,
             packageName: item?.packageName,
-            status:checkStatus[item?.status],
+            status:<p style={{ whiteSpace: "nowrap",padding:"5px", borderRadius:"5px",textAlign:"center",color:checkStatusColor[item?.status] == "yellow"?"black":"white",background:checkStatusColor[item?.status]}}>{checkStatus[item?.status]}</p>,
             peopleInfo:item?.peopleInfo,
             message:item?.message,
             Action:<Select options= {option} value={checkStatus[item?.status]} style={{width:"120px"}} onChange={(e)=>setStatus({value:e,id:item?._id})}/>,
@@ -82,7 +164,7 @@ useEffect(()=>{
         </div>
           <div className="search">
             <label htmlFor="#" className="search-label">Search : </label>
-            <input type="text" className="search-bar" />
+            <input type="text" className="search-bar" onChange={(e)=>setSearchText(e.target.value)}/>
           </div>
         </div>
         <Table columns={Columns} dataSource={data} pagination={false}/>;

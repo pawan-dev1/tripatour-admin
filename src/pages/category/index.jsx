@@ -2,7 +2,6 @@ import { Button, Table, Tag, message } from "antd";
 import { useEffect, useState } from "react";
 import { useDeleteCategoryMutation, useGetCategoryQuery } from "../../store/services/category";
 import Pagination from "../../components/pagination/Index";
-import { Columns } from "./TableColums";
 import { RiDeleteBinLine } from "react-icons/ri";
 
 import { FaRegEdit } from "react-icons/fa";
@@ -16,6 +15,7 @@ let green = "green";
 let geekblue = "geekblue";
 let redTag = "red";
 const Category = () => {
+  const [searchText, setSearchText] = useState("")
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalOpenValue, setModalOpenValue] = useState(0)
   const [categoryData, setCategoryData] = useState({})
@@ -26,6 +26,41 @@ const Category = () => {
   });
   const  { data:getCategory,isLoading } = useGetCategoryQuery();
   const [trigg,{data:categoryDeleteResponse}]=useDeleteCategoryMutation()
+  const Columns = [
+    {
+      title: "S.no",
+      dataIndex: "sno",
+      key: "sno",
+      filteredValue:[searchText],
+      onFilter: (value, record) =>{
+        return(
+          String(record.sno).toLowerCase().includes(value.toLowerCase()) || 
+          String(record.name).toLowerCase().includes(value.toLowerCase()) ||
+          String(record.description).toLowerCase().includes(value.toLowerCase())
+        )
+      }
+    },
+    {
+      title: "Category Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
+    },
+  
+  
+    {
+      title: "Action",
+      dataIndex: "Action",
+      key: "Action",
+    },
+  ];
+  
+
+ 
 
   const dataSource = getCategory?.data?.map((item,index) => {
     return {
@@ -137,7 +172,7 @@ const Category = () => {
         </div>
           <div className="search">
             <label htmlFor="#" className="search-label">Search : </label>
-            <input type="text" className="search-bar" />
+            <input type="text" onChange={(e)=>setSearchText(e.target.value)} className="search-bar" />
           </div>
         </div>
       {/* <div className="search-container" style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBlock:"10px"}}>
