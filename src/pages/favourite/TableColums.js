@@ -4,10 +4,11 @@ export const Columns = [
     dataIndex: "Images",
     key: "Images",
   },
+
   {
-    title: "Title",
-    dataIndex: "title",
-    key: "title",
+    title: "Package Name",
+    dataIndex: "name",
+    key: "name",
   },
   {
     title: "Description",

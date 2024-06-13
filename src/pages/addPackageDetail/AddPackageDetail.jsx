@@ -3,10 +3,8 @@ import { useAddPackageDetailMutation } from '../../store/services/addTourDetail'
 import { Editor } from "primereact/editor";
 import "./styles.scss"
 import UploadTripImg from './uploadTripImg';
-import { useGetTourCategoryQuery } from '../../store/services/tourPackages';
 import { Button, Input, Select } from 'antd';
-import { BreadCrum } from '../../components/breadCrume';
-import { useParams } from 'react-router-dom';
+
 import { useGetCategoryQuery } from '../../store/services/category';
 
 import { Checkbox, Col, Row } from 'antd';

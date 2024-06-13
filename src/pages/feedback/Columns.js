@@ -15,10 +15,4 @@ export const Columns = [
         key: "email",
       },
   
-  
-    // {
-    //   title: "Action",
-    //   dataIndex: "action",
-    //   key: "action",
-    // },
   ];

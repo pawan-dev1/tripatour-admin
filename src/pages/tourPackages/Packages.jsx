@@ -2,7 +2,7 @@ import { Button, Image, Table, Tag, message } from "antd";
 import { useEffect, useState } from "react";
 import { FaRoute } from "react-icons/fa";
 
-import {  useGetCategoryQuery } from "../../store/services/category";
+import { useGetCategoryQuery } from "../../store/services/category";
 
 import AreYouSure from "../../components/popUpElement/areYouSure";
 import PrimaryModal from "../../common/modal";
@@ -39,15 +39,15 @@ const Packages = () => {
       title: "Sno",
       dataIndex: "sno",
       key: "sno",
-      filteredValue:[searchText],
-  onFilter: (value, record) =>{
-    return(
-      String(record.sno).toLowerCase().includes(value.toLowerCase()) || 
-      String(record.category).toLowerCase().includes(value.toLowerCase()) ||
-      String(record.packageName).toLowerCase().includes(value.toLowerCase()) ||
-      String(record.packageName.props.children).toLowerCase().includes(value.toLowerCase())
-    )
-  }
+      filteredValue: [searchText],
+      onFilter: (value, record) => {
+        return (
+          String(record.sno).toLowerCase().includes(value.toLowerCase()) ||
+          String(record.category).toLowerCase().includes(value.toLowerCase()) ||
+          String(record.packageName).toLowerCase().includes(value.toLowerCase()) ||
+          String(record.packageName.props.children).toLowerCase().includes(value.toLowerCase())
+        )
+      }
     },
     {
       title: "Image",
@@ -64,16 +64,16 @@ const Packages = () => {
       dataIndex: "category",
       key: "category",
     },
-  
-  
+
+
     {
       title: "Action",
       dataIndex: "Action",
       key: "Action",
     },
   ];
-  
-  
+
+
   const { data: getTourPackages } = useGetTourCategoryQuery()
 
   const dataSource = getTourPackages?.data?.map((item, index) => {
@@ -88,34 +88,34 @@ const Packages = () => {
           src={item?.images}
         />
       ),
-      packageName:<Link to={`http://65.2.5.133:3000/tour-detail/${item?._id}`}>{item.name}</Link>,
+      packageName: <Link to={`http://65.2.5.133:3000/tour-detail/${item?._id}`}>{item.name}</Link>,
       category: item.categoryName,
       Action: (
         <div style={{ display: "flex", alignItems: "center" }}>
 
 
           <Link to={`/itinerary/${item?._id}`}>
-          <Tag color={geekblue} className="cursor-pointor">
-          <FaRoute />
-          </Tag>
-            </Link>
-        {/* <Link to={`/package-detail/${item?._id}`}>
+            <Tag color={geekblue} className="cursor-pointor">
+              <FaRoute />
+            </Tag>
+          </Link>
+          {/* <Link to={`/package-detail/${item?._id}`}>
           <Tag color={geekblue} className="cursor-pointor">
             Check Detail
           </Tag>
             </Link> */}
-            <Link to={`/edit-package-detail/${item?._id}`}>
-          <Tag color={geekblue} className="cursor-pointor "
-           >
-             <FaRegEdit/>
-          </Tag>
-             </Link>
+          <Link to={`/edit-package-detail/${item?._id}`}>
+            <Tag color={geekblue} className="cursor-pointor "
+            >
+              <FaRegEdit />
+            </Tag>
+          </Link>
           <Tag color={redTag} className="cursor-pointor "
             onClick={() => {
               showModal(item, 2)
-              
-              }}>
-              <RiDeleteBinLine/>
+
+            }}>
+            <RiDeleteBinLine />
           </Tag>
         </div>
       ),
@@ -142,7 +142,7 @@ const Packages = () => {
     setModalOpenValue(val)
     setIsModalOpen(true)
   }
-  const [triger , {data:deleteData}] = useDeletePackageMutation()
+  const [triger, { data: deleteData }] = useDeletePackageMutation()
   const deletePackage = () => {
     triger({ id: tourPackageData?._id });
   };
@@ -179,32 +179,32 @@ const Packages = () => {
         element={modalComponentObject[modalOpenValue]["content"]}
       />
       <div className="wrapper">
-<Link to={"/add-package-detail/"}>
-        <Button  >Add New Packages</Button>
-</Link>
+        <Link to={"/add-package-detail/"}>
+          <Button  >Add New Packages</Button>
+        </Link>
         <div className="entries-pagination">
           <div className="show-entites">
-          <div style={{ paddingLeft: "5px" }}>
-          <label className="d-inline-flex align-items-center">
-            Show&nbsp;
-            <select
-              className="custom-select-sm"
-              value={paginationData.noOfRecords}
-             
-            >
-              <option value="100">100</option>
-              <option value="250">250</option>
-              <option value="500">500</option>
-              <option value="1000">1000</option>
-              <option value="2000">2000</option>
-            </select>
-            &nbsp;entries
-          </label>
-        </div>
-        </div>
+            <div style={{ paddingLeft: "5px" }}>
+              <label className="d-inline-flex align-items-center">
+                Show&nbsp;
+                <select
+                  className="custom-select-sm"
+                  value={paginationData.noOfRecords}
+
+                >
+                  <option value="100">100</option>
+                  <option value="250">250</option>
+                  <option value="500">500</option>
+                  <option value="1000">1000</option>
+                  <option value="2000">2000</option>
+                </select>
+                &nbsp;entries
+              </label>
+            </div>
+          </div>
           <div className="search">
             <label htmlFor="#" className="search-label">Search : </label>
-            <input type="text" className="search-bar" onChange={(e)=>setSearchText(e.target.value)}/>
+            <input type="search" className="search-bar" onChange={(e) => setSearchText(e.target.value)} />
           </div>
         </div>
         <Table dataSource={dataSource} columns={Columns} pagination={false} />;

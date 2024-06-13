@@ -172,7 +172,7 @@ const Category = () => {
         </div>
           <div className="search">
             <label htmlFor="#" className="search-label">Search : </label>
-            <input type="text" onChange={(e)=>setSearchText(e.target.value)} className="search-bar" />
+            <input type="search" onChange={(e)=>setSearchText(e.target.value)} className="search-bar" />
           </div>
         </div>
       {/* <div className="search-container" style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBlock:"10px"}}>
