@@ -50,13 +50,13 @@ const {data:getTourPackages} = useGetFavTourQuery()
       Action: (
         <div style={{ display: "flex", alignItems: "center" }}>
       
-          <Tag color={geekblue} className="cursor-pointor "
+          {/* <Tag color={geekblue} className="cursor-pointor "
            onClick={()=>{
             
             showModal(item,1)
           }}>
             Edit
-          </Tag>
+          </Tag> */}
           <Tag color={redTag} className="cursor-pointor "
            onClick={()=>{
             showModal(item,2)
@@ -118,11 +118,11 @@ const {data:getTourPackages} = useGetFavTourQuery()
         title={modalComponentObject[modalOpenValue]["label"]}
         element={modalComponentObject[modalOpenValue]["content"]}
       />
-      <BreadCrum name={"Favourite"} sub={""} />
-      <div className="search-container" style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBlock:"10px"}}>
+      {/* <BreadCrum name={"Favourite"} sub={""} /> */}
+      {/* <div className="search-container" style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBlock:"10px"}}>
         <Input placeholder="Search here..." style={{width:"50%"}}/>
           <Button onClick={()=> showModal("",0)}>Add New Packages</Button>
-      </div>
+      </div> */}
       <Table dataSource={dataSource} columns={Columns} pagination={false} />;
       <Pagination
         paginationData={paginationData}

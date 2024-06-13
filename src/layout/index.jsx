@@ -25,7 +25,8 @@ const routepath = {
   "/package":"Package",
   "/category":"Category",
   "/feedback":"Feedback",
-  "/enquiry-list":"Enquiry List"
+  "/enquiry-list":"Enquiry List",
+  "/favourite":"Favourite"
 }
   return (
     <Layout className="main-layout">
