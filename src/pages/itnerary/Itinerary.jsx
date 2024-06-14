@@ -78,11 +78,11 @@ const checkStatus = {
     const modalComponentObject = [
       {
         content: <AddItineary handleCancel={handleCancel} data={data} id={id}/>,
-        label: "Add New Tour Package",
+        label: "Add Itinearay",
       },
       {
         content: <Edititenary data={itenaryData} handleCancel={handleCancel}  fun={""} />,
-        label: "Edit Tour Package",
+        label: "Edit Itinearay",
       },
       {
         content: <AreYouSure fun={deleteItenary} />,
@@ -114,7 +114,7 @@ const checkStatus = {
         <Button onClick={() => {
               showModal("hh",0)
               
-              }}  >Add New Itinearay</Button>
+              }}  >Add Itinearay</Button>
          <div className="entries-pagination">
           <div className="show-entites">
           <div style={{ paddingLeft: "5px" }}>

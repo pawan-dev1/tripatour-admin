@@ -35,7 +35,7 @@ useEffect(() => {
       name="day"
       rules={[
         {
-          required: true,
+          // required: true,
           message: 'Please enter day!',
         },
       ]}

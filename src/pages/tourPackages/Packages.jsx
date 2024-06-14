@@ -180,7 +180,7 @@ const Packages = () => {
       />
       <div className="wrapper">
 <Link to={"/add-package-detail/"}>
-        <Button  >Add New Packages</Button>
+        <Button  >Add Packages</Button>
 </Link>
         <div className="entries-pagination">
           <div className="show-entites">

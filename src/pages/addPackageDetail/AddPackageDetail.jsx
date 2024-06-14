@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { useAddPackageDetailMutation } from '../../store/services/addTourDetail'
 import { Editor } from "primereact/editor";
 import "./styles.scss"
+import { useNavigate } from 'react-router-dom';
 import UploadTripImg from './uploadTripImg';
 import { useGetTourCategoryQuery } from '../../store/services/tourPackages';
-import { Button, Input, Select } from 'antd';
+import { Button, Input, Select ,message} from 'antd';
 import { BreadCrum } from '../../components/breadCrume';
 import { useParams } from 'react-router-dom';
 import { useGetCategoryQuery } from '../../store/services/category';
@@ -35,7 +36,18 @@ const AddPackageDetail = () => {
 
         galleryPhoto: []
     })
-    const [triggre, { data }] = useAddPackageDetailMutation()
+    const [triggre, { data:addData }] = useAddPackageDetailMutation()
+    const navigate = useNavigate(); 
+
+    useEffect(() => {
+      if (addData?.status || addData?.success) {
+        message.success(addData.message);
+        navigate("/package"); // Redirect on success
+      }
+    }, [addData, navigate]);
+
+
+
     const { data: packagesData } = useGetCategoryQuery()
 
     const handleChange = (name, value) => {
