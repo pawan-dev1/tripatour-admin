@@ -2,7 +2,7 @@ import { Button, Image, Input, Table, Tag } from "antd";
 import { BreadCrum } from "../../components/breadCrume";
 import { useEffect, useState } from "react";
 
-import {  useGetCategoryQuery } from "../../store/services/category";
+import { useGetCategoryQuery } from "../../store/services/category";
 import Pagination from "../../components/pagination/Index";
 import { Columns } from "./TableColums";
 
@@ -21,14 +21,14 @@ const HouseRule = () => {
     index: 0,
     // totalPages: 1,
   });
-  const  { data } = useGetCategoryQuery();
+  const { data } = useGetCategoryQuery();
 
 
-const {data:getTourPackages} = useGetTourCategoryQuery()
+  const { data: getTourPackages } = useGetTourCategoryQuery()
 
   const dataSource = getTourPackages?.data?.map((item) => {
     return {
-      key:item.student_name+item?.phone,
+      key: item.student_name + item?.phone,
       Images: (
         <Image
           width={50}
@@ -41,18 +41,18 @@ const {data:getTourPackages} = useGetTourCategoryQuery()
       description: item.description,
       Action: (
         <div style={{ display: "flex", alignItems: "center" }}>
-      
-        
-        {/* <Link to={`/house-rule/${item?._id}`}>
+
+
+          {/* <Link to={`/house-rule/${item?._id}`}>
           <Tag color={geekblue} className="cursor-pointor">
             Check House Rule
           </Tag>
             </Link> */}
-        <Link to={`/edit-house-rule/${item?._id}`}>
-          <Tag color={geekblue} className="cursor-pointor">
-            Update Detail
-          </Tag>
-            </Link>
+          <Link to={`/edit-house-rule/${item?._id}`}>
+            <Tag color={geekblue} className="cursor-pointor">
+              Update Detail
+            </Tag>
+          </Link>
           {/* <Tag color={geekblue} className="cursor-pointor "
            onClick={()=>{
             
@@ -85,18 +85,18 @@ const {data:getTourPackages} = useGetTourCategoryQuery()
     }
   }, [data]);
 
- 
 
 
 
 
-  
+
+
   return (
     <div>
-    
+
       <BreadCrum name={"House Rule Detail"} sub={"Package Section"} />
-      <div className="search-container" style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBlock:"10px"}}>
-        <Input placeholder="Search here..." style={{width:"50%"}}/>
+      <div className="search-container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBlock: "10px" }}>
+        <Input placeholder="Search here..." style={{ width: "50%" }} />
         <Link to={addHouseRuleRoute}>
           <Button >Add House Rule Detail</Button>
         </Link>

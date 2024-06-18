@@ -1,22 +1,22 @@
 import { Button, Image, Input, Table, Tag, message } from "antd";
-import { BreadCrum } from "../../components/breadCrume";
 import { useEffect, useState } from "react";
-
-import { useDeleteCategoryMutation, useGetCategoryQuery } from "../../store/services/category";
 import Pagination from "../../components/pagination/Index";
 import { Columns } from "./TableColums";
-
 import AreYouSure from "../../components/popUpElement/areYouSure";
 import PrimaryModal from "../../common/modal";
-import AddTourPackages from "../../components/popUpElement/tourPakcages/AddTourPackages"
-// import { useGetTourPackagesQuery } from "../../store/services/tourPackages";
 import EditTourPackages from "../../components/popUpElement/tourPakcages/EditTourPackages";
-import { useGetTourCategoryQuery } from "../../store/services/tourPackages";
 import AddFav from "../../components/popUpElement/fav/AddFav";
 import { useDeleteFavTourMutation, useGetFavTourQuery } from "../../store/services/fav";
 
-let green = "green";
-let geekblue = "geekblue";
+// import { BreadCrum } from "../../components/breadCrume";
+// import { useDeleteCategoryMutation, useGetCategoryQuery } from "../../store/services/category";
+
+// import AddTourPackages from "../../components/popUpElement/tourPakcages/AddTourPackages"
+// import { useGetTourPackagesQuery } from "../../store/services/tourPackages";
+// import { useGetTourCategoryQuery } from "../../store/services/tourPackages";
+
+// let green = "green";
+// let geekblue = "geekblue";
 let redTag = "red";
 const Favourite = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -45,7 +45,7 @@ const {data:getTourPackages} = useGetFavTourQuery()
           src={item?.images}
         />
       ),
-      title: item?.title,
+      name:item?.name,
       description: item?.description,
       Action: (
         <div style={{ display: "flex", alignItems: "center" }}>

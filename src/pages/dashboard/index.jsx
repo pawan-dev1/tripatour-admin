@@ -6,14 +6,13 @@ import { useState } from "react";
 import moment from "moment";
 
 const Dashboard = () => {
-  const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
+  const [date, setDate] = useState("");
 
   
   useState(() => {
 
   })
   const { data } = useGetDashboardQuery(date);
-  console.log(data?.data, "data1");
 
   const dashBoardData = data?.data;
 
