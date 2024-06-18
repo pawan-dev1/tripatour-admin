@@ -9,10 +9,10 @@ import PrimaryModal from "../../common/modal";
 import AddTourPackages from "../../components/popUpElement/tourPakcages/AddTourPackages"
 // import { useGetTourPackagesQuery } from "../../store/services/tourPackages";
 import EditTourPackages from "../../components/popUpElement/tourPakcages/EditTourPackages";
-import { useDeleteTourPackageMutation, useGetTourCategoryQuery } from "../../store/services/tourPackages";
+import { useDeletePackageMutation, useDeleteTourPackageMutation, useGetTourCategoryQuery } from "../../store/services/tourPackages";
 import { Link } from "react-router-dom";
 import "./style.scss";
-import { useDeletePackageMutation } from "../../store/services/addTourDetail";
+
 import { RiDeleteBinLine } from "react-icons/ri";
 
 import { FaRegEdit } from "react-icons/fa";
@@ -150,7 +150,7 @@ const Packages = () => {
   const modalComponentObject = [
     {
       content: <AddTourPackages handleCancel={handleCancel} data={data} />,
-      label: "Add New Tour Package",
+      label: "Add Tour Package",
     },
     {
       content: <EditTourPackages getCategory={data} handleCancel={handleCancel} data={tourPackageData} fun={""} />,
@@ -180,7 +180,7 @@ const Packages = () => {
       />
       <div className="wrapper">
         <Link to={"/add-package-detail/"}>
-          <Button  >Add New Packages</Button>
+          <Button  >Add Packages</Button>
         </Link>
         <div className="entries-pagination">
           <div className="show-entites">

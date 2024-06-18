@@ -38,7 +38,7 @@ const Edititenary = ({ data, handleCancel }) => {
           name="day"
           rules={[
             {
-              required: true,
+              // required: true,
               message: 'Please enter day!',
             },
           ]}

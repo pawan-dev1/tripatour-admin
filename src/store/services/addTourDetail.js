@@ -21,7 +21,7 @@ export const packageDetail = createApi({
         method: "POST",
         body
       }),
-      // providesTags:["category"]
+      providesTags:["category"]
     }),
     addPackageDetail: builder.mutation({
       query: (body) => ({
@@ -48,14 +48,14 @@ export const packageDetail = createApi({
       invalidatesTags:["category"]
     }),
 
-    deletePackage: builder.mutation({
-      query: (body) => ({
-        url: `/package/PackageDeleteById/${body.id}`,
-        method: "DELETE",
-        }), 
-      invalidatesTags:["category"]
-    }),
+    // deletePackage: builder.mutation({
+    //   query: (body) => ({
+    //     url: `/package/PackageDeleteById/${body.id}`,
+    //     method: "DELETE",
+    //     }), 
+    //   invalidatesTags:["category"]
+    // }),
   }),
 });
 
-export const {useDeletePackageMutation,useUpdatePackagesDetailMutation, useAddPackageDetailMutation,useEditPackageDetailsMutation, useGetPackageMutation ,useGetPackageDetailQuery} = packageDetail;
+export const {useUpdatePackagesDetailMutation, useAddPackageDetailMutation,useEditPackageDetailsMutation, useGetPackageMutation ,useGetPackageDetailQuery} = packageDetail;

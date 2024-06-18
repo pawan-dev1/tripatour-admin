@@ -4,6 +4,7 @@ import { dynamicBaseQuery } from "./BadRequestHandler/BadRequestHandler";
 export const getTourPackages = createApi({
   reducerPath: "category",
   baseQuery: dynamicBaseQuery,
+  tagTypes: ["category"],
   endpoints: (builder) => ({
     getTourCategory: builder.query({
       query: (body) => ({
@@ -36,7 +37,14 @@ export const getTourPackages = createApi({
         }), 
       invalidatesTags:["category"]
     }),
+    deletePackage: builder.mutation({
+      query: (body) => ({
+        url: `/package/PackageDeleteById/${body.id}`,
+        method: "DELETE",
+        }), 
+      invalidatesTags:["category"]
+    }),
   }),
 });
 
-export const { useGetTourCategoryQuery, useAddTourPackagesMutation, useEditTourPackagesMutation, useDeleteTourPackageMutation } = getTourPackages;
+export const {useDeletePackageMutation, useGetTourCategoryQuery, useAddTourPackagesMutation, useEditTourPackagesMutation, useDeleteTourPackageMutation } = getTourPackages;

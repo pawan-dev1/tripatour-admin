@@ -45,7 +45,7 @@ const AddPackageDetail = () => {
         message.success(addData.message);
         navigate("/package"); // Redirect on success
       }
-    }, [addData, navigate]);
+    }, [addData]);
 
 
 
@@ -119,6 +119,7 @@ const AddPackageDetail = () => {
                 })
             
       };
+     
     return (
         <div className='text-editor-wrapper'>
             {/* <BreadCrum name={'Add Package'} /> */}
