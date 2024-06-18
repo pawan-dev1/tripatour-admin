@@ -78,7 +78,7 @@ const Itinerary = () => {
   const modalComponentObject = [
     {
       content: <AddItineary handleCancel={handleCancel} data={data} id={id} />,
-      label: "Add New Tour Package",
+      label: "Add New Itinerary",
     },
     {
       content: <Edititenary data={itenaryData} handleCancel={handleCancel} fun={""} />,

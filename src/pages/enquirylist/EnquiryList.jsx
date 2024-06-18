@@ -10,6 +10,17 @@ const EnquiryList = () => {
   const [trigger, { data: updateStatusData }] = useUpdateStatusMutation()
   console.log(filter)
   const option = [{
+    value: "IN PROCESS",
+    label: "IN PROCESS"
+  }, {
+    value: "COMPLETED",
+    label: "APPROVED"
+  },
+  {
+    value: "CANCELLED",
+    label: "REJECTED"
+  }]
+  const option2 = [{
     value: "",
     label: "ALL"
   },{
@@ -163,7 +174,7 @@ const EnquiryList = () => {
         </div>
         <div className="filter" style={{ display: "flex", gap: "10px", justifyContent: "center", alignItems: "center", fontSize: "16px" }}>
           <p>Search by Status</p>
-          <Select options={option} style={{ width: "120px" }} onChange={(e) => setFilter(e)} />
+          <Select options={option2} style={{ width: "120px" }} onChange={(e) => setFilter(e)} />
         </div>
         <div className="search">
           <label htmlFor="#" className="search-label">Search : </label>
