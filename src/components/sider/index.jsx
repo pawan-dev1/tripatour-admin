@@ -1,27 +1,14 @@
 import { Children, useState } from "react";
 import { Menu } from "antd";
 import {
-  CourseSkills,
-  CourseTitle,
-  addCourseType,
-  addHouseRuleRoute,
-  addNewStudent,
-  addPackageDetail,
+  
   categoryRoutes,
-  clientFeedback,
   dashBoardRoute,
   enquiryList,
-  faq,
   favRoutes,
   feedbackRoute,
-  houseRuleRoute,
   loginRoute,
-  ourTeam,
   packageRoutes,
-  pendingPaymentRoutes,
-  showPackage,
-  subAdminRecordRoutes,
-  teacherRecordRoutes,
 } from "../../routes/PagesRoutes";
 import { Link } from "react-router-dom";
 import { MdDashboard, MdLogout, MdMenuBook } from "react-icons/md";
@@ -32,7 +19,7 @@ import { FaRegCreditCard } from "react-icons/fa6";
 import "./styles.scss";
 import AreYouSure from "../popUpElement/areYouSure";
 import PrimaryModal from "../../common/modal";
-const SiderComponent = () => {
+const SiderComponent = ({onClose}) => {
   const [modalOpenValue, setModalOpenValue] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -45,12 +32,12 @@ const SiderComponent = () => {
   const items = [
     {
       key: "1",
-      label: <Link to={dashBoardRoute}>Dashboard</Link>,
+      label: <Link to={dashBoardRoute} onClick={onClose}>Dashboard</Link>,
       icon: <MdDashboard />,
     },
     {
       key: "6",
-      label: <Link to={categoryRoutes}>Category</Link>,
+      label: <Link to={categoryRoutes} onClick={onClose}>Category</Link>,
       icon: <PiStudentBold />,
   },
     {
@@ -61,7 +48,7 @@ const SiderComponent = () => {
 
       {
         key: "1",
-        label: <Link to={packageRoutes}>Package</Link>,
+        label: <Link to={packageRoutes} onClick={onClose}>Package</Link>,
         icon: <PiStudentBold />,
     },
     
@@ -70,17 +57,17 @@ const SiderComponent = () => {
     },
       {
         key: "3",
-        label: <Link to={favRoutes}>Favourite</Link>,
+        label: <Link to={favRoutes} onClick={onClose}>Favourite</Link>,
         icon: <MdDashboard />,
       },
       {
         key: "31",
-        label: <Link to={feedbackRoute}>Feedback</Link>,
+        label: <Link to={feedbackRoute} onClick={onClose}>Feedback</Link>,
         icon: <MdDashboard />,
       },
       {
         key: "32",
-        label: <Link to={enquiryList}>Enquiry List</Link>,
+        label: <Link to={enquiryList} onClick={onClose}>Enquiry List</Link>,
         icon: <MdDashboard />,
       },
    
@@ -172,6 +159,7 @@ const SiderComponent = () => {
       label: (
         <span
           onClick={() => {
+            onClose()
             setIsModalOpen(true);
             setModalOpenValue(0);
           }}

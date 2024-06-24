@@ -1,9 +1,20 @@
 @import "../../styles/variables/colors";
+@import "../../styles/variables/mixins";
 .header-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   .header-left-col {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    svg{
+      font-size: 25px;
+      display: none;
+      @include media(phone){
+       display: block;
+      }
+    }
     .logo {
       font-size: 34px;
       color: $primary-color;

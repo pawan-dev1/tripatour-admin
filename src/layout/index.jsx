@@ -1,11 +1,11 @@
-import { Layout } from "antd";
+import { Drawer, Layout } from "antd";
 import { Outlet, useNavigate } from "react-router-dom";
 import SiderComponent from "../components/sider/index";
 import HeaderComponent from "../components/header/Header";
 const { Header, Sider, Content } = Layout;
 
 import "./styles.scss";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { dashBoardRoute, loginRoute } from "../routes/PagesRoutes";
 const LayoutPrimary = () => {
   const elementRef = useRef(null);
@@ -20,18 +20,30 @@ const LayoutPrimary = () => {
     }
   }, [loginToken]);
 const location = window.location.pathname
-console.log(location)
 const routepath = {
+  "/":"Dashboard",
   "/package":"Package",
   "/category":"Category",
   "/feedback":"Feedback",
   "/enquiry-list":"Enquiry List",
-  "/favourite":"Favourite"
+  "/favourite":"Favourite",
+  "/add-package-detail/":"Add Package"
 }
+const [open, setOpen] = useState(false);
+const showDrawer = () => {
+  setOpen(true);
+};
+const onClose = () => {
+  setOpen(false);
+};
   return (
+    <>
+      <Drawer title={"Tripatour"} onClose={onClose} open={open} placement="left" className="sider-drawer">
+      <SiderComponent onClose={onClose}/>
+      </Drawer>
     <Layout className="main-layout">
       <Header className="layout-header">
-        <HeaderComponent />
+        <HeaderComponent siderOpen={setOpen}/>
       </Header>
       <Layout className="sub-layout">
         <Sider className="layout-sider">
@@ -48,6 +60,7 @@ const routepath = {
         </Content>
       </Layout>
     </Layout>
+    </>
   );
 };
 

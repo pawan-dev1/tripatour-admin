@@ -1,3 +1,4 @@
+@import "../../styles/variables/mixins";
 .cards-container {
   width: calc(100% - 0px);
   padding: 20px;
@@ -6,10 +7,17 @@
   grid-template-columns: repeat(4, 1fr);
   justify-content: space-between;
   gap: 20px;
+  @include media(phone){
+    grid-template-columns: repeat(1, 1fr);
+  }
+  @include media(tablet){
+    grid-template-columns: repeat(2, 1fr);
+  }
+ 
   .cards {
     width: 100%;
     min-width: 25%;
-    height: 110px;
+    height: 110px; 
     padding: 20px;
     display: flex;
     background: white;

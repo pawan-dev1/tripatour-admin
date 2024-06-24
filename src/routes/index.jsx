@@ -1,16 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import LayoutPrimary from "../layout";
 import {
-  addHouseRuleRoute,
   addPackageDetail,
   categoryRoutes,
-  dashBoardRoute,
-  editHouseRuleRoute,
+ 
   editPackageDetail,
   enquiryList,
   favRoutes,
   feedbackRoute,
-  houseRuleRoute,
   itinerary,
   loginRoute,
   packageRoutes,

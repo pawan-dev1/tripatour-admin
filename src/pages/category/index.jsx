@@ -180,10 +180,10 @@ const Category = () => {
           
       </div> */}
       <Table dataSource={dataSource} columns={Columns} pagination={false} />;
-      <Pagination
+      {/* <Pagination
         paginationData={paginationData}
         setPaginationData={setPagination}
-      />
+      /> */}
 </div>
     </div>
   );

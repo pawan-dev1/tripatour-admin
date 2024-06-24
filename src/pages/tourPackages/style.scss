@@ -1,9 +1,13 @@
+@import "../../styles/variables/mixins";
 .entries-pagination{
     display: flex;
     justify-content: space-between;
     color: black;
     padding: 10px 30px;
 
+    @include media(phone){
+        padding: 10px 0px;
+    }
     .show-entites
 {
     display: flex;

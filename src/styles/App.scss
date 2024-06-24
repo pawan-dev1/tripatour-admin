@@ -1,3 +1,10 @@
 html {
   scroll-behavior: smooth;
 }
+
+.ant-table-wrapper{
+  overflow-x: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

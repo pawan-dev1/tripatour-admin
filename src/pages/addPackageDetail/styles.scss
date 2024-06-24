@@ -1,5 +1,6 @@
 
 @import "../../styles/variables/colors";
+@import "../../styles/variables/mixins";
 
 
 .trip-packages-wrapper{
@@ -61,7 +62,9 @@ color: #3699FF !important;
     margin: 0 auto;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
     padding: 29px;
-
+@include media(phone){
+  max-width: calc(100% - 0px);
+}
     .text-editor{
 
         .title{

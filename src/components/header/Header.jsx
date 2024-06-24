@@ -1,5 +1,6 @@
 import SearchBar from "../searchBar";
 import { Avatar, Drawer } from "antd";
+import { IoIosMenu } from "react-icons/io";
 
 ////styles
 import "./styles.scss";
@@ -7,7 +8,9 @@ import DropDown from "./DropDown";
 import AvatarCom from "./Avatar";
 import { useState } from "react";
 import DrawerComp from "./Drawer";
-const HeaderComponent = () => {
+import { RxCross2 } from "react-icons/rx";
+
+const HeaderComponent = ({siderOpen}) => {
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -19,6 +22,12 @@ const HeaderComponent = () => {
       <DrawerComp open={open} setOpen={setOpen} />
       <div className="header-container">
         <div className="header-left-col">
+          {open ?
+          
+          <RxCross2 onClick={()=>siderOpen(false)}/>
+          :
+<IoIosMenu onClick={()=>siderOpen(true)}/>
+          }
           <div className="logo">Tripatour</div>
         </div>
         <div className="header-middle-col">
