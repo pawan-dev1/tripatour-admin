@@ -126,7 +126,7 @@ const EnquiryList = () => {
       key: "Action",
     },
   ];
-  const data = enquiryListDara?.data?.enquiries.map((item, index) => {
+  const data = enquiryListDara?.data?.map((item, index) => {
     return {
       key: item.fullName,
 

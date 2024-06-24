@@ -4,6 +4,7 @@ import { useLoginMutation } from "../../store/services/login";
 import { Link, useNavigate } from "react-router-dom";
 import { dashBoardRoute, loginRoute, signUp } from "../../routes/PagesRoutes";
 import { useEffect } from "react";
+import Loader from "../../components/loader/Loader";
 
 ///styles
 import "./styles.scss";
@@ -12,7 +13,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const loginToken = localStorage.getItem("token");
   const [form] = Form.useForm();
-  const [trigger, { data, error }] = useLoginMutation();
+  const [trigger, { data, error,isLoading }] = useLoginMutation();
 
   const onFinish = (values) => {
     trigger(values);
@@ -30,7 +31,6 @@ const LoginForm = () => {
       navigate(loginRoute);
     }
   }, [loginToken]);
-console.log(data)
   useEffect(() => {
     if (data?.token) {
       localStorage.setItem("token", data?.token);
@@ -49,16 +49,20 @@ console.log(data)
       value: "",
       label: "Username",
       placeholder: "Enter Username here",
+      type: "text",
     },
     {
       name: "password",
       value: "",
       label: "Password",
       placeholder: "Enter Password here",
+      type: "password",
     },
   ];
 
   return (
+    <>
+    {isLoading?<Loader />:
     <>
       <div className="logo">Tripatour</div>
       <div className="login-form-container">
@@ -80,6 +84,7 @@ console.log(data)
             <Form.Item
               name={item.name}
               label={item.label}
+              
               rules={[
                 {
                   required: true,
@@ -87,7 +92,7 @@ console.log(data)
               ]}
               key={item.name + item.label}
             >
-              <Input placeholder={item.placeholder} />
+              <Input placeholder={item.placeholder} type={item?.type}/>
             </Form.Item>
           );
         })}
@@ -109,6 +114,8 @@ console.log(data)
         </Form.Item>
       </Form>
     </>
+}
+</>
   );
 };
 

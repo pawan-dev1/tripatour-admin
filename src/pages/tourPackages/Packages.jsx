@@ -12,6 +12,7 @@ import EditTourPackages from "../../components/popUpElement/tourPakcages/EditTou
 import { useDeletePackageMutation, useDeleteTourPackageMutation, useGetTourCategoryQuery } from "../../store/services/tourPackages";
 import { Link } from "react-router-dom";
 import "./style.scss";
+import Loader from '../../components/loader/Loader';
 
 import { RiDeleteBinLine } from "react-icons/ri";
 
@@ -29,7 +30,7 @@ const Packages = () => {
     index: 0,
     // totalPages: 1,
   });
-  const { data } = useGetCategoryQuery();
+  const { data,isLoading } = useGetCategoryQuery();
   const [trigg, { data: categoryDeleteResponse }] = useDeleteTourPackageMutation()
 
 
@@ -88,7 +89,7 @@ const Packages = () => {
           src={item?.images}
         />
       ),
-      packageName: <Link to={`http://65.2.5.133:3000/tour-detail/${item?._id}`}>{item.name}</Link>,
+      packageName: <Link to={`https://tripatours.com/tour-detail/${item?._id}`}>{item.name}</Link>,
       category: item.categoryName,
       Action: (
         <div style={{ display: "flex", alignItems: "center" }}>
@@ -171,6 +172,11 @@ const Packages = () => {
   }, [deleteData])
 
   return (
+
+<>{isLoading?<Loader />:
+
+
+
     <div>
       <PrimaryModal
         setIsModalOpen={setIsModalOpen}
@@ -214,6 +220,8 @@ const Packages = () => {
         /> */}
       </div>
     </div>
+     }
+      </>
   );
 };
 

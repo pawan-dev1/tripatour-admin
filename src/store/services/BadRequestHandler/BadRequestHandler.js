@@ -6,7 +6,7 @@ import { loginRoute } from "../../../routes/PagesRoutes";
 export const dynamicBaseQuery = async (args, WebApi, extraOptions) => {
   const rawBaseQuery = fetchBaseQuery({
     // baseUrl: "https://admin-api.giedu.in",
-    baseUrl: "http://65.2.5.133:4001",
+    baseUrl: "https://tripatours.com/api",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },

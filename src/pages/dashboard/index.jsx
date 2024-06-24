@@ -4,6 +4,7 @@ import { DatePicker, Space } from 'antd';
 import "./style.scss";
 import { useState } from "react";
 import moment from "moment";
+import Loader from "../../components/loader/Loader";
 
 const Dashboard = () => {
   const [date, setDate] = useState("");
@@ -12,7 +13,7 @@ const Dashboard = () => {
   useState(() => {
 
   })
-  const { data } = useGetDashboardQuery(date);
+  const { data, isLoading } = useGetDashboardQuery(date);
 
   const dashBoardData = data?.data;
 
@@ -22,7 +23,8 @@ const Dashboard = () => {
 
   return (
     <>
-      
+    {isLoading?<Loader />:
+    <>
     <div className="date-filter">
 <h3>Dashboard</h3>
       <div style={{display:"flex",justifyContent:"space-between"}}>
@@ -71,6 +73,9 @@ const Dashboard = () => {
           value={dashBoardData?.totalDesertEnquiries}
         />
       </div>
+    </>
+      
+}
     </>
   );
 };

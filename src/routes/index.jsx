@@ -34,11 +34,11 @@ const userType = localStorage.getItem("userType");
 
 export const router = createBrowserRouter([
   {
-    path: dashBoardRoute,
+    path: "/",
     element: <LayoutPrimary />,
     children: [
       {
-        path: dashBoardRoute,
+        path: "/",
         element: <Dashboard />,
       },
       {

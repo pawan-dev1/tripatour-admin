@@ -7,7 +7,7 @@ export const enquiryList = createApi({
   endpoints: (builder) => ({
     enquiryList: builder.query({
       query: (body) => ({
-        url: `/enquiry/getAllEnquiries/${body.page}?status=${body.status}`,
+        url: `/enquiry/getAllEnquiries/?status=`,
         method: "GET",
       }),
       providesTags:["enquiryList"]

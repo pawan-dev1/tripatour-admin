@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react'
 import {  useGetPackageDetailQuery, useUpdatePackagesDetailMutation } from '../../store/services/addTourDetail'
 import { Editor } from "primereact/editor";
 import "./styles.scss"
+import { useNavigate } from 'react-router-dom';
 import UploadTripImg from './uploadTripImg';
-import { Button, Checkbox, Col, Input, Row, Select } from 'antd';
+import { Button, Checkbox, Col, Input, Row, Select,message } from 'antd';
 import { BreadCrum } from '../../components/breadCrume';
 import { useGetCategoryQuery } from '../../store/services/category';
 import { useParams } from 'react-router-dom';
+import Loader from '../../components/loader/Loader';
 export async function blobCreationFromURL(inputURI) {
     const response = await fetch(inputURI);
     const blob = await response.blob();
@@ -42,12 +44,22 @@ const {id} = useParams()
 
         galleryPhoto: []
     })
-    const [triggre, { data }] = useUpdatePackagesDetailMutation()
+    const [triggre, { data:updateData,isLoading  }] = useUpdatePackagesDetailMutation()
+    const navigate = useNavigate(); 
 
-    const {data:getPackagesDetail} =useGetPackageDetailQuery(id)
-    const { data: packagesData } = useGetCategoryQuery()
 
-   
+
+    useEffect(() => {
+      if (updateData?.status || updateData?.success) {
+        message.success(updateData.message);
+        navigate("/package"); // Redirect on success
+      }
+    }, [updateData]);
+
+    const {data:getPackagesDetail,isLoading:getpackageLoader,} =useGetPackageDetailQuery(id)
+    const { data: packagesData,isLoading:categoryModel } = useGetCategoryQuery()
+
+    const isLoadingAll = getpackageLoader || categoryModel || isLoading;
 
    
     const handleChange = (name, value) => {
@@ -176,6 +188,7 @@ const {id} = useParams()
             
       };
     return (
+      <>{isLoadingAll?<Loader />:
         <div className='text-editor-wrapper'>
             {/* <BreadCrum name={'Trip Packages Details'} /> */}
             <div className="add-package">
@@ -326,6 +339,8 @@ const {id} = useParams()
 
             <Button onClick={submitHandler} style={{width:"200px" ,background:"#84a845", color:"#fff", border:"none"}}>Submit</Button>
         </div>
+        }
+      </>
     )
 }
 
