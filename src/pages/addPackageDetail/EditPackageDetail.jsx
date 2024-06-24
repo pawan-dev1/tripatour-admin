@@ -301,23 +301,23 @@ const {id} = useParams()
 
             <div className="text-editor">
                 <h3 className='title'>Highlights</h3>
-                <Editor value={editorData?.highlights} onTextChange={(e) => handleChange("highlights", e.htmlValue)} style={{ height: '280px', color: 'black' }} />
+                <Editor value={editorData?.highlights || getPackagesDetail?.data?.highlights[0]} onTextChange={(e) => handleChange("highlights", e.htmlValue)} style={{ height: '280px', color: 'black' }} />
             </div>
 
 
             <div className="text-editor">
                 <h3 className='title'>Need to know</h3>
-                <Editor value={editorData?.needToKnow} onTextChange={(e) => handleChange("needToKnow", e.htmlValue)} style={{ height: '280px', color: 'black' }} />
+                <Editor value={editorData?.needToKnow || getPackagesDetail?.data?.needToKnow[0]} onTextChange={(e) => handleChange("needToKnow", e.htmlValue)} style={{ height: '280px', color: 'black' }} />
             </div>
 
             <div className="text-editor">
                 <h3 className='title'>Cancel policy</h3>
-                <Editor value={editorData?.canclePolicy} onTextChange={(e) => handleChange("canclePolicy", e.htmlValue)} style={{ height: '280px', color: 'black' }} />
+                <Editor value={editorData?.canclePolicy || getPackagesDetail?.data?.canclePolicy[0]} onTextChange={(e) => handleChange("canclePolicy", e.htmlValue)} style={{ height: '280px', color: 'black' }} />
             </div>
 
             <div className="text-editor">
                 <h3 className='title'>Inclusions</h3>
-                <Editor value={editorData?.inclusions} onTextChange={(e) => handleChange("inclusions", e.htmlValue)} style={{ height: '280px', color: 'black' }} />
+                <Editor value={editorData?.inclusions || getPackagesDetail?.data?.inclusions[0]} onTextChange={(e) => handleChange("inclusions", e.htmlValue)} style={{ height: '280px', color: 'black' }} />
             </div>
             <div className="text-editor">
                 <h3 className='title'>Our Packages</h3>

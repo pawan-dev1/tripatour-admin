@@ -5,6 +5,7 @@ import "./styles.scss"
 import UploadTripImg from './uploadTripImg';
 import { useGetTourCategoryQuery } from '../../store/services/tourPackages';
 import { Button, Select } from 'antd';
+import { ToolbarTemplate } from './ToolbarContent';
 const AddPackageDetail = () => {
 
 
@@ -47,12 +48,18 @@ const AddPackageDetail = () => {
     const packageLists = packagesData?.data?.map((elm) => {
         return { value: elm?._id, label: elm?.title }
     })
-
+    const customToolbar = [
+        [{ 'font': [] }],
+        [{ 'header': [1, 2, false] }],
+        ['bold', 'italic', 'underline'],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        ['link', 'image']
+    ];
     return (
         <div className='text-editor-wrapper'>
             <div className="text-editor">
                 <h3 className='title'>Highlights</h3>
-                <Editor value={text} onTextChange={(e) => handleChange("highlights", e.htmlValue)} style={{ height: '280px', color: 'black' }} />
+                <Editor value={text} onTextChange={(e) => handleChange("highlights", e.htmlValue)} style={{ height: '280px', color: 'black' }}   />
             </div>
 
             <div className="text-editor">

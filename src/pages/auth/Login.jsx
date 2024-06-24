@@ -104,7 +104,7 @@ const LoginForm = () => {
             marginBottom: "10px",
           }}
         >
-          <Link to={signUp}>Create Account</Link>
+          {/* <Link to={signUp}>Create Account</Link> */}
           {/* <Link to={""}>Forgot Password?</Link> / */}
         </Space>
         <Form.Item>
