@@ -89,7 +89,7 @@ const Packages = () => {
           src={item?.images}
         />
       ),
-      packageName: <Link to={`https://tripatours.com/tour-detail/${item?._id}`}>{item.name}</Link>,
+      packageName: <Link to={`https://tripatours.com/tour-detail/${item?.name}`}>{item.name}</Link>,
       category: item.categoryName,
       Action: (
         <div style={{ display: "flex", alignItems: "center" }}>
