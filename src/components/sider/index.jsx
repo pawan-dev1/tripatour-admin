@@ -14,6 +14,10 @@ import { Link } from "react-router-dom";
 import { MdDashboard, MdLogout, MdMenuBook } from "react-icons/md";
 import { PiStudentBold } from "react-icons/pi";
 import { FaRegCreditCard } from "react-icons/fa6";
+import { GrLike } from "react-icons/gr";
+import { FcFeedback } from "react-icons/fc";
+
+
 
 ///styles
 import "./styles.scss";
@@ -36,18 +40,18 @@ const SiderComponent = ({onClose}) => {
       icon: <MdDashboard />,
     },
     {
-      key: "6",
+      key: "2",
       label: <Link to={categoryRoutes} onClick={onClose}>Category</Link>,
       icon: <PiStudentBold />,
   },
     {
-      key: "6",
+      key: "3",
       label: "Packages Section",
       icon: <PiStudentBold />,
       children:[
 
       {
-        key: "1",
+        key: "4",
         label: <Link to={packageRoutes} onClick={onClose}>Package</Link>,
         icon: <PiStudentBold />,
     },
@@ -56,17 +60,17 @@ const SiderComponent = ({onClose}) => {
     ]
     },
       {
-        key: "3",
+        key: "5",
         label: <Link to={favRoutes} onClick={onClose}>Favourite</Link>,
-        icon: <MdDashboard />,
+        icon: <GrLike />,
       },
       {
-        key: "31",
+        key: "6",
         label: <Link to={feedbackRoute} onClick={onClose}>Feedback</Link>,
-        icon: <MdDashboard />,
+        icon: <FcFeedback />,
       },
       {
-        key: "32",
+        key: "7",
         label: <Link to={enquiryList} onClick={onClose}>Enquiry List</Link>,
         icon: <MdDashboard />,
       },
@@ -155,7 +159,7 @@ const SiderComponent = ({onClose}) => {
     //     }
     //   : null,
     {
-      key: "13",
+      key: "8",
       label: (
         <span
           onClick={() => {
@@ -201,6 +205,7 @@ const SiderComponent = ({onClose}) => {
       <Menu
         theme="transparent"
         defaultSelectedKeys={["1"]}
+        
         mode="inline"
         items={items}
         className="sider-menu"

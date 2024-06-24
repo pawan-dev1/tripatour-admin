@@ -7,6 +7,7 @@ const { Header, Sider, Content } = Layout;
 import "./styles.scss";
 import { useEffect, useRef, useState } from "react";
 import { dashBoardRoute, loginRoute } from "../routes/PagesRoutes";
+import { logo } from "../assets";
 const LayoutPrimary = () => {
   const elementRef = useRef(null);
   const navigate = useNavigate();
@@ -38,12 +39,12 @@ const onClose = () => {
 };
   return (
     <>
-      <Drawer title={"Tripatour"} onClose={onClose} open={open} placement="left" className="sider-drawer">
+      <Drawer title={ <img src={logo} alt="" />} onClose={onClose} open={open} placement="left" className="sider-drawer">
       <SiderComponent onClose={onClose}/>
       </Drawer>
     <Layout className="main-layout">
       <Header className="layout-header">
-        <HeaderComponent siderOpen={setOpen}/>
+        <HeaderComponent siderOpen={setOpen} siderOp={open}/>
       </Header>
       <Layout className="sub-layout">
         <Sider className="layout-sider">

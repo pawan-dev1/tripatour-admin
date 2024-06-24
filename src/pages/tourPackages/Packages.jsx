@@ -186,7 +186,7 @@ const Packages = () => {
       />
       <div className="wrapper">
         <Link to={"/add-package-detail/"}>
-          <Button  >Add Packages</Button>
+          <Button   style={{background:"#fe5722",color:"white"}}>Add Packages</Button>
         </Link>
         <div className="entries-pagination">
           <div className="show-entites">

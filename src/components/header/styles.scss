@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   .header-left-col {
     display: flex;
     align-items: center;
@@ -11,13 +12,19 @@
     svg{
       font-size: 25px;
       display: none;
+      color: white;
       @include media(phone){
        display: block;
+       
       }
     }
     .logo {
-      font-size: 34px;
+      // font-size: 34px;
+display: flex;
       color: $primary-color;
+      img{
+        width: 150px;
+      }
     }
   }
   .notification {

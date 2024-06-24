@@ -149,7 +149,7 @@ const Category = () => {
       {/* <BreadCrum name={"Category"} sub={""} /> */}
 <div className="wrapper">
 
-      <Button onClick={()=> showModal("",0)}>Add Category</Button>
+      <Button onClick={()=> showModal("",0)} style={{background:"#fe5722",color:"white"}}>Add Category</Button>
       <div className="entries-pagination">
           <div className="show-entites">
           <div style={{ paddingLeft: "5px" }}>

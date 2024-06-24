@@ -9,8 +9,9 @@ import AvatarCom from "./Avatar";
 import { useState } from "react";
 import DrawerComp from "./Drawer";
 import { RxCross2 } from "react-icons/rx";
+import { logo } from "../../assets";
 
-const HeaderComponent = ({siderOpen}) => {
+const HeaderComponent = ({siderOpen,siderOp}) => {
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -22,13 +23,15 @@ const HeaderComponent = ({siderOpen}) => {
       <DrawerComp open={open} setOpen={setOpen} />
       <div className="header-container">
         <div className="header-left-col">
-          {open ?
+          {siderOp ?
           
           <RxCross2 onClick={()=>siderOpen(false)}/>
           :
 <IoIosMenu onClick={()=>siderOpen(true)}/>
           }
-          <div className="logo">Tripatour</div>
+          <div className="logo">
+            <img src={logo} alt="" />
+          </div>
         </div>
         <div className="header-middle-col">
           {/* <SearchBar /> */}
